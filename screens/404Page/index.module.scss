@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background: #f9f9f9;
+    padding: 20px;
+  }
+  
+  .image {
+    width: 250px;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 3.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222222;
+  }
+  
+  .text {
+    font-size: 1.8rem;
+    color: #707070;
+    margin-bottom: 20px;
+    max-width: 60rem;
+  }
+  
+ 

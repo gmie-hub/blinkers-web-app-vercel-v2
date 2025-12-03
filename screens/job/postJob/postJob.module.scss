@@ -1,0 +1,78 @@
+
+
+.wrapper {
+    max-width: 67.9rem; /* Main container width */
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0 auto; /* Center content horizontally */
+    padding: 0 1.6rem; /* Add padding for smaller screens */
+  
+    @media screen and (max-width: 1200px) {
+      max-width: 90%;
+    }
+  
+    @media screen and (max-width: 768px) {
+      max-width: 100%;
+      padding: 0 1.2rem; /* Reduce padding for smaller devices */
+    }
+  }
+  
+  .card {
+    width: 100%;
+    min-height: fit-content;
+    padding: 2.4rem 7.2rem;
+  
+    @media screen and (max-width: 1024px) {
+      padding: 2.4rem 4.8rem; /* Adjust padding for tablets */
+    }
+  
+    @media screen and (max-width: 768px) {
+      padding: 2.4rem 2.4rem; /* Adjust padding for smaller screens */
+    }
+  
+    & > h2 {
+      padding-block: 3rem;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 3.6rem;
+      text-align: center;
+      color: rgba(34, 34, 34, 1);
+  
+      @media screen and (max-width: 768px) {
+        font-size: 2rem; /* Adjust font size for mobile */
+        line-height: 3rem;
+      }
+  
+      @media screen and (max-width: 480px) {
+        font-size: 1.8rem; /* Further adjust font size for very small screens */
+        line-height: 2.8rem;
+      }
+    }
+  }
+  
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.9rem;
+  
+    @media screen and (max-width: 768px) {
+      gap: 1.2rem; /* Reduce gap for smaller screens */
+    }
+  }
+  
+  .buttonGroup {
+    display: flex;
+    gap: 2.4rem;
+  
+    @media screen and (max-width: 768px) {
+      flex-direction: column; /* Stack buttons vertically on smaller screens */
+      gap: 1.6rem; /* Adjust gap for smaller screens */
+    }
+  }
+  
+  .para{
+    color:#707070;
+  }
+  .postJob{
+text-align: center  ;
+  }

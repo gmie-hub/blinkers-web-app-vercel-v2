@@ -1,0 +1,250 @@
+.container {
+  width: 100%;
+  min-width: 100%;
+  margin-block: 4rem;
+  border-radius: 0.8rem;
+
+  @media screen and (max-width: 768px) {
+    margin-block: 2.4rem;
+  }
+  // height: 100%; // Full height within the wrapper
+}
+
+@media (max-width: 820px) {
+  .container {
+    flex-direction: column; /* Stack left and right side vertically */
+  }
+}
+.image {
+  position: relative;
+  //   height: 90vh; // Use viewport height for better scaling
+  //   display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-image 0.5s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  padding-block: 4rem;
+}
+
+.home {
+  text-align: center;
+  color: white;
+  padding: 1rem; // Add padding to avoid text overflow
+}
+
+@media (max-width: 480px) {
+  .home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .image {
+    height: 60vh; // Reduce height for mobile screens
+  }
+
+  .picHead {
+    font-size: 1.5rem; // Smaller font for mobile
+  }
+}
+
+@media (max-width: 480px) {
+  .home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .image {
+    height: 60vh; // Reduce height for mobile screens
+  }
+
+  .picHead {
+    font-size: 1.5rem; // Smaller font for mobile
+  }
+
+  .picPara {
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .picHead {
+    font-size: 1.8rem; // Adjust for smaller tablets
+  }
+}
+
+.searchWrapper {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.8rem;
+  width: 80%;
+  max-width: 40rem;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 95%;
+    padding: 1rem;
+  }
+}
+.postJob{
+  min-width: 22rem;
+  width: 100%;
+  border: red solid 1px !important;
+  @media screen and (min-width: 768px) {
+    min-width: 22rem;
+    width: 0 !important;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100% !important;
+  }
+}
+
+.buttonStyle {
+  min-width: 22rem;
+  width: 100%;
+  border: #009900 1px solid !important;
+  @media screen and (min-width: 768px) {
+    min-width: 22rem;
+    width: 0 !important;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100% !important;
+  }
+}
+.WhiteButtonStyle {
+  @extend .buttonStyle;
+  background-color: var(--color-primary-white);
+  color: var(--color-primary-green);
+}
+.btnFlex {
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+  justify-content: start;
+  margin-block-start: 2.4rem;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    margin-inline:1.4rem;
+
+  }
+}
+
+.picHead {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.newCard {
+  background-color: #EFFFEF;
+  width: 100%;
+  border: #EFFFEF solid 1px;
+  padding: 2.4rem;
+  margin-block: 4rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2.4rem;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Allows wrapping on small screens */
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack items vertically */
+    gap: 1.6rem;
+    padding: 1.6rem;
+  }
+}
+
+.newCardH1 {
+  color: #009900;
+  font-size: 3.2rem;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 2.4rem; /* Reduce heading size */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem; /* Even smaller for very small devices */
+  }
+}
+
+.newCardP {
+  color: #707070;
+  font-size: 2.4rem;
+  padding-block-start: 0.8rem;
+  padding-block-end: 2.4rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    padding-block-end: 1.6rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+  }
+}
+
+
+
+// .newCard{
+//   background-color: #EFFFEF;
+//   width: 100%;
+//   border: #EFFFEF solid 1px;
+//   padding: 2.4rem;
+//   margin-block: 4rem;
+//   display: flex;
+//   flex-direction: row;
+//   gap:2.4rem;
+//   justify-content: space-between;
+// }
+
+// .newCardH1{
+//   color: #009900;
+//   font-size: 3.2rem;
+//   font-weight: 600;
+// }
+
+// .newCardP{
+// color: #707070;
+// font-size: 2.4rem;
+// padding-block-start: 0.8rem;
+// padding-block-end: 2.4rem;
+
+// }
+
+
+
+.reviewbtn {
+  display: flex;
+  justify-content: space-between;
+  //   margin-block-end: 2.4rem;
+  align-items: center;
+  //   margin-block-start: 4rem;
+}
+
+.review {
+    padding-block-start: 2.4rem;
+    padding-block-end: 2.1rem;
+  } 
+
+  .title {
+    font-weight: 600;
+    font-size: 2.4rem;
+    color: var(--color-header-text);
+  }
+  .btnWrapper {
+    display: flex;
+    align-items: center;
+  }
+  .btn {
+    color: var(--color-primary-green);
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  

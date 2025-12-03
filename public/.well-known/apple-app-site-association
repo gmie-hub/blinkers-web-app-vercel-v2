@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "38L3FXAFC2.com.app.blinkers",
+        "paths": [
+          "/product-details/*",
+          "/directory-details/*",
+          "/job-details/*"
+        ]
+      }
+    ]
+  }
+}

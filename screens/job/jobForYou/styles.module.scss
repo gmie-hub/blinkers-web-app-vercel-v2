@@ -1,0 +1,153 @@
+.whyWrapper {
+    margin: 0; /* Remove any default margins */
+    padding: 0; /* Remove padding */
+    width: 100%; /* Ensure the wrapper spans the full width */
+    // margin-block-end: 10rem;
+    @media (max-width: 600px) {
+      margin-block-end: 0rem;
+    }
+  }
+  
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line when necessary */
+    justify-content: space-between; /* Align items with no extra space at edges */
+    gap: 2.4rem; /* Space between cards */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    width: 100%; /* Ensure the container spans the full width */
+  }
+  
+  .chooseCard {
+    border: #eeeeee solid 1px;
+    flex: 1 1 calc(25% - 2.4rem); /* Adjust width for 4 cards per row, considering the gap */
+    // background-color: var(--color-primary-white);
+    background-color: #efffef;
+    padding-block: 1.2rem;
+    padding-inline: 1.6rem;
+    box-shadow: 0px 4px 40px 0px #00990012;
+    box-sizing: border-box;
+    border-top-right-radius: 0.8rem;
+    border-bottom-left-radius: 0.8rem;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    gap: 1.2rem; /* Space between card elements */
+    max-width: calc(25% - 2.4rem);
+    cursor: pointer;
+    @media (max-width: 1024px) {
+      flex: 1 1 calc(50% - 2.4rem); /* 2 cards per row on medium screens */
+    }
+  
+    @media (max-width: 600px) {
+      flex: 1 1 100%; /* 1 card per row on small screens */
+      max-width: 100%;
+    }
+  }
+  
+  .chooseCard h3 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--color-header-text);
+    margin: 0; /* Remove default margin */
+  }
+  
+  .chooseCard p {
+    color: var(--color-body-text);
+    margin: 0; /* Remove default margin */
+  }
+  
+  .cardWrapper {
+    display: flex; /* Use flexbox for the card container */
+    align-items: flex-start; /* Align items to the top */
+    gap: 0.5rem; /* Add space between icon and text */
+  }
+  
+  .icon {
+    // font-size: 2rem; /* Adjust icon size */
+    margin-right: 1rem; /* Space between icon and text */
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  .textContent {
+    display: flex;
+    flex-direction: column; /* Stack text vertically */
+    // justify-content: center; /* Center text vertically */
+    text-align: start;
+  }
+  
+  .textContent p {
+    margin: 0; /* Remove default margin */
+    font-size: 1.4rem; /* Adjust text size */
+    color: #828282;
+    @media (max-width: 600px) {
+      font-size: 1.2rem;
+    }
+  }
+  
+  .btn {
+    font-size: 1.8rem;
+  }
+  
+  .dot {
+    margin-inline-end: 0.5rem;
+    height: 0.6rem;
+    width: 0.6rem;
+    border-radius: 50%;
+    background: #828282;
+    display: inline-block; /* Ensure it's treated as a single inline block */
+  }
+  .posted {
+    color: #707070;
+    font-size: 1rem;
+    padding-block-start: 1rem;
+  }
+  .full {
+    font-size: 1.2rem;
+    @media (max-width: 600px) {
+      font-size: 1rem;
+    }
+  }
+  
+  .back {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    padding-block: 2.4rem;
+    & > p {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+  }
+  
+  .placeholderCircle {
+    width: 4rem;
+    height: 4rem;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  
+  .type {
+    background-color: #00990014;
+    border: #00990014 solid 1px;
+    padding: 0.4rem;
+    border-radius: 1rem;
+  }
+  
+  
+  
+    .title {
+      font-weight: 700;
+      font-size: 2.4rem;
+      color: var(--color-header-text);
+      padding-block-end: 2.4rem;
+    }
+  

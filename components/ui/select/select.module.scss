@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+  }
+  
+  .select {
+    border: 1px solid var(--color-grey);
+    border-radius: 1rem;
+    padding-inline-start: 1rem;
+    padding-inline-end: 2rem;
+    padding-block: 1rem;
+    font-size: 1.4rem;
+    margin-block: 0rem;
+  
+    @media screen and (min-width: 768px) {
+      padding-block: 1.5rem;
+    }
+  }
+  
+  .select:hover,
+  .select:focus {
+    border: 1px solid var(--color-grey);
+  }
+  
+  .container .label {
+    color: var(--color-black);
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: start !important;
+    font-weight: var(--font-w-semibold);
+  
+    @media screen and (min-width: 768px) {
+      font-size: 1.6rem;
+    }
+  }
+  
+  .asterisk {
+    color: red;
+    font-weight: 700;
+  }
+  
+  .error {
+    color: red;
+  }
+  

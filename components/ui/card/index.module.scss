@@ -1,0 +1,23 @@
+.card {
+  background-color: var(--color-primary-white);
+  border: 1px solid var(--color-grey-light);
+  border-radius: 0.8rem;
+  min-height: fit-content;
+  width: 100%;
+
+  & > h2 {
+    font-family: Lato;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 3rem;
+    letter-spacing: -0.02em;
+    color: rgba(34, 34, 34, 1)
+  }
+  @media screen and (max-width: 768px) {
+    padding-inline: 2rem !important ;
+   }
+}
+
+.no_border {
+  border: none !important;
+}

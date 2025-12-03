@@ -12,18 +12,20 @@
 
 .home {
   text-align: center;
-  color: white;
+  color: white !important;
   padding-block: 5.8rem; // Add padding to avoid text overflow
 }
 
 .picHead {
   font-size: 2.5rem;
   font-weight: bold;
+    color: white !important;
 }
 
 .picPara {
   font-size: 1.2rem;
   margin-bottom: 20px;
+    color: white !important;
 }
 
 .leftArrow, .rightArrow {

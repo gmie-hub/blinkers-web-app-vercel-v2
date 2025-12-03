@@ -1,0 +1,122 @@
+.container {
+  width: 100% !important;
+  min-width: 100% !important;
+  // height: 100%; // Full height within the wrapper
+  margin-block: 4rem;
+  border-radius: 0.8rem;
+  @media screen and (max-width: 768px) {
+    margin-block: 2.4rem;
+
+  }
+    
+
+}
+
+.image {
+  position: relative;
+  //   height: 100    %; // Full height for the image section
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.home {
+  text-align: center;
+  color: white;
+  padding: 4rem;
+  border-radius: 0.8rem;
+}
+
+.picHead {
+  font-size: 4rem;
+  font-weight: 700;
+  // margin-bottom: 0.5rem;
+}
+
+.mainContainer {
+  display: flex;
+  gap: 12.6rem;
+  padding-block: 4rem;
+  
+}
+
+.leftSection {
+  flex: 0.5; /* 40% of the width */
+justify-content: center;
+display: flex;
+flex-direction: column;
+  & > h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    display: flex;
+    color: var(--color-header-text);
+  }
+  & > p {
+    color: var(--color-body-text);
+    display: flex;
+    align-items: start;
+    text-align: start;
+  }
+}
+
+.rightSection {
+  flex: 0.5; /* 60% of the width */
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .image {
+    height: auto; /* Ensure the image adjusts height based on content */
+    // padding: 2rem; /* Adds padding for smaller screens */
+  }
+
+  .picHead {
+    font-size: 2.5rem; /* Smaller font size for headings on mobile */
+    padding-block-end: 1rem;
+  }
+
+  .mainContainer {
+    flex-direction: column;
+    // display: block; /* Stack the sections vertically */
+    margin-inline: 1.6rem; /* Smaller margin for mobile */
+    gap: 2rem; /* Adjust gap for smaller screens */
+    padding-block: 2.4rem;
+  }
+
+  .leftSection,
+  .rightSection {
+    flex: 1; /* Full width on smaller screens */
+    // padding: 1rem;
+  }
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; // Allow items to wrap to the next row
+  gap: 2.4rem; // Space between cards
+  justify-content: space-between; // Spread items evenly with space
+
+  @media (max-width: 768px) {
+    justify-content: center; // Center cards on small screens
+  }
+}
+
+.card {
+  flex: 1 1 calc(50% - 1.5rem); // Each card takes 50% of the row, minus gap
+  max-width: calc(50% - 1.5rem); // Set a maximum width to keep alignment
+
+
+  // @media (max-width: 768px) {
+  //   flex: 1 1 100%; // Full width on small screens
+  //   max-width: 100%;
+  // }
+}
+
+

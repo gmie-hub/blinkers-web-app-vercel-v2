@@ -1,0 +1,145 @@
+.marketplaceWrapper {
+  margin-block-start: 6.4rem;
+  margin-block-end: 15.4rem;
+
+  @media (max-width: 600px) {
+    margin-block-start: 2.4rem;
+    margin-block-end: 5.4rem;
+
+  }
+}
+.whyWrapper{
+  margin-block: 6.4rem;
+
+  @media (max-width: 600px) {
+    margin-block: 2.4rem;
+
+  }
+}
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; // Allow the cards to wrap to the next line when necessary
+  justify-content: start;
+  gap: 3.5rem;
+  text-align: start;
+  row-gap: 6.8rem;
+  @media (max-width: 600px) {
+    row-gap: 1.6rem;
+
+
+    flex-direction: column;
+      align-items: center; // Centers cards on small screens
+    
+
+  }
+  
+}
+
+.card {
+  background-color: var(--color-primary-white);
+  padding: 1.6rem;
+  padding-block-end: 2.4rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 31%; // Default width for 3 cards per row
+  box-sizing: border-box;
+  // width: calc(33% - 2.4rem);
+  /* Adjust card width if there's only one card */
+  @media (max-width: 820px) {
+
+    width: calc(50% - 2.4rem);
+    width: 47%; // On medium screens (tablet or small desktop), show 2 cards per row
+  }
+
+  
+
+  @media (max-width: 600px) {
+    width: 100% !important;  
+    flex: 1 1 100%; 
+  }
+}
+
+.card h3 {
+  font-weight: 500;
+  font-size: 2rem;
+  padding-block-start: 1.2rem;
+  padding-block-end: 0.8rem;
+
+  display: flex;
+}
+
+.card p {
+  color: var(--color-body-text);
+  display: flex;
+  text-align: start;
+}
+
+.chooseCard {
+  background-color: var(--color-primary-white);
+  padding: 1.6rem;
+  padding-block-end: 2.4rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 31%; // Default width for 3 cards per row
+  border-bottom: 4px solid var(--color-primary-green); // Green border
+  box-sizing: border-box;
+  border-right: solid #009900 4px;
+  border-top-right-radius: 0.8rem;
+  border-bottom-left-radius: 0.8rem;
+  display: flex;
+  gap:1.2rem;
+
+  /* Adjust card width if there's only one card */
+  @media (max-width: 1024px) {
+    flex: 1 1 calc(50% - 2.4rem); /* 2 cards per row on medium screens */
+
+  }
+
+  @media (max-width: 820px) {
+    flex: 1 1 calc(50% - 2.4rem); /* 2 cards per row on medium screens */
+    max-width:50% !important
+}
+
+
+ 
+  @media (max-width: 600px) {
+    min-width: 100% !important;  
+    flex: 1 1 100%; 
+  }
+}
+
+.chooseCard h1 {
+  font-size: 4rem;
+  font-weight: 600;
+  display: flex;
+  color: var(--color-header-text);
+}
+
+.chooseCard p {
+  color: var(--color-body-text);
+  display: flex;
+  text-align: start;
+}
+.head {
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--color-header-text);
+  padding-block-end: 3.2rem;
+  @media (max-width: 600px) {
+    font-size: 3rem;
+  }
+
+}
+
+.leftSection {
+    flex: 0.2; /* 40% of the width */
+  justify-content: start;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.rightSection {
+    flex: 0.8; /* 40% of the width */
+& > h3{
+    text-align: start;
+}
+}

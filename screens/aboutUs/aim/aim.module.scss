@@ -1,0 +1,52 @@
+.mainContainer {
+  display: flex;
+  gap: 12.6rem;
+  padding-block: 6.4rem;
+  @media (max-width: 600px) {
+ display: block;
+  }
+}
+
+.leftSection {
+  flex: 0.5; /* 40% of the width */
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  & > h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    display: flex;
+    color: var(--color-header-text);
+    padding-block-end: 2.4rem;
+  }
+//   & > p {
+//     color: var(--color-body-text);
+//     display: flex;
+//     align-items: start;
+//     text-align: start;
+//   }
+}
+
+.rightSection {
+  flex: 0.5; /* 60% of the width */
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; // Allow the cards to wrap to the next line when necessary
+  justify-content: center;
+  gap: 2.4rem;
+  text-align: start;
+  row-gap: 6.8rem;
+  @media (max-width: 600px) {
+    row-gap: 1.6rem;
+  }
+}
+
+.aimItem {
+  display: flex;
+//   align-items: center;
+  gap: 0.8rem; // Space between icon and text
+  padding-block-end: 2.4rem;
+}
+

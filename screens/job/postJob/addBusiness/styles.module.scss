@@ -1,0 +1,98 @@
+.card {
+  width: 95%;
+  padding-inline: 2rem !important;
+  box-shadow: 0px 4px 40px 0px #00990012;
+  border: #eeeeee solid;
+  padding-block: 2rem !important;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 67.9rem !important;
+    padding-inline: 7.3rem !important;
+    padding-block: 4rem !important;
+  }
+}
+
+.textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2.4rem;
+  margin-block-end: 2rem;
+
+  & > div p {
+    text-align: center;
+    line-height: 2.4rem;
+    color: #707070;
+  }
+
+  & > div p:nth-child(1) {
+    font-weight: 600;
+    font-size: 2rem;
+    // margin-block-start: 4rem;
+    margin-block-end: 1rem;
+    color: var(--color-header-text);
+    text-transform: capitalize;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // margin-block-end: 1.3rem;
+  margin-block-start: 2.4rem;
+  flex-direction: row;
+
+  gap: 1.6rem;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-block-start: 2.4rem;
+    flex-direction: column-reverse;
+  }
+}
+
+.inputContainer {
+  // margin-inline: 1.6rem;
+  gap: 1.9rem;
+  display: flex;
+  flex-direction: column !important;
+  margin-block-start: 2.4rem;
+  //   padding-inline: 3rem;
+  //   color: #bebbbb;
+
+  @media screen and (max-width: 768px) {
+    padding-inline: 0.5rem;
+  }
+}
+
+
+.abs {
+  position: relative;
+  display: inline-block;
+}
+
+.profile {
+  width: 13.8rem;
+  height: 13.8rem;
+  border-radius: 50%;
+  background-color: aliceblue;
+  padding: 1rem;
+}
+
+.abs img:last-child {
+  position: absolute;
+  bottom: 2rem;
+  left: 8rem;
+  width: 4rem;
+  height: 4rem;
+  transform: translate(50%, 50%);
+  border-radius: 50%;
+}

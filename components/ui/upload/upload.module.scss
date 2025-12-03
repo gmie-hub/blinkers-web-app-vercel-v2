@@ -1,0 +1,110 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .upload {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-block-start: 0.31rem;
+    border: 2px dashed #2d7832;
+    padding-block: 1.25rem;
+    border-radius: 5px;
+    cursor: pointer;
+  
+    & input {
+    //   width: 100%;
+      height: 100%;
+    }
+  }
+  
+  .fileTitle {
+    color: #707070;
+    font-weight: 500;
+    font-size: 1.475rem;
+    line-height: 1.125rem;
+  }
+  
+  .fileFormat {
+    color: #9d9ea3;
+    font-weight: 300;
+    font-size: 0.75rem;
+  }
+  
+  .uploadLabel {
+    color: var(--color-black);
+    font-weight: 700;
+    margin-bottom: 0px;
+    text-align: start !important;
+    white-space: nowrap;
+    // width: 25%;
+  }
+  
+  .error {
+    font-size: 1.4rem;
+    color: red;
+    padding-block: 1rem;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 1024px) {
+    .upload {
+      padding-block: 1rem;
+      gap: 1rem;
+    }
+    .fileTitle {
+      font-size: 1.2rem;
+    }
+    .fileFormat {
+      font-size: 0.7rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .upload {
+      flex-direction: column;
+      padding-block: 0.8rem;
+    }
+    .fileTitle {
+      font-size: 1rem;
+    }
+    .fileFormat {
+      font-size: 0.65rem;
+    }
+    .uploadLabel {
+    //   width: 100%;
+      white-space: normal;
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .upload {
+      gap: 0.5rem;
+      padding-block: 0.6rem;
+      border: 1px dashed #11643c;
+    }
+    .fileTitle {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .fileFormat {
+      font-size: 0.6rem;
+      text-align: center;
+    }
+    .uploadLabel {
+      font-size: 0.85rem;
+      text-align: center;
+    //   width: 100%;
+    }
+    .error {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+  }
+  
