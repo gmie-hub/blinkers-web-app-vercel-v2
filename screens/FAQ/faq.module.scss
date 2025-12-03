@@ -1,0 +1,129 @@
+.container {
+  width: 100%;
+  min-width: 100%;
+  margin-block: 4rem;
+  border-radius: 0.8rem;
+
+  @media screen and (max-width: 768px) {
+    margin-block: 2.4rem;
+
+  }
+  // height: 100%; // Full height within the wrapper
+}
+
+.home {
+  text-align: center;
+  color: white;
+  padding: 4rem;
+  border-radius: 0.8rem;
+}
+
+.picHead {
+  font-size: 4rem;
+  font-weight: 700;
+  // margin-bottom: 0.5rem;
+  padding-block-end: 1.6rem;
+}
+
+.mainContainer {
+  // display: flex;
+  gap: 4rem;
+  padding-block: 6.4rem;
+  @media screen and (max-width: 768px) {
+    margin-block: 2.4rem;
+
+  }
+}
+
+.card {
+  border: 1px solid #eeeeee;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  border-radius: 0.8rem;
+  margin-block-start: 4rem;
+  width: 100%;
+  & > h2 {
+    padding-block-end: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .picHead {
+    font-size: 2.5rem; /* Smaller font size for headings on mobile */
+    padding-block-end: 1rem;
+  }
+
+  .mainContainer {
+    display: block; /* Stack the sections vertically */
+    margin-inline: 1.6rem; /* Smaller margin for mobile */
+    gap: 2rem; /* Adjust gap for smaller screens */
+    padding-block: 2.4rem;
+  }
+}
+
+.picPara {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.image {
+  position: relative;
+  //   height: 100    %; // Full height for the image section
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.faq {
+  border: 1px solid #eeeeee;
+  width: 100%;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-block-end: 1.6rem;
+
+  .questionRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > h3 {
+      font-weight: bold;
+      color: #222222;
+      margin: 0;
+    }
+
+    .arrow {
+      font-size: 1.5rem;
+      color: #222222;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .activeArrow {
+      transform: rotate(180deg); // Flips arrow when active
+    }
+  }
+
+  .answer {
+    color: var(--color-body-text);
+    margin-top: 1rem;
+    font-size: 1.6rem;
+  }
+
+  &.active {
+    border-color: #cccccc;
+  }
+}
