@@ -137,7 +137,7 @@ export default function PostJobs() {
       });
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }
@@ -232,7 +232,7 @@ export default function PostJobs() {
       });
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }

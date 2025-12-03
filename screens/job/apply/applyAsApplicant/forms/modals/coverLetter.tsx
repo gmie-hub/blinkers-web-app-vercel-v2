@@ -47,7 +47,7 @@ const CoverLetterPage: FC<ComponentProps> = ({
     ];
     if (!validImageTypes.includes(selectedFile.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description: "Please upload a valid image (JPEG, PNG, GIF,SVG).",
       });
       return;

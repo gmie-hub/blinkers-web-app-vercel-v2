@@ -30,3 +30,7 @@ export const getUserNotificationById = async (userId?:number, id?: number,) => {
 export const ReadNotification = async (payload: any) => {
   return (await api.post("user-notifications/read", payload, {}))?.data ;
 };
+
+export const deleteAds = async ({ id }: { id: number }) => {
+  return (await api.delete(`ads/${id}`))?.data as ProductDatum;
+};

@@ -59,7 +59,7 @@ const FlagJobs = ({ handleCloseModal }: Props) => {
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
       

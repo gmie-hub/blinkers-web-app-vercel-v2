@@ -266,7 +266,7 @@ const Main = () => {
       await followSellersMutation.mutateAsync(payload, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
           queryClient.refetchQueries({
@@ -276,7 +276,7 @@ const Main = () => {
       });
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occur",
       });
     }

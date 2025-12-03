@@ -49,7 +49,7 @@ const AddBusiness = () => {
     // Validate if the file type is valid
     if (!validFileTypes.includes(selectedFile.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description:
           "The logo field must be a file of type: jpg, jpeg, png, gif, docx, doc, ppt.",
       });
@@ -96,7 +96,7 @@ const AddBusiness = () => {
     // Validate if the file type is valid
     if (!validFileTypes.includes(selectedFile.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description:
           "The logo field must be a file of type: jpg, jpeg, png, gif, docx, doc, ppt.",
       });
@@ -152,7 +152,7 @@ const AddBusiness = () => {
       });
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }

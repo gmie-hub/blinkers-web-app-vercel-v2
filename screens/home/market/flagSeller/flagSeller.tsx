@@ -60,7 +60,7 @@ const FlagSellerContent = ({
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
       setIsDeleteModal(false);

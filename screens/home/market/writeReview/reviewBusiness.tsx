@@ -55,7 +55,7 @@ const WriteReviewBusinessOrDirectory = () => {
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: "An error occurred",
       });
     }

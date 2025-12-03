@@ -25,7 +25,7 @@ const Trends = () => {
         setLocation(loc);
       } catch (err: any) {
         notification.error({
-          message: "Error",
+          title: "Error",
           description: err || "Failed to access location. Please enable GPS.",
         });
       }

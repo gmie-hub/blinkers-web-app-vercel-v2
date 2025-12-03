@@ -165,14 +165,14 @@ const JobDetails = () => {
       await ApplyJobMutation.mutateAsync(payload, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
         },
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }
