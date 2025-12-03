@@ -1,0 +1,276 @@
+.container {
+  display: flex;
+  justify-content: space-between; // Ensures left and right sides are spaced out
+  width: 100%;
+  gap: 3rem; // Adds space between the left and right sections
+  padding-block: 4rem; // Add padding to the entire container for internal spacing
+  @media screen and (max-width: 768px) {
+    margin-block: 2.4rem;
+  }
+}
+
+.leftSide {
+  width: 25%;
+  padding: 2rem;
+  background-color: var(--color-primary-white);
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.8rem;
+  border: solid 1px var(--color-grey-lighter);
+  height: fit-content;
+}
+.title1 {
+  font-weight: 600;
+  padding-block-end: 4rem;
+  font-size: 2.4rem;
+}
+
+.itemContainer {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.itemContainer p {
+  margin: 0;
+}
+
+.plusSign {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.itemList {
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+  list-style: none;
+  text-align: start; /* Aligns text to start */
+  color: var(--color-body-text);
+}
+
+.itemList li {
+  padding: 0.25rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox {
+  margin-right: 0.5rem;
+}
+.subjectBg {
+  color: var(--color-primary-green);
+  background-color: var(--color-light-green);
+  padding-block: 1rem;
+  font-weight: 500;
+  margin-block-start: 2rem;
+  border-radius: 0.8rem;
+  padding-inline-start: 2rem;
+  margin-block-end: 1rem;
+}
+
+//RightSide
+.promoHead {
+  display: flex;
+  justify-content: space-between;
+  padding-inline-end: 0.4rem;
+}
+.promoHead p {
+  color: var(--color-header-text);
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+
+.favoriteIcon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.rightSide {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  // align-items: flex-end; // Align content to the right
+  text-align: start;
+}
+
+.promoImage {
+  cursor: pointer;
+  box-shadow: 0px 4px 40px 0px #00990012;
+  position: relative;
+  width: calc(
+    33.33% - 2rem
+  ); /* Keep each image at 33.33% width with some margin for gaps */
+  box-sizing: border-box;
+  flex-grow: 0; /* Prevent images from growing beyond 33.33% */
+  //   margin-bottom: 2rem; /* Add space between rows */
+  overflow: hidden; /* This ensures that the border-radius affects the content inside */
+  border-radius: 0.8rem; /* Apply rounded corners to all images */
+}
+
+.promoImage img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.promoImage:last-child {
+  margin-left: 0; /* Ensure the last image stays aligned to the left */
+}
+
+@media (max-width: 820px) {
+  .promoImage {
+    width: calc(50% - 1.5rem); /* On smaller screens, show 2 images per row */
+  }
+}
+
+@media (max-width: 640px) {
+  .promoImage {
+    width: 100% !important; /* On mobile, show 1 image per row */
+  }
+}
+
+/* Media query for screens smaller than 820px */
+@media (max-width: 820px) {
+  .container {
+    flex-direction: column; /* Stack left and right side vertically */
+  }
+
+  .leftSide {
+    width: 100%; /* Left side takes full width */
+    margin-bottom: 2rem; /* Add spacing below the left side */
+  }
+
+  .rightSide {
+    width: 100%; /* Right side takes full width */
+  }
+}
+
+/* Media query for screens smaller than 640px */
+@media (max-width: 640px) {
+  .promoImage {
+    width: 100%; /* On mobile, show 1 image per row */
+  }
+}
+
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+}
+.filter {
+  @media (min-width: 820px) {
+    display: none;
+  }
+}
+
+.productList {
+  padding-inline-start: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: 0px 4px 40px 0px #00990012;
+  border: solid #00990012;
+
+  cursor: pointer;
+  & > p {
+    padding-block-start: 0.5rem !important;
+  }
+}
+
+.starWrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding-block: 0.8rem;
+}
+.info {
+  display: flex;
+  padding-block-start: 0.8rem;
+  align-items: center;
+  gap: 0.4rem;
+  color: #6e6e6e;
+}
+
+.proImage {
+  height: 26rem !important;
+}
+
+.promoImageContainer {
+  display: grid; /* Use grid for a more controlled layout */
+  grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+  gap: 3rem; /* Space between the items */
+  row-gap: 4rem;
+  justify-items: center; /* Align items in the center of each grid cell */
+}
+
+.promoImage {
+  display: flex;
+  flex-direction: column;
+  // height: 26rem;
+  width: 100%;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  // box-shadow: 0px 4px 40px 0px #00990012;
+}
+
+.promoImage img {
+  object-fit: cover;
+  // height: 14rem;
+  width: 100%;
+}
+
+.productList {
+  // height: 12rem; /* Ensure the product list takes the remaining height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem; /* Add padding to the product list */
+}
+
+.productList p {
+  margin: 0; /* Remove margins for consistent spacing */
+}
+
+@media (max-width: 640px) {
+  .promoImageContainer {
+    grid-template-columns: repeat(
+      1,
+      1fr
+    ); /* 2 items per row on smaller screens */
+    gap: 2rem; /* Adjust the gap for smaller screens */
+  }
+
+  .promoImage {
+    height: auto; /* Allow the height to be dynamic on smaller screens */
+  }
+}
+
+.noDataContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.noDataContainer p {
+  font-size: 18px;
+  color: #555;
+}
+
+.canceledText {
+  text-decoration: line-through;
+  padding-inline-end: 0.5rem;
+  color: black; /* Optional: Use a muted color for canceled text */
+}
+.trendingdiscount {
+  color: #222222;
+  width: 600;
+}

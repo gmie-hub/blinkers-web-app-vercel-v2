@@ -1,0 +1,113 @@
+.loginContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--color-grey);
+    border-radius: 1rem;
+    background-color: white;
+    padding-inline:  1.6rem;
+    // padding-inline-end: 2rem;
+    padding-block: 1rem;
+    font-size: 1.4rem;
+  
+    &::placeholder {
+      color: #828282;
+      // padding: 1.6rem;
+// 
+    }
+  
+    @media screen and (min-width: 768px) {
+      padding-block: 1.5rem;
+      width: 100%;
+    }
+  }
+  
+  .input:hover,
+  .input:focus,
+  .input:active,
+  input:focus-visible {
+    border: 1px solid var(--color-grey);
+    background-color: var(--color-white);
+  }
+  
+  .textarea {
+    width: 100%;
+    border: 1px solid var(--color-grey);
+    margin-block-start: 0;
+    padding-block: 0px;
+    min-height: 10rem;
+    padding: 1.2rem;
+    font-family: "Lato";
+    background-color: transparent;
+    border-radius: 1rem;
+
+  }
+  
+  .label {
+    color: var(--color-black);
+    font-size: 1.2rem;
+    font-weight: var(--font-w-semibold);
+    margin-bottom: 0px;
+    text-align: end !important;
+    white-space: nowrap;
+    width: 25%;
+    display: flex;
+    padding-block-start: 1.8rem;
+  
+    @media screen and (min-width: 768px) {
+      font-size: 1.6rem;
+    }
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .asterisk {
+    color: red;
+    font-weight: 700;
+  }
+  
+  .wrapper {
+    width: 100%;
+  }
+  
+  .inputContainer {
+    position: relative;
+    width: 100%;
+  }
+  
+  .iconRight {
+    position: absolute;
+    right: 1rem; /* Right-hand side icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .deleteIcon {
+    position: absolute;
+    left: 1rem; /* Left-hand side delete icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .showToggle {
+    position: absolute;
+    right: 2.5rem; /* Adjust position for the password toggle */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  

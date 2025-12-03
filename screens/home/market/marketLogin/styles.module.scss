@@ -1,0 +1,93 @@
+.container {
+    text-align: center;
+    // padding-block: 4rem;
+    padding-inline: 1rem;
+  }
+  
+  .icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    color: #222222;
+  }
+  
+  .subtitle {
+    font-size: 1.6rem;
+    color: #707070;
+    margin-bottom: 2.4rem;
+  }
+  
+  .noticeBox {
+    background-color: #FFFAEB;
+    border: 1px solid #FFFAEB;
+    padding-inline: 0.6rem;
+    padding-block: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    color: #CDA11E;
+    text-align: left;
+    display: flex;
+  
+    p {
+      margin: 0;
+      line-height: 1.4;
+    }
+  }
+  
+  .warningIcon {
+    margin-right: 0.5rem;
+  }
+  
+  .loginButton {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background-color: #00a100;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  
+    &:hover {
+      background-color: #008d00;
+    }
+  }
+  
+  .signUpButton {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background-color: #ffffff;
+    color: #00a100;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2px solid #00a100;
+    border-radius: 6px;
+    cursor: pointer;
+  
+    &:hover {
+      background-color: #f3fff3;
+    }
+  }
+  
+  .guestLink {
+    font-size: 1.4rem;
+    color: #008000;
+    text-decoration: underline;
+    cursor: pointer;
+    padding-block-start: 1.6rem;
+  
+    &:hover {
+      color: #006400;
+    }
+  }
+  

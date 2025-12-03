@@ -1,26 +1,419 @@
-@import "tailwindcss";
+html,
+body {
+  width: 100%;
+  height: 100%;
+  scroll-behavior: smooth;
+  font-family: "Lato", sans-serif !important;
+  /* font-size: 62.5%; */
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  min-height: 100vh;
+  font-size: 1.4rem;
+  font-family: "Lato", sans-serif !important;
+  font-size: 62.5%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0;
+  font-family: "Lato", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-primary-white);
+  /* font-size: 62.5%; */
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+
+  --color-main-bg: #f3f3f3;
+  --color-main-primary: linear-gradient(180deg, #009900 0%, #2fce2f 100%);
+  --color-primary-bg: #f1f1f1;
+  --color-primary-white: #ffffff;
+  --color-primary-green: #009900;
+  --color-light-green: #0099001a;
+
+  --color-body-text: #707070;
+  --color-header-text: #222222;
+  --color-body-black: #000000;
+
+  --color-green-text: #28a745;
+  --color-green-bg: #eefff5;
+
+  --color-red-text: #e21b1b;
+  --color-red-bg: #ffebeb;
+
+  --color-grey-light: #eeeeee;
+  --color-grey-dark: #f8f8f8;
+  --color-grey: #dedede;
+  --color-grey-lighter: #e0e0e0;
+  --color-grey-primary: #828282;
+  --color-grey5-light: #eeeeee;
+
+  --font-s-2: 0.2rem;
+  --font-s-4: 0.4rem;
+  --font-s-6: 0.6rem;
+  --font-s-10: 1rem;
+  --font-s-12: 1.2rem;
+  --font-s-14: 1.4rem;
+  --font-s-16: 1.6rem;
+  --font-s-18: 1.8rem;
+  --font-s-20: 2rem;
+  --font-s-22: 2.2rem;
+  --font-s-24: 2.4rem;
+
+  --font-w-normal: 400;
+  --font-w-medium: 500;
+  --font-w-semibold: 600;
+  --font-w-bold: 800;
+}
+
+html {
+  font-family: "Lato", sans-serif !important;
+  background-color: var(--color-main-bg);
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Lato", sans-serif !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  color: var(--color-header-text);
+  font-family: "Lato", sans-serif !important;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: "Lato", sans-serif !important;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+@media (max-width: 400px) {
+  .icon {
+    height: 10rem;
+    width: 20rem;
+  }
+}
+
+.error {
+  color: red;
+  font-size: 1.4rem;
+}
+
+.ant-drawer-body {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 0px;
+  overflow: auto;
+}
+
+.ant-steps {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .ant-steps {
+    width: 40rem;
+  }
+}
+@media screen and (max-width: 540px) {
+  .ant-steps {
+    gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .ant-steps {
+    width: 50rem; /* Use the larger width for desktop screens */
+  }
+}
+
+.ant-steps .ant-steps-item-title {
+  white-space: nowrap;
+  font-weight: var(--font-w-semibold);
+}
+
+.ant-steps-item-finish .ant-steps-item-tail::after,
+.ant-steps-item-process .ant-steps-item-tail::after {
+  background: green !important; /* Change this to any color you like */
+}
+
+.ant-steps .ant-steps-item-tail {
+  top: 21px;
+}
+
+.ant-steps.ant-steps-label-vertical .ant-steps-item-tail {
+  /* Add any additional styles here */
+  padding: 0px;
+}
+
+.ant-steps-item-tail::after {
+  border-color: green !important;
+}
+
+.ant-steps .ant-steps-item-custom > .ant-steps-item-container > .ant-steps-item-icon > .ant-steps-icon > div {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 540px) {
+  .ant-steps.ant-steps-vertical > .ant-steps-item .ant-steps-item-content {
+    display: flex;
+    align-items: center;
+    padding-inline-start: 2rem;
+  }
+}
+
+.ant-menu-inline.ant-menu-root .ant-menu-item:focus svg path {
+  fill: var(--color-green-text);
+}
+
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item {
+  padding: 0.8rem 1.2rem;
+}
+
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item:hover {
+  background-color: var(--color-green-bg);
+}
+
+.ant-dropdown .ant-dropdown-menu {
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+::-webkit-scrollbar-track {
+  background: "#f1f1f1";
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(191, 187, 187);
+  border-radius: 1rem;
+}
+
+.space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  margin-block-start: 4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .space-between {
+    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: start;
+    gap: 2rem;
+  }
+}
+
+.alignLeft {
+  display: flex;
+  justify-content: start;
+}
+
+.alignRight {
+  display: flex;
+  justify-content: end;
+}
+
+.spinColor {
+  background-color: var(--color-green-bg);
+}
+.line {
+  width: 100%;
+  border-bottom: 2px solid var(--color-grey5-light); /* Adds the red bottom border */
+  margin-block: 0.5rem;
+}
+.modalMain {
+  display: flex;
+  justify-content: center;
+}
+@media screen and (max-width: 540px) {
+  .modalMain {
+    padding: 0rem;
+  }
+}
+
+.ModalWrapper {
+  text-align: center;
+  line-height: 3.2rem;
+  padding-block: 2rem;
+}
+.ModalPara {
+  color: var(--color-header-text);
+  font-size: 2.4rem;
+  font-weight: 500;
+  padding-block: 2rem;
+}
+.btn {
+  width: 100%;
+}
+
+.buttonStyle {
+  min-width: 22rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .buttonStyle {
+    min-width: 22rem;
+    width: 0 !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .buttonStyle {
+    width: 100% !important;
+  }
+}
+
+.RejectModalWrapper {
+  text-align: center;
+  line-height: 3.2rem;
+  padding-block-start: 5rem;
+}
+.RejectModalPara {
+  color: var(--color-header-text);
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.label {
+  color: var(--color-header-text);
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
+.editor-container .ck-editor__editable_inline {
+  padding: 0 30px !important; /* Ensure proper padding */
+  min-height: 200px; /* Add a minimum height */
+}
+
+.wrapper {
+  padding-inline: 10rem;
+}
+@media (max-width: 600px) {
+  .wrapper {
+    padding-inline: 2.4rem;
+  }
+}
+
+/* Custom styles for Ant Design Pagination */
+.ant-pagination-item {
+  background-color: var(--color-primary-white);
+  color: var(--color-body-black);
+  border: #e7e7e7 solid 1px !important;
+}
+
+.ant-pagination-item-active {
+  background-color: var(--color-primary-green) !important;
+  color: var(--color-body-black);
+  border: var(--color-primary-green) solid 1px !important;
+}
+.ant-pagination .ant-pagination-item-active a {
+  color: var(
+    --color-primary-white
+  ) !important; /* Text color inside the active page */
+}
+.spin-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.noDataContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.noDataContainer p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* global.css or similar */
+.ant-select-selector {
+  border-color: green !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: green !important;
+  border-color: green !important;
+}
+
+.ant-checkbox-checked::after {
+  border-color: green !important;
+  background-color: green !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: green !important;
+  box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.2) !important;
+}
+
+/* App.css */
+:where(.ant-tabs) .ant-tabs-nav {
+  width: 100% !important;
+}
+
+:where(.ant-tabs) .ant-tabs-nav-list {
+  display: flex !important;
+  width: 100% !important;
+}
+
+:where(.ant-tabs) .ant-tabs-tab {
+  flex: 1 !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: green !important;
+  background-color: green !important;
+}
+
+/* White dot inside the green radio */
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner::after {
+  background-color: white !important;
 }

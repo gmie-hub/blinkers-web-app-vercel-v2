@@ -1,0 +1,669 @@
+.main {
+  display: flex;
+  justify-content: center;
+  // width: 90%;
+}
+// .section {
+//   max-width: 90%;
+// }
+.wrapper {
+  padding-inline: 5rem;
+  @media (max-width: 600px) {
+    padding-inline: 2rem;
+  }
+}
+
+// //MarketPlace
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap; // Allow the cards to wrap to the next line when necessary
+  justify-content: center;
+  gap: 20px;
+  text-align: start;
+  row-gap: 6.8rem;
+  @media (max-width: 600px) {
+    row-gap: 1.6rem;
+  }
+}
+
+.card {
+  background-color: var(--color-primary-white);
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 32%; // Default width for 3 cards per row
+  border-bottom: 4px solid #009900; // Green border
+  box-sizing: border-box;
+
+  /* Adjust card width if there's only one card */
+  @media (max-width: 1024px) {
+    width: 48%; // On medium screens (tablet or small desktop), show 2 cards per row
+  }
+
+  @media (max-width: 600px) {
+    width: 100%; // On small screens (mobile), show 1 card per row
+  }
+}
+
+.card h3 {
+  font-weight: 500;
+  font-size: 2rem;
+  padding-block: 1rem;
+}
+
+.card p {
+  color: var(--color-body-text);
+}
+.head {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  padding-inline-start: 0.5rem;
+  padding-block: 6.4rem;
+  @media (max-width: 768px) {
+    padding-block: 2.4rem;
+  }
+}
+.head h1 {
+  font-weight: 500;
+  color: var(--color-header-text);
+  font-size: 4rem;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+.head h4 {
+  color: var(--color-body-text);
+}
+
+//promoted Ads
+.promoHead {
+  display: flex;
+  justify-content: space-between;
+  padding-inline-end: 0.4rem;
+}
+.promoHead p {
+  color: var(--color-header-text);
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+
+.promoWrapper {
+  margin-block: 4.1rem;
+  @media (max-width: 768px) {
+    margin-block: 2.4rem;
+  }
+}
+
+.promoImageContainer {
+  display: flex;
+  flex-wrap: wrap; /* Ensures images wrap to the next line when necessary */
+  gap: 1rem; /* Adds a gap between the images */
+  width: 100%; /* Container takes full width */
+  box-sizing: border-box; /* Padding and border don't affect width calculation */
+  // justify-content: space-between; /* Ensures images are evenly spaced across the row */
+  // height: 26rem;
+  align-items: center;
+  @media (max-width: 640px) {
+    height: auto; /* Allow the height to be dynamic on smaller screens */
+  }
+}
+
+.promoImage {
+  flex: 1 1 calc(25% - 1rem); /* 4 images per row, accounting for the gap */
+  max-width: calc(
+    25% - 1rem
+  ); /* Ensures the image containers fit within 100% */
+  box-sizing: border-box; /* Includes padding and border in width calculations */
+
+  img {
+    object-fit: cover; 
+    // height: 14rem;
+    width: 100%;
+  }
+}
+.proImage {
+  height: 26rem !important;
+}
+
+@media (max-width: 1024px) {
+  .promoImage {
+    flex: 1 1 calc(25% - 1rem); /* 4 images per row, accounting for the gap */
+    max-width: calc(25% - 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .promoImage {
+    flex: 1 1 calc(50% - 1rem); /* 2 images per row on smaller screens */
+    max-width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .promoImage {
+    flex: 1 1 100%; /* 1 image per row on very small screens */
+    max-width: 100%; /* Ensure the image takes up full width */
+    margin: 0 auto; /* Center the image */
+  }
+}
+.marketplaceWrapper {
+  margin-block: 6.4rem;
+  @media (max-width: 600px) {
+    margin-block: 2.4rem;
+  }
+}
+.arrow {
+  display: flex;
+  gap: 2rem;
+  margin-inline-end: 1rem;
+  margin-block: 2rem;
+}
+
+.dotPagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 1rem 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-block: 3rem;
+}
+
+.activeDot {
+  background-color: var(--color-primary-green);
+}
+
+.disabledArrow {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.promoHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: 2.4rem;
+
+  .arrowContainer {
+    display: flex;
+    gap: 10px;
+
+    .arrowButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: var(--color-green); // Default green background
+    }
+
+    .greenBackground {
+      background-color: var(--color-primary-green); // Green when clickable
+    }
+
+    .disabledArrow {
+      cursor: not-allowed;
+      background-color: #eeeeee; // Red background when disabled
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.recommendedImageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; // Space between images
+  width: 100%; // Ensure the container takes up 100% of the screen width
+  box-sizing: border-box;
+  justify-content: space-between; // Spread images across the row
+}
+
+.recommendedImage {
+  flex: 1 1 calc(24% - 1rem); // 4 images per row, accounting for the gap
+  max-width: calc(24% - 1rem); // Ensures 4 items fit within the width
+  background-color: var(--color-primary-white);
+  box-sizing: border-box;
+  border-radius: 1rem; // Optional: rounding top corners
+  // border-top-right-radius: 1rem;
+  img {
+    width: 100%; // Image takes up full width of the container
+    height: auto; // Maintain the image aspect ratio
+    object-fit: contain; // Ensure image fits without distortion
+    border-top-left-radius: 1rem; // Optional: rounding top corners
+    border-top-right-radius: 1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .recommendedImage {
+    flex: 1 1 calc(24% - 1rem); // 4 images per row, accounting for the gap
+    max-width: calc(24% - 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .recommendedImage {
+    flex: 1 1 calc(50% - 1rem); // 2 images per row on smaller screens
+    max-width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendedImage {
+    flex: 1 1 100%; // 1 image per row on very small screens
+    max-width: 100%; // Ensure full width for single images
+    margin: 0 auto; // Center the image
+  }
+}
+
+//Access
+.section1 {
+  padding-block: 3rem;
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.8rem;
+  gap: 11rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.accessWrapper {
+  margin-block: 6.4rem;
+  @media (max-width: 768px) {
+    margin-block: 2.4rem;
+  }
+}
+.leftSection,
+.rightSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: start;
+  text-align: start;
+}
+
+.rightSection {
+  @media (max-width: 768px) {
+    align-items: center;
+  }
+}
+.leftSection p {
+  color: var(--color-body-text);
+  padding-block: 1rem;
+  padding-block-end: 4rem;
+}
+.leftSection h3 {
+  color: var(--color-body-black);
+  font-weight: 600;
+  font-size: 3.2rem;
+}
+
+//GetStarted
+.getStarted {
+  padding-block: 3rem;
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.8rem;
+  // gap: 11rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 2rem; // Reduce the gap for smaller screens
+  }
+}
+
+.getStartedRight,
+.getStartedLeft {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // Centers content vertically
+  align-items: center; // Centers content horizontally
+  text-align: center;
+
+  @media (max-width: 768px) {
+    width: 100%; // Full width on smaller screens
+  }
+}
+
+.double {
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.single {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  @media (max-width: 768px) {
+    width: 53%;
+  }
+}
+
+.getStartedLeft {
+  display: grid;
+  grid-template-columns: 50px auto; // First column for icons, second for text
+  row-gap: 1.5rem; // Space between rows
+  column-gap: 2rem; // Space between the icon and text columns
+  align-items: start; // Align items at the top
+}
+
+.cardContent {
+  display: contents; // Allows the items inside to follow the grid from the parent
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: start;
+}
+
+.getStartedHead {
+  display: flex;
+  flex-direction: column;
+}
+.getStartedHead h2 {
+  font-weight: 500;
+  color: var(--color-header-text);
+  font-size: 4rem;
+}
+.getStartedHead p {
+  color: var(--color-body-text);
+}
+
+//trends
+.TrendsHead {
+  font-weight: 500;
+  color: var(--color-header-text);
+  font-size: 4rem;
+  text-align: center;
+}
+// .trendContainer {
+//   display: grid;
+//   grid-template-columns: 1fr 2fr 1fr; // Three columns for left, middle, right
+//   gap: 2rem; // Space between columns
+//   align-items: center;
+//   justify-items: center;
+
+//   @media (max-width: 768px) {
+//     grid-template-columns: 1fr; // Stack content in one column on smaller screens
+//   }
+//   @media (max-width: 600px) {
+//     justify-items: normal;
+//   }
+// }
+
+// .leftSectionTrend,
+// .rightSectionTrend {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 2rem; // Space between the two items in rows
+//   align-items: start; // Align items to the left
+// }
+
+// .trendImage {
+//   text-align: center;
+//   position: relative; // Allows absolute positioning of the favorite icon
+//   text-align: center;
+//   @media (max-width: 600px) {
+//    width: 100%;
+//   }
+// }
+
+.trendingProductImage {
+  height: 26rem;
+  width: 33rem;
+  object-fit: cover;
+  @media (max-width: 768px) {
+    width: 100%;
+    // height: fit-content;
+  }
+}
+
+.trendContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* Three columns for left, middle, right */
+  gap: 2rem; /* Space between columns */
+  align-items: center;
+  justify-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* Stack content in one column on smaller screens */
+  }
+
+  @media (max-width: 600px) {
+    display: block; /* Use flexbox for small screens */
+    flex-direction: column; /* Stack the sections vertically */
+    gap: 2rem; /* Space between the sections */
+    justify-items: normal;
+    width: 100%; /* Ensure the container takes full width of the screen */
+  }
+}
+
+.leftSectionTrend,
+.rightSectionTrend {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Space between the two items in rows */
+  align-items: start; /* Align items to the left */
+  @media (max-width: 600px) {
+    margin-block-end: 2rem;
+  }
+}
+
+.trendImage {
+  text-align: center;
+  position: relative; /* Allows absolute positioning of the favorite icon */
+  width: 100%; /* Make sure image occupies full width of the container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure image fits without stretching */
+  max-width: 100%; /* Ensure image doesn't overflow container */
+  cursor: pointer;
+  @media (max-width: 600px) {
+    width: 100%; /* Full width on small screens */
+    height: auto; /* Maintain aspect ratio */
+  }
+}
+
+.favoriteIcon {
+  position: absolute;
+  // left: 7rem; // Adjust the position as needed
+  display: flex;
+  width: 100%;
+  justify-content: end;
+
+  z-index: 10; // Place it above other elements
+}
+
+.favoriteIconMiddle {
+  position: absolute;
+  // left: 7rem; // Adjust the position as needed
+  display: flex;
+  width: 100%;
+  justify-content: end;
+
+  z-index: 10; // Place it above other elements
+}
+
+.trendImage p {
+  padding: 0.5rem;
+  text-align: start;
+}
+
+.middleSectionTrend {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // Centers content in the middle
+  align-items: center; // Horizontally center the content
+  height: 100%; // Ensure the section takes up full height
+  position: relative; // Allows positioning the button at the bottom
+
+  @media (max-width: 600px) {
+    margin-block-end: 2rem;
+  }
+}
+
+.buttonStyle {
+  position: absolute; // Position the button at the bottom
+  bottom: 0; // Aligns the button to the bottom of the container
+  margin-bottom: 2rem; // Adds some spacing from the bottom
+}
+.buttonStyleTrend {
+  position: absolute; // Position the button at the bottom
+  bottom: 0; // Aligns the button to the bottom of the container
+  margin-bottom: 2rem; // Adds some spacing from the bottom
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+}
+.buttonStyleTrendBigscreen {
+  bottom: 0; // Aligns the button to the bottom of the container
+  margin-bottom: 2rem; // Adds some spacing from the bottom
+  width: 22rem !important;
+  @media (min-width: 601px) {
+    display: none;
+  }
+}
+
+.starWrapper {
+  align-items: end;
+  display: flex;
+  padding-inline-start: 0.5rem;
+  padding-block-end: 2rem;
+  gap: 1rem;
+}
+
+//directry
+
+// .directryContainer {
+//   display: flex;
+//   flex-wrap: wrap; // Allow the cards to wrap to the next line when necessary
+//   justify-content: center;
+//   gap: 4rem;
+//   text-align: center;
+//   margin-block: 6.4rem;
+//   @media (max-width: 768px) {
+//     gap: 1.6rem;
+//   }
+// }
+
+// .directryCard {
+//   background-color: var(--color-primary-white);
+//   // padding: 20px;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//   width: 47%; // Default width for 3 cards per row
+//   box-sizing: border-box;
+//   padding-inline: 10rem;
+//   padding-block: 4rem;
+//   overflow-wrap: anywhere;
+//   cursor: pointer;
+
+//   /* Adjust card width if there's only one card */
+//   @media (max-width: 1024px) {
+//     width: 47%; // On medium screens (tablet or small desktop), show 2 cards per row
+//   }
+
+//   @media (max-width: 820px) {
+//     width: 45%; // On small screens (mobile), show 1 card per row
+//     // padding-inline: rem;
+//     padding-inline: 2em;
+//   }
+//   @media (max-width: 640px) {
+//     width: 100%; // On small screens (mobile), show 1 card per row
+//   }
+// }
+
+.directryContainer {
+  margin-block-start: 6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.directryCard {
+  flex: 0 0 calc(25% - 20px); 
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;   // vertical center
+  text-align: center;        // center text
+  align-items: center;       // horizontal center
+  flex-direction: column;
+  display: flex;
+padding: 2rem;
+  // Tablet (2 per row)
+  @media (max-width: 992px) {
+    flex: 0 0 calc(50% - 20px);
+  }
+
+  // Mobile (1 per row)
+  @media (max-width: 576px) {
+    flex: 0 0 100%;
+  }
+}
+
+
+.productList {
+  padding-inline-start: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: 0px 4px 40px 0px #00990012;
+  // border: solid  #00990012;
+
+  cursor: pointer;
+  & > p {
+    padding-block-start: 0.5rem !important;
+  }
+}
+
+.canceledText {
+  text-decoration: line-through;
+  color: red; /* Optional: Use a muted color for canceled text */
+}
+.trendingdiscount {
+  color: #222222;
+  width: 600;
+}
+
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #6e6e6e;
+}
+
+.dirTitle {
+  font-weight: 600;
+  font-size: 2.4rem;
+  @media (max-width: 640px) {
+    font-size: 2rem;
+  }
+}
+
+

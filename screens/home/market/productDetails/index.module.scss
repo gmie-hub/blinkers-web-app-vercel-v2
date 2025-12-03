@@ -1,0 +1,643 @@
+.container {
+  display: flex; /* Use flexbox for layout */
+  width: 100%; /* Ensure container takes 100% width */
+  flex-direction: row;
+  gap: 4rem;
+  @media (max-width: 768px) {
+    flex-direction: column; // Center social icons on smaller screens
+  }
+}
+
+.leftSide {
+  width: 66%;
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightSide {
+  width: 33%; /* Set left side to take 30% of the container width */
+  //   padding: 2rem;
+}
+
+.card {
+  width: 100%; /* Make sure the card takes up the full width of its container */
+  //   margin: 1rem auto; /* Center the card with spacing on all sides */
+  padding-inline: 4rem; /* Padding inside the card */
+  border-radius: 10px; /* Rounded corners for the card */
+  background-color: var(
+    --color-primary-white
+  ); /* White background for the card */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  text-align: start;
+  border: solid 1px var(--color-grey5-light);
+  margin-block-end: 2rem;
+  padding-block: 2.4rem;
+
+  & > p {
+    color: var(--color-body-text);
+    padding-block: 0.8rem;
+  }
+
+  //   & > div {
+  //     padding-block: 0.5rem;
+  //   }
+
+  & > h2 {
+    color: var(--color-header-text);
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+}
+
+.title {
+  color: var(--color-header-text);
+  font-weight: 500;
+}
+
+.location {
+  display: flex;
+  gap: 0.5rem;
+
+  & > p {
+    color: var(--color-body-text);
+    align-self: end;
+    // padding-block-start: 0.8rem;
+  }
+}
+.flex {
+  display: flex;
+  gap: 2rem;
+}
+.social {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  padding-block-end: 2.4rem !important;
+  @media (max-width: 768px) {
+    justify-content: center; // Center social icons on smaller screens
+  }
+}
+.flag {
+  margin-block-start: 1.6rem;
+}
+.green {
+  color: var(--color-primary-green);
+}
+
+.name {
+  color: var(--color-header-text);
+  font-weight: 600;
+  font-size: 2rem;
+}
+.dot {
+  //   font-weight: bold;
+  //   color: var(--color-body-text);
+  margin-inline: 1rem;
+
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background-color: rgba(112, 112, 112, 1);
+}
+.star {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  align-self: end;
+}
+.starWrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.seller {
+  color: var(--color-header-text) !important;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+.message {
+  padding: 0.4rem;
+  border: 1px solid var(--color-grey5-light);
+  border-radius: 1.5rem;
+  color: var(--color-primary-green);
+  font-size: 1.2rem;
+  margin-block-end: 2rem;
+}
+.subjectBg {
+  color: var(--color-primary-green);
+  background-color: var(--color-light-green);
+  padding: 1rem;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-block-start: 2.4rem;
+  border-radius: 0.8rem;
+}
+
+.accessories {
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+  padding-block-end: 4.2rem;
+}
+
+.reviewInput {
+  margin-block-end: 6.4rem;
+  margin-block-start: 2.4rem;
+}
+
+.leftContainer {
+  display: flex; /* Use flexbox for layout */
+  width: 100%; /* Ensure container takes 100% width */
+  flex-direction: row;
+  margin-block-end: 3.4rem;
+  gap:4rem;
+  @media (max-width: 1024px) {
+
+    gap:4rem;
+  }
+
+
+  //   gap: 4rem;
+}
+
+.firstSideLeft {
+  width: 30%; /* Set left side to take 30% of the container width */
+  //   padding: 2rem;
+  gap: 2.4rem;
+  display: flex
+;
+  flex-direction: column;
+}
+.dressCard {
+  // display: block;
+  img {
+    border-radius: 1rem;
+  }
+}
+
+.secondSideLeft {
+  width: 70%; /* Set left side to take 30% of the container width */
+  //   padding: 2rem;
+
+  width: 70%;
+  //   height: 100%; /* Ensure the container takes up full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+// .bg {
+//   background-color: red;
+//   padding: 2rem;
+// }
+
+.startChat {
+  margin-block-start: 2.4rem;
+  margin-block-end: 1.4rem;
+}
+.promoImage {
+  position: relative; /* Needed for positioning the favorite icon */
+  width: 100%; /* This ensures that the image container takes 100% of its parent */
+  //   height: 100%; /* Make the promoImage fill the entire height of the container */
+}
+
+.productImage {
+  width: 100%; /* Ensures the image takes 100% of its container width */
+  //   height: 100%; /* Make the promoImage fill the entire height of the container */
+  // object-fit: cover; /* Makes sure the image covers the container without distortion */
+}
+
+.favoriteIcon {
+  // position: absolute;
+  top: 1.5rem;
+  right: 0rem;
+  // z-index: 10;
+  cursor: pointer;
+
+  position: absolute;
+  // left: 7rem; // Adjust the position as needed
+  display: flex;
+  // width: 100%;
+  justify-content: end;
+
+  z-index: 10;
+
+
+
+}
+.tabs {
+  //   display: flex;
+  //   justify-content: start;
+  width: 100%;
+  // @media (max-width: 768px) {
+
+  // margin-inline:1rem!important;
+  // }
+}
+
+.payment {
+  border-bottom: solid 1px var(--color-grey5-light);
+}
+.eye {
+  display: flex;
+  gap: 1rem;
+  // align-items: baseline;
+}
+
+.secondSideLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  // padding: 2rem;
+  width: 100%;
+  gap: 1rem;
+}
+
+.secondSideLeft h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-header-text);
+  margin-bottom: 1rem;
+}
+
+.secondSideLeft p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--color-body-text);
+  margin-bottom: 1.5rem;
+}
+
+.secondSideLeft img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  height: 56rem;
+}
+
+.secondSideLeft button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--color-primary-green);
+  color: var(--color-white);
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondSideLeft button:hover {
+  background-color: var(--color-primary-light);
+  transform: scale(1.05);
+}
+
+.secondSideLeft .social {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.secondSideLeft .social a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary-light);
+  border-radius: 50%;
+  padding: 0.8rem;
+  transition: background-color 0.3s ease;
+}
+
+.secondSideLeft .social a:hover {
+  background-color: var(--color-primary-dark);
+}
+
+@media (max-width: 768px) {
+  .secondSideLeft {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .secondSideLeft h2 {
+    font-size: 1.8rem;
+  }
+
+  .secondSideLeft p {
+    font-size: 1rem;
+  }
+
+  .secondSideLeft img {
+    width: 80%;
+  }
+}
+
+.chatCart {
+  width: 100%; /* Make sure the card takes up the full width of its container */
+  //   margin: 1rem auto; /* Center the card with spacing on all sides */
+  padding-inline: 1.6rem; /* Padding inside the card */
+  border-radius: 10px; /* Rounded corners for the card */
+  background-color: var(
+    --color-primary-white
+  ); /* White background for the card */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  text-align: start;
+  border: solid 1px var(--color-grey5-light);
+  margin-block-end: 2rem;
+  padding-block-start: 1.2rem;
+  padding-block-end: 0.6rem;
+
+  & > p {
+    color: var(--color-body-text);
+    padding-block: 0.8rem;
+  }
+
+  //   & > div {
+  //     padding-block: 0.5rem;
+  //   }
+
+  & > h2 {
+    color: var(--color-header-text);
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+}
+
+.seeBtn {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  margin-block-start: 1.6rem;
+  margin-block-end: 4rem;
+}
+
+.cardreview {
+  width: 100%; /* Make sure the card takes up the full width of its container */
+  //   margin: 1rem auto; /* Center the card with spacing on all sides */
+  padding-inline: 4rem; /* Padding inside the card */
+  border-radius: 10px; /* Rounded corners for the card */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  text-align: start;
+  border: solid 1px var(--color-grey) !important ;
+  margin-block-end: 2rem;
+  padding-block: 2.4rem;
+
+  & > p {
+    color: var(--color-body-text);
+    padding-block: 0.8rem;
+  }
+
+  //   & > div {
+  //     padding-block: 0.5rem;
+  //   }
+
+  & > h2 {
+    color: var(--color-header-text);
+    font-weight: 600;
+    font-size: 1.8rem;
+    border-bottom: #d9d9d9 1px solid;
+  }
+}
+
+.adding {
+  padding-block-start: 2.3rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 2rem; /* Reduce gap for mobile */
+  }
+
+  .leftSide,
+  .rightSide {
+    width: 100%; /* Full width for mobile */
+  }
+
+  .card {
+    padding-inline: 2rem; /* Adjust padding for smaller screens */
+    margin-block-end: 1.6rem;
+    font-size: 1rem; /* Reduce font size for mobile */
+  }
+
+  .title {
+    font-size: 1.6rem; /* Adjust font size */
+  }
+
+  .location p {
+    padding-block-start: 0.4rem; /* Reduce top padding */
+  }
+
+  .flex {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .social {
+    justify-content: center; /* Center social icons */
+    gap: 1rem;
+    padding-block-end: 1.5rem;
+  }
+
+  .name {
+    font-size: 1.6rem;
+  }
+
+  .star {
+    gap: 0.5rem;
+  }
+
+  .message {
+    font-size: 1rem;
+    margin-block-end: 1.6rem;
+  }
+
+  .subjectBg {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .accessories {
+    gap: 1.5rem;
+    padding-block-end: 2.4rem;
+  }
+
+  .reviewInput {
+    margin-block-end: 4.8rem;
+    margin-block-start: 1.6rem;
+  }
+
+  // .leftContainer {
+  //   flex-direction: column;
+  //   gap: 2rem;
+  //   margin-block-end: 2rem;
+  // }
+
+  // .firstSideLeft, .secondSideLeft {
+  //   width: 100%;
+  //   padding: 1rem;
+  // }
+
+  // .leftContainer {
+  //   display: flex;
+  //   flex-direction: row;
+  //   gap: 2rem;
+  //   margin-block-end: 2rem;
+
+  //   @media (max-width: 1024px) {
+  //     gap: 4rem;
+  //   }
+
+  //   // Apply responsive layout for small screens
+  //   @media (max-width: 768px) {
+  //     flex-direction: column; // Stack elements in a column
+  //   }
+  // }
+
+  .firstSideLeft {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    // Responsive layout for small screens
+    @media (max-width: 768px) {
+      order: 2; // Move this section below the large image
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .secondSideLeft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // Responsive layout for small screens
+    @media (max-width: 768px) {
+      order: 1; // Keep the large image on top
+      width: 100%;
+      margin-bottom: 1rem; // Space between large image and small images
+    }
+  }
+
+  .dressCard img {
+    width: 100%;
+    height: auto;
+  }
+
+  .promoImage {
+    width: 100%;
+    height: auto;
+  }
+
+  .favoriteIcon {
+    top: 1rem;
+    right: 2rem;
+  }
+
+  .secondSideLeft h2 {
+    font-size: 1.8rem;
+  }
+
+  .secondSideLeft p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .secondSideLeft img {
+    width: 80%;
+    margin-bottom: 1rem;
+  }
+
+  .secondSideLeft button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .chatCart {
+    padding-inline: 1.2rem;
+    padding-block: 1rem;
+    margin-block-end: 1.6rem;
+  }
+
+  .seeBtn {
+    justify-content: center;
+    margin-block-start: 1.2rem;
+    margin-block-end: 3rem;
+  }
+
+  .cardreview {
+    padding-inline: 2rem;
+    font-size: 1.2rem;
+    padding-block: 1.6rem;
+  }
+
+  .adding {
+    padding-block-start: 1.6rem;
+  }
+}
+
+
+
+
+.review {
+  padding-block-start: 2.4rem;
+  padding-block-end: 2.1rem;
+
+  //   & > h1 {
+  //     padding-block-end: 0.8rem;
+  //   }
+}
+.btn {
+  color: var(--color-primary-green);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.reviewbtn {
+  display: flex;
+  justify-content: space-between;
+  //   margin-block-end: 2.4rem;
+  align-items: center;
+  //   margin-block-start: 4rem;
+}
+.btnWrapper {
+  display: flex;
+  align-items: center;
+}
+.title {
+  font-weight: 600;
+  font-size: 2.4rem;
+  color: var(--color-header-text);
+}
+
+.arrowButton {
+  margin-top: 1rem;
+  background-color: var(--color-primary-green);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.arrowButton:hover {
+  background-color: var(--color-primary-green);
+}
+.sellerLogo{
+  border-radius: 50%;
+  width: 8rem;
+  height: 8rem;
+}

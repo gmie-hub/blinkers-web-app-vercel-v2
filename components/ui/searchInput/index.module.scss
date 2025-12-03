@@ -1,0 +1,95 @@
+
+.searchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    // width: 100%;
+    gap: 2rem;
+  }
+  
+  .searchInput {
+    flex: 1;
+    padding-block: 1rem;
+    padding-inline-start: 5rem; // Space for the search icon
+    font-size: 1.6rem;
+    border: 0.5px solid #EEEEEE;
+    border-radius: 0.8rem;
+    outline: none;
+  }
+  
+  .searchIcon {
+    position: absolute;
+    top: 45%;
+    left: 2rem; // Position the icon at the left
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .searchBtn {
+    border: none;
+    cursor: pointer;
+    width: 10rem; // Fixed button width for now
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 1024px) {
+    .searchInput {
+      font-size: 1.4rem; // Slightly smaller input font size for tablets
+      padding-inline-start: 4rem; // Adjust padding for search icon
+    }
+  
+    .searchBtn {
+      width: 8rem; // Reduce button width on smaller screens
+    }
+  
+    .searchContainer {
+      gap: 1.5rem; // Reduce gap between input and button
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .searchInput {
+      font-size: 1.2rem; // Further reduce font size for smaller tablets
+      padding-inline-start: 3.5rem; // Adjust padding for the search icon
+    }
+  
+    .searchBtn {
+      width: 7rem; // Reduce button width further for smaller screens
+    }
+  
+    .searchContainer {
+      gap: 1rem; // Reduce gap between input and button even more
+    }
+  
+    .searchIcon {
+      left: 1.5rem; // Adjust icon positioning for smaller screens
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .searchContainer {
+      flex-direction: column; // Stack the input and button on smaller screens
+      gap: 1rem;
+      align-items: start;
+     
+    }
+  
+    .searchInput {
+      font-size: 1rem; // Smaller font size for mobile devices
+      width: 100%; // Make input full-width on mobile
+      padding-block: 1.8rem;
+      padding-inline-start: 3rem; // Adjust padding for icon
+    }
+  
+    // .searchBtn {
+    //   width: 100%; // Full-width button for mobile
+    // }
+  
+    .searchIcon {
+      left: 1rem;
+      top: 2rem;
+    }
+  }
+  

@@ -1,0 +1,124 @@
+/* Wrapper for the whole page */
+.homeWrapper {
+    min-width: 100%;
+    display: flex;
+  }
+  
+  /* Wrapper that holds the background image */
+  .wrapper {
+    width: 100%;
+    padding-inline: 5rem;
+    // height: 100%; // Ensure the wrapper takes the full height of its parent
+  
+    @media (max-width: 600px) {
+      padding-inline: 2rem;
+    }
+  }
+  
+  .container {
+    width: 100%;
+    min-width: 100%;
+    margin-block: 4rem;
+    border-radius: 0.8rem;
+
+    @media screen and (max-width: 768px) {
+      margin-block: 2.4rem;
+  
+    }
+    // height: 100%; // Full height within the wrapper
+  }
+  
+  .image {
+    position: relative;
+    height: 100%; // Full height for the image section
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.5s ease-in-out;
+  }
+  
+  .home {
+    text-align: center;
+    color: white;
+    padding: 4rem;
+    border-radius: 0.8rem;
+  }
+  
+  .picHead {
+    font-size: 4rem;
+    font-weight: 700;
+    // margin-bottom: 0.5rem;
+    padding-block-end: 1.6rem;
+  }
+  
+  .picPara {
+    font-size: 1.6rem;
+    padding-block-end: 2.4rem;
+  }
+  
+  .searchWrapper {
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.8rem;
+    max-width: 100%;
+    width: 40rem; // Set width for the search input
+    margin-bottom: 20px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1024px) {
+    .picHead {
+      font-size: 2rem;
+    }
+  
+    .picPara {
+      font-size: 1.2rem;
+    }
+  
+    .searchWrapper {
+      width: 90%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .picHead {
+      font-size: 1.8rem;
+    }
+  
+    // .picPara {
+    //   font-size: 0.9rem;
+    // }
+  
+    .searchWrapper {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .image {
+      height: 60vh;
+    }
+  
+    .home {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .picHead {
+      font-size: 1.5rem;
+    }
+  
+    // .picPara {
+    //   font-size: 0.8rem;
+    //   margin-bottom: 10px;
+    // }
+  
+    .searchWrapper {
+      width: 90%;
+      padding: 1rem;
+    }
+  }
+  

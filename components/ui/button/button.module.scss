@@ -1,0 +1,116 @@
+.white {
+  padding: auto;
+  background-color: transparent;
+  color: var(--color-green-text);
+  border-radius: 0.8rem;
+  padding-block: 1.35rem;
+  border: 1px solid var(--color-grey-lighter);
+  font-weight: var(--font-w-semibold);
+  width: 100%;
+
+  & > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &:hover {
+    background: var(--color-main-primary);
+    color: var(--color-primary-white);
+  }
+}
+
+.transparent {
+  padding: auto;
+  background-color: transparent;
+  color: var(--color-primary-green);
+  padding-block: 1.35rem;
+  border: none;
+  font-weight: var(--font-w-normal);
+  width: 100%;
+  cursor: pointer;
+  border: 1px solid var(--color-grey-lighter);
+  & > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &:hover {
+    color: green;
+  }
+}
+
+.noBg {
+  padding: auto;
+  background-color: transparent;
+  color: var(--color-primary-green);
+  padding-block: 1.35rem;
+  border: none;
+  font-weight: var(--font-w-normal);
+  width: 100%;
+  cursor: pointer;
+  & > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.red {
+  @extend .white;
+  background: var(--color-red-text);
+  border-radius: 8px;
+  color: white;
+  border: none;
+
+  &:hover {
+    background: transparent;
+    color: var(--color-red-text);
+  }
+}
+
+.redOutline {
+  @extend .white;
+  background: transparent;
+  border: 1px solid var(--color-red-text) !important;
+  border-radius: 8px;
+  color: var(--color-red-text);
+
+  &:hover {
+    background: var(--color-red-text);
+    color: var(--color-primary-white);
+  }
+}
+
+.greenOutline {
+  @extend .white;
+  background: transparent;
+  border: 1px solid  var(--color-green-text) !important;
+  border-radius: 8px;
+  color: var(--color-green-text);
+
+  &:hover {
+    background:  var(--color-main-primary);
+    color: var(--color-primary-white);
+  }
+}
+
+.green {
+  @extend .white;
+  // background: var(--color-main-primary);
+  background-color: #009900;
+  border-radius: 0.8rem;
+  color: var(--color-primary-white);
+  border: none;
+  // width: 100%;
+
+  &:hover {
+    background: transparent;
+    color: var(--color-green-text);
+    border: 1px solid var(--color-grey-lighter);
+  }
+}

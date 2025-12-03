@@ -1,0 +1,229 @@
+.section1 {
+  background: var(--color-main-primary);
+  border: solid 1px var(--color-main-primary);
+  padding: 3rem;
+  display: flex;
+  gap: 11rem;
+  margin-inline: 10rem !important;
+  border-radius: 0.8rem;
+
+  @media (max-width: 1024px) {
+    gap: 5rem; // Reduce gap on medium screens
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column; // Stack sections vertically on tablets
+    gap: 2rem; // Adjust gap between sections
+    margin-inline: 2rem !important; // Reduce side margins on tablets
+  }
+
+  @media (max-width: 540px) {
+    padding: 2rem; // Reduce padding on smaller devices
+    margin-inline: 1rem; // Reduce side margins on mobile
+  }
+}
+
+.leftSection,
+.rightSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: start;
+
+  @media (max-width: 768px) {
+    align-items: center; // Center align text on smaller screens
+    text-align: center;
+  }
+}
+
+.leftSection p,
+.leftSection h3 {
+  color: var(--color-primary-white);
+}
+
+.leftSection h3 {
+  font-weight: 600;
+  font-size: 3.2rem;
+
+  @media (max-width: 768px) {
+    font-size: 2.8rem; // Adjust heading size for smaller screens
+  }
+
+  @media (max-width: 540px) {
+    font-size: 2.4rem; // Further reduce heading size on mobile
+  }
+}
+
+.logo {
+  display: flex;
+  border: #a6a6a6 1px solid;
+  background-color: var(--color-primary-white);
+  padding: 1rem;
+  border-radius: 0.7rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logoWrapper {
+  display: flex;
+  gap: 2rem;
+  padding-block-start: 2rem;
+
+  @media (max-width: 768px) {
+    justify-content: center; // Center logos on smaller screens
+  }
+}
+
+/* SECTION 2 */
+
+
+
+.section2 {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: start;
+  margin-block-start: 6.4rem;
+  margin-block-end: 4.8rem;
+  margin-inline: 10rem;
+
+  @media (max-width: 768px) {
+    margin-inline: 2rem !important;
+    margin-block-start: 4rem;
+    margin-block-end: 0rem;
+  }
+
+  @media (max-width: 540px) {
+    // display: block;
+    margin-inline: 1rem;
+  }
+}
+
+.section2Item {
+  box-sizing: border-box;
+  padding: 1rem;
+
+  &:nth-child(1) {
+    flex: 1 1 40%; /* First child gets 40% */
+  }
+
+  &:nth-child(2),
+  &:nth-child(3),
+  &:nth-child(4) {
+    flex: 1 1 20%; /* Each of the other three gets 20% */
+  }
+
+  @media (max-width: 1024px) {
+    &:nth-child(1) {
+      flex: 1 1 50%; /* Adjust on medium screens */
+    }
+
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4) {
+      flex: 1 1 50%; /* Two items per row on medium screens */
+    }
+  }
+
+  @media (max-width: 768px) {
+    &:nth-child(1) {
+      flex: 1 1 100%; /* Stack on smaller screens */
+    }
+
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4) {
+      flex: 1 1 50%; /* Two items per row on smaller screens */
+    }
+  }
+
+  @media (max-width: 540px) {
+    flex: 1 1 100%;
+    margin-block-end: 4rem;
+    text-align: center;
+    padding: 0;
+  }
+}
+
+.title {
+  font-weight: 600;
+  color: #333333;
+  text-align: start;
+}
+
+.list {
+  color: var(--color-body-text);
+  text-align: start;
+}
+
+.list p {
+  cursor: pointer;
+
+  padding-block: 0.5rem;
+}
+
+.list1 {
+  color: var(--color-body-text);
+  text-align: start;
+  
+  padding-inline-end: 10.3rem;
+}
+
+.list1 p {
+  padding-block: 0.5rem;
+}
+
+.list2 {
+  color: var(--color-body-text);
+  text-align: start;
+}
+
+.list2 p {
+  padding-block: 0.5rem;
+}
+
+
+
+
+/* SECTION 3 */
+.section3 {
+  background: var(--color-main-primary);
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem;
+  padding-inline: 5rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column; // Stack content vertically on tablets
+    gap: 2rem;
+    padding-inline: 2rem; // Reduce side padding on tablets
+    align-items: start;
+  }
+
+  @media (max-width: 540px) {
+    padding-inline: 1rem; // Further reduce side padding on mobile
+  }
+}
+
+.social {
+  display: flex;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    justify-content: center; // Center social icons on smaller screens
+  }
+}
+
+
+.footerWrapper{
+  margin-block-start: 6.4rem;
+  margin-block-end: 4rem;
+
+  @media (max-width: 768px) {
+    margin-block-start: 2.4rem;
+
+    margin-block-end: 0rem;
+
+  }
+}

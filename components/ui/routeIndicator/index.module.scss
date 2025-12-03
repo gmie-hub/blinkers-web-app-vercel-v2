@@ -1,0 +1,30 @@
+.element {
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+    letter-spacing: -0.02em;
+    color: #009900;
+    cursor: pointer;
+  }
+  
+  .wrapper,
+  .wrapper > div {
+    margin-block: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .back {
+    border-right: solid 2px rgba(222, 222, 222, 1);
+    padding-right: 1rem;
+    margin-right: 1rem;
+  }
+  
+  .arrow {
+    margin-inline: 1rem;
+  }
+  
+  .hide {
+    display: none;
+  }
+  
