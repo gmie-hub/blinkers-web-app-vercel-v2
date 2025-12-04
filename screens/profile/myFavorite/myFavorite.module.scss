@@ -1,0 +1,93 @@
+.whyWrapper {
+    margin: 0;
+    padding: 2rem;
+    width: 100%;
+    @media (max-width: 600px) {
+      padding: 0rem;
+    }
+  }
+  
+  .cardContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2 items per row
+  
+    // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.6rem;
+    width: 100%;
+    @media (max-width: 600px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  
+  
+  
+ 
+  
+  .para {
+    font-size: 1.2rem;
+    color: #828282;
+  }
+  
+  .textContent {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    align-content: space-between;
+  
+    /* Add spacing to ensure the price is pushed to the bottom */
+    > .price {
+      margin-top: auto; /* Push the price to the bottom */
+      font-weight: bold; /* Optional: Make the price bold for emphasis */
+      color: #222;
+      padding-top: 2rem;
+    }
+  
+    > div > .para {
+      margin-bottom: 0.5rem;
+    }
+  }
+  .chooseCard {
+    display: flex;
+    align-items: center;
+    border: #eeeeee solid 1px;
+    background-color: #ffffff;
+    padding: 0.2rem;
+    box-shadow: 0px 4px 40px 0px #00990012;
+    border-radius: 0.8rem;
+    gap: 2.6rem;
+    color: #828282;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+    padding-inline: 2rem;
+    // justify-content: space-between;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  
+    @media (max-width: px) {
+      flex-direction: column;
+      text-align: center;
+      padding: 0rem !important;
+    }
+  
+
+  
+    .proImage {
+      width: 30%;
+      // height: auto;
+      // object-fit: cover;
+    }
+  
+    .textContent {
+      width: 70%;
+    }
+  
+  }
+  
+
+  .favorite{
+    display: flex;
+    justify-content: space-between;
+  }

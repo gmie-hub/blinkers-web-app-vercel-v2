@@ -1,0 +1,131 @@
+.whyWrapper {
+  margin: 0;
+  padding: 2rem;
+  width: 100%;
+  @media (max-width: 600px) {
+    padding: 0rem;
+  }
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // 2 items per row
+
+  // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.6rem;
+  width: 100%;
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.title {
+  margin: 0;
+  color: #222222;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.para {
+  font-size: 1.2rem;
+  color: #828282;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+
+  /* Add spacing to ensure the price is pushed to the bottom */
+  > .price {
+    margin-top: auto; /* Push the price to the bottom */
+    font-weight: bold; /* Optional: Make the price bold for emphasis */
+    color: #222;
+    padding-top: 2rem;
+  }
+
+  > div > .para {
+    margin-bottom: 0.5rem;
+  }
+}
+.chooseCard {
+  display: flex;
+  align-items: center;
+  border: #eeeeee solid 1px;
+  background-color: #ffffff;
+  padding: 0.2rem;
+  box-shadow: 0px 4px 40px 0px #00990012;
+  border-radius: 0.8rem;
+  gap: 2.6rem;
+  color: #828282;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: relative;
+  // justify-content: space-between;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  @media (max-width: px) {
+    flex-direction: column;
+    text-align: center;
+    padding: 0rem !important;
+  }
+
+  &.expired {
+    opacity: 0.6; /* Make the card semi-transparent */
+    background: rgb(192, 186, 186);
+    position: relative;
+
+    /* Overlay for "Expired" text */
+    &::after {
+      content: "Expired";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: red;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      z-index: 10;
+    }
+
+    .activateBtn {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      padding: 1rem 1.2rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 0.4rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      width: 10rem;
+    }
+  }
+
+  .proImage {
+    width: 30%;
+    // height: auto;
+    // object-fit: cover;
+  }
+
+  .textContent {
+    width: 70%;
+  }
+
+}

@@ -1,0 +1,129 @@
+.card {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 4rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  
+  .icon {
+    font-size: 1.5rem;
+  }
+  
+  .planName {
+    font-size: 2.4rem;
+    font-weight: 600;
+
+  }
+  
+  .price {
+    margin: 1rem 0;
+    font-weight: 600;
+    font-size: 3.2rem;
+  }
+  .bill{
+    font-size: 2.4rem;
+    
+  }
+  
+  .timeline {
+    margin: 1rem 0;
+  }
+  
+  .line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10px;
+    background-color: #d17a00;
+    border-radius: 5px;
+    position: relative;
+    margin-block: 2.7rem;
+  }
+  
+  .dot {
+    width: 24px;
+    height: 24px;
+    background-color: #d17a00;
+    border-radius: 50%;
+    position: absolute;
+    top: -7px;
+  }
+  
+  .dot:first-child {
+    left: 0;
+  }
+  
+  .dot:last-child {
+    right: 0;
+  }
+  
+  .dates {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    margin-top: 0.3rem;
+    font-weight: 500;
+  }
+  
+  .included {
+    margin: 1rem 0;
+  
+    h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.3rem 0;
+        font-size: 1.6rem;
+        color: #707070;
+        padding-block: 2.4rem;
+      }
+    }
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    margin-top: 1.5rem;
+  
+    button {
+      padding: 0.8rem;
+      border: none;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .modify {
+      background-color: #058b2e;
+      color: white;
+    }
+  
+    .cancel {
+      background-color: white;
+      color: #dc2a2a;
+      border: 1px solid #dc2a2a;
+    }
+  }
+  

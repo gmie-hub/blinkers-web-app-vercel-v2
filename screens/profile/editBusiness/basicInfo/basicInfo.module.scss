@@ -1,0 +1,9 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  
+    @media screen and (min-width: 768px) {
+      margin-inline: 4rem;
+    }
+  }

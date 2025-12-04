@@ -1,0 +1,142 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  @media screen and (min-width: 768px) {
+    margin-inline: 4rem;
+  }
+}
+
+// .inputRow {
+//   display: flex;
+//   justify-content: start;
+//   gap: 1rem; /* Adjust the spacing between inputs */
+//   align-items: baseline;
+// }
+
+// .inputRow > * {
+//   flex: 1 1 33%; /* Make each input take 33% of the row */
+//   max-width: 33%; /* Ensure the inputs do not exceed 33% */
+//   box-sizing: border-box; 
+//   @media screen and (max-width: 600px) {
+//     min-width: 100%  }
+// }
+.inputRow {
+  display: flex;
+  justify-content: start;
+  gap: 1rem; /* Adjust the spacing between inputs */
+  align-items: baseline;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+
+  > * {
+    flex: 1 1 32%; /* Make each input take 33% of the row */
+    max-width: 32%; /* Ensure the inputs do not exceed 33% */
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 768px) {
+    gap: 0.5rem; /* Reduce gap on medium screens */
+    > * {
+      flex: 1 1 48%; /* Make inputs 2 per row on medium screens */
+      max-width: 48%;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    gap: 0.5rem; /* Further reduce gap on small screens */
+    > * {
+      flex: 1 1 100%; /* Stack inputs on small screens */
+      max-width: 100%; /* Ensure inputs stretch to full width */
+    }
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap:2rem;
+  @media screen and (max-width: 480px) {
+flex-direction: column;
+  }
+}
+
+
+
+.imageContainer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: start;
+  @media (max-width: 600px) {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.imageWrapper {
+  position: relative; /* Wrap each image and icon in a container for proper positioning */
+}
+
+.imageItem {
+  width: 100%; /* Default to full width for small screens */
+  max-width: 150px; /* Limit the width to 150px */
+  height: 150px; /* Consistent height */
+  object-fit: cover; /* Ensures the image fits without distortion */
+  border-radius: 8px; /* Optional: Rounded corners */
+}
+
+.favoriteIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: white; /* Optional: background for better visibility */
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .imageItem {
+    width: 48%; /* 2 images per row on medium screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .imageItem {
+    width: 31%; /* 3 images per row on large screens */
+  }
+  @media (max-width: 600px) {
+    .imageItem {
+      width: 100%; /* 3 images per row on large screens */
+      
+    }
+
+}
+
+}
+.imageAds{
+  width: 20rem;
+  height: 20rem;
+  
+@media (max-width: 600px) {
+    width: 20em; 
+    object-fit: cover;
+}
+}
+
+
+// .inputRowSpec {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+//   gap: 1.5rem 1rem; // row-gap, column-gap
+//   margin-bottom: 2rem;
+// }
+
+.inputRowSpec {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // Force 3 equal columns
+  gap: 1.5rem 1rem; // row-gap, column-gap
+  margin-bottom: 2rem;
+}

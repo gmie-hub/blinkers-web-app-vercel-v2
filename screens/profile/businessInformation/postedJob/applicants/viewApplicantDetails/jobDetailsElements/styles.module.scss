@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-width: 18.3rem;
+    width: 100%;
+  
+    & > h4 {
+      font-family: Lato;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 2.4rem;
+      letter-spacing: -0.02em;
+      color: rgba(112, 112, 112, 1);
+    }
+  
+    & p {
+      font-family: Lato;
+      font-size: 1.8rem;
+      font-weight: 500;
+      line-height: 2.7rem;
+      letter-spacing: -0.02em;
+      color: rgba(34, 34, 34, 1);
+    }
+  
+    & > div {
+      display: flex;
+      align-items: center;
+      gap:0.8rem;
+    }
+  }
+  

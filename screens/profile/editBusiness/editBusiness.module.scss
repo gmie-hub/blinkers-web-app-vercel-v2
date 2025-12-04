@@ -1,0 +1,67 @@
+.card {
+  width: 100%;
+  padding-inline: 2rem !important;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 80% !important;
+    padding-inline: 2rem;
+  }
+}
+
+.textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2.4rem;
+  margin-block-end: 2rem;
+
+  & > div p {
+    text-align: center;
+    font-size: 1.2rem; /* Default font size */
+  }
+
+  & > div p:nth-child(1) {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-block-start: 4rem;
+    margin-block-end: 1rem;
+    color: var(--color-header-text);
+    text-transform: capitalize;
+
+    @media screen and (max-width: 768px) {
+      font-size: 1.5rem; /* Adjust font size for smaller screens */
+      margin-block-start: 2rem;
+      margin-block-end: 0.5rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.2rem; /* Further reduce font size for very small screens */
+      margin-block-start: 1rem;
+    }
+  }
+}
+
+.stepIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+
+  @media screen and (max-width: 768px) {
+    width: 40px; /* Adjust size for smaller screens */
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 35px; /* Further reduce size for very small screens */
+    height: 35px;
+    font-size: 1.2rem;
+  }
+}

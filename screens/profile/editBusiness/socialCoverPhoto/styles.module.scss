@@ -1,0 +1,183 @@
+
+.btn {
+    width: 30%;
+  }
+  
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-block-start: 4rem;
+  
+    & p:nth-child(1) {
+      font-weight: 600;
+      font-size: 2rem;
+    }
+  }
+  
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  
+    @media screen and (min-width: 768px) {
+      margin-inline: 4rem;
+    }
+  }
+  
+  .firstRow {
+    border: 1px solid #eeeeee;
+    // margin-inline: 1.6rem;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  
+    & > div:nth-of-type(1) {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+  
+      @media screen and (min-width: 768px) {
+        flex-wrap: nowrap;
+      }
+    }
+  
+    @media screen and (min-width: 768px) {
+    }
+  }
+  
+  .timeWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    // gap: 3.7rem;
+  
+    & > div {
+      display: flex;
+      gap: 1.6rem;
+    //   justify-content: flex-end;
+  
+      @media screen and (min-width: 1024px) {
+        margin-inline-end: 16rem;
+      }
+    }
+  }
+  
+  .secondRow {
+    border: 1px solid #eeeeee;
+    border-radius: 0.8rem;
+    // margin-inline: 1.6rem;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  
+    @media screen and (max-width: 820px) {
+      padding-inline: 3rem;
+    }
+  }
+  
+  hr {
+    border: 1px solid var(--color-grey-light);
+  }
+  
+  .secondRow > p {
+    color: #222222;
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+  
+  .buttonGroup {
+    margin-block-end: 2.24rem;
+    margin-inline: 1.6rem;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 1.6rem;
+  
+    @media screen and (min-width: 820px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 2.4rem;
+    }
+  }
+  
+  .buttonStyle {
+    width: 25.5rem;
+  }
+  
+  .firstRow {
+    border: 1px solid #eeeeee;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  
+    & > div:nth-of-type(1) {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+  
+      @media screen and (min-width: 768px) {
+        flex-wrap: nowrap;
+      }
+    }
+  
+    // Small screens (mobile) - Default styles for screens smaller than 768px
+    @media screen and (max-width: 767px) {
+      padding: 1.2rem;
+      gap: 1rem;
+  
+      & > div:nth-of-type(1) {
+        gap: 0.6rem; // Adjust gap between items
+      }
+    }
+  
+    // Medium screens (tablets) - Styles for screens 768px and larger
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      padding: 2rem;
+      gap: 1.4rem;
+  
+      & > div:nth-of-type(1) {
+        gap: 1rem;
+      }
+    }
+  
+    // Large screens (desktops) - Styles for screens larger than 1024px
+    @media screen and (min-width: 1025px) {
+      padding: 2.4rem;
+      gap: 2rem;
+  
+      & > div:nth-of-type(1) {
+        gap: 1.6rem;
+      }
+    }
+  }
+  .head {
+    display: flex;
+    gap: 2rem;
+    padding-inline-start: 4rem;
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    // flex-wrap: wrap;
+    margin-bottom: 2rem;
+  
+    @media (max-width: 912px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  .button {
+    margin-top: 20px;
+  }

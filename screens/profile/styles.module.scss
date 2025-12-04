@@ -1,0 +1,106 @@
+.container {
+  width: 100%;
+  min-width: 100%;
+  margin-block: 4rem;
+
+  @media screen and (max-width: 768px) {
+    margin-block: 2.4rem;
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
+.image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out;
+  margin-block-end: 4rem;
+
+  @media (max-width: 768px) {
+    .image {
+      height: auto;
+      padding: 2rem;
+    }
+  }
+}
+
+.home {
+  text-align: center;
+  color: white;
+  padding: 4rem;
+  border-radius: 0.8rem;
+}
+.picHead {
+  font-size: 4rem;
+  font-weight: 700;
+  padding-block-end: 1.6rem;
+  @media (max-width: 768px) {
+    .picHead {
+      font-size: 2.5rem;
+      padding-block-end: 1rem;
+    }
+  }
+}
+
+.mainContent {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  gap: 1rem;
+  padding-block-start: 0.8rem;
+  align-items: center;
+}
+
+.open {
+  display: flex;
+  text-align: start;
+  flex-direction: column;
+  padding-block-start: 1.6rem;
+}
+.card{
+  display: flex;
+  flex-direction: column;
+  border: #EEEEEE solid 1px;
+  padding: 2.4rem;
+  justify-content: center;
+  // align-items: center;
+  @media (min-width: 600px) {
+
+  width: 50%;
+  }
+}
+.profileImg{
+  width: 100%;
+  height: 25rem;
+  object-fit: cover;
+}
+.inview{
+  background: #FFFAEB !important;
+  color: #CDA11E ;
+}
+.buslgo{
+  border-radius: 50%;
+  width: 15rem;
+  height: 15rem;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 8px; // Adjust spacing between the icon and text
+}
+
+.info img {
+  width: 24px !important;
+  height: 24px !important;
+  object-fit: contain;
+}

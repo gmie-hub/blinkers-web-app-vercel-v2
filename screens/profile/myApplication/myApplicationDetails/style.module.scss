@@ -1,0 +1,169 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 2px #eeeeee;
+    padding-block-end: 0.8rem;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: start;
+      gap: 2.4rem;
+    }
+  }
+  .btnFlex {
+    display: flex;
+    gap: 1.6rem;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+  
+  .logo {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    color: #4f4f4f;
+    padding-block-end: 0.8rem;
+  }
+  .location {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    color: var(--color-body-text);
+    padding-block-end: 2.4rem;
+  }
+  
+  .open {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    gap: 1rem; /* Space between items */
+  }
+  
+  .dot {
+    height: 0.6rem;
+    width: 0.6rem;
+    border-radius: 50%;
+    background: #828282;
+    display: inline-block; /* Ensure it's treated as a single inline block */
+  }
+  
+  .jobTitle {
+    font-weight: 600;
+    color: #222222;
+    font-size: 2rem;
+    padding-block-end: 0.8rem;
+  }
+  
+  .buttonStyle {
+    padding-block: 0.9rem;
+  
+    min-width: 22rem;
+    width: 100%;
+  
+    @media screen and (min-width: 768px) {
+      min-width: 22rem;
+      // width: 0 !important;
+    }
+    @media screen and (max-width: 768px) {
+      // width: 100% !important;
+      max-width: 22rem;
+    }
+  }
+  
+  .container {
+    display: grid; /* Use grid layout */
+    grid-template-columns: 30% 70%; /* Define columns for left and right */
+    gap: 1rem; /* Add spacing between items */
+    padding: 1rem;
+    box-sizing: border-box;
+    margin-block-end: 4rem;
+    align-items: center;
+  
+    column-gap: 1.6rem;
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 50% 50%; /* Define columns for left and right */
+      margin-block: 2.4rem;
+    }
+  }
+  
+  .container > p:nth-child(odd) {
+    color: #707070;
+  }
+  
+  .container > p:nth-child(even) {
+    /* Style for "right" column */
+    text-align: left;
+    color: #222222;
+    font-weight: 500;
+    font-size: 1.8rem;
+    @media screen and (max-width: 768px) {
+      display: flex;
+  
+      justify-content: end;
+      font-size: 1.6rem;
+    }
+  }
+  
+  .list {
+    padding-inline-start: 2rem;
+  }
+  .review {
+    padding-block-start: 2.4rem;
+    padding-block-end: 2.1rem;
+  
+    //   & > h1 {
+    //     padding-block-end: 0.8rem;
+    //   }
+  }
+  .btn {
+    color: var(--color-primary-green);
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  
+  .reviewbtn {
+    display: flex;
+    justify-content: space-between;
+    //   margin-block-end: 2.4rem;
+    align-items: center;
+    //   margin-block-start: 4rem;
+  }
+  .btnWrapper {
+    display: flex;
+    align-items: center;
+  }
+  .Description {
+    & > div {
+      padding-block-end: 4rem;
+      & > h3 {
+        padding-block-end: 0.8rem;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      & > div {
+        padding-block-end: 2.4rem;
+        & > h3 {
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+  
+  .icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+  
+  .info {
+    display: flex;
+    gap: 1rem;
+    padding-block-start: 0.8rem;
+    align-items: center;
+  }
+  
+  .title {
+    font-weight: 600;
+    font-size: 2.4rem;
+    color: var(--color-header-text);
+  }

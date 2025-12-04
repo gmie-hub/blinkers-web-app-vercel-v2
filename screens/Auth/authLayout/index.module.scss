@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: row;
+  // overflow: hidden;
+}
+
+.leftSide {
+  // height: 100vh;
+
+  background-color: #f1fff1;
+  flex: 1;
+  max-width: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+  padding-block: 4rem;
+  padding-inline-start: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Ensure logo stays at the top */
+  position: relative;
+  @media screen and (min-width: 1024px) {
+    padding-inline: 10rem;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 3rem; /* Space below the logo */
+  cursor: pointer;
+}
+
+.centerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  flex: 1; /* Ensures the middle content takes up remaining space */
+  padding-top: 4rem;
+}
+
+.textFirst {
+  font-weight: 600;
+  font-size: 2.4rem;
+  color: var(--color-green-text);
+  text-align: start;
+  display: flex;
+}
+
+.secondText {
+  font-weight: 500;
+  font-size: 1.6rem;
+  color: #757575;
+  text-align: start;
+}
+
+.rightSide {
+  flex: 1;
+  max-width: 50%;
+  padding-block: 2.21rem;
+  box-sizing: border-box;
+  padding-inline: 2rem;
+  text-align: start;
+  display: flex;
+  @media screen and (min-width: 1024px) {
+    padding-inline: 10rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-inline: 2rem;
+    min-width: 100% !important;
+  }
+}
