@@ -42,6 +42,7 @@ const PaymentMethod = ({
   const userInfo = useAtomValue(userAtom);
 
   const { notification } = App.useApp();
+  const [txRef] = useState(() => Date.now().toString());
 
   const postVerifyPayment = async (payload: VerifyPayload) => {
     return (await api.post("payments/verify", payload)).data;
@@ -51,7 +52,6 @@ const PaymentMethod = ({
     mutationKey: ["verifyPayment"],
     mutationFn: postVerifyPayment,
   });
-
 
   const selectedPrincingFromStorage = JSON.parse(
     localStorage.getItem("setPricingId") || "{}"
@@ -81,7 +81,8 @@ const PaymentMethod = ({
     }
   };
 
-  const publicKey = import.meta.env.NEXT_PAYSTACK_PUBLIC_KEY;
+  const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!;
+  //  import.meta.env.NEXT_PAYSTACK_PUBLIC_KEY;
   const amount = price * 100;
   const email = userInfo?.email ?? "";
 
@@ -100,8 +101,10 @@ const PaymentMethod = ({
   };
 
   const config = {
-    public_key: import.meta.env.NEXT_PAYSTACK_PUBLIC_KEY,
-    tx_ref: Date.now().toString(),
+    // public_key: import.meta.env.NEXT_PAYSTACK_PUBLIC_KEY,
+    public_key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!,
+    // tx_ref: Date.now().toString(),
+    tx_ref: txRef,
     amount: price,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
@@ -193,7 +196,7 @@ const PaymentMethod = ({
                     </div>
                   </div>
                 </Radio>
-                <img src='arrow-right-noty.svg' alt="ArrowIcon" />
+                <img src="arrow-right-noty.svg" alt="ArrowIcon" />
               </div>
             ))}
           </Radio.Group>

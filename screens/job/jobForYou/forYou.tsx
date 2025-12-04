@@ -1,19 +1,15 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
-import { getTimeAgo } from "../../../utils/formatTime";
 import { AxiosError } from "axios";
 import { useQueries } from "@tanstack/react-query";
-import { getForYouJobs } from "../../request";
-import RouteIndicator from "../../../customs/routeIndicator";
-import CustomSpin from "../../../customs/spin";
-import { sanitizeUrlParam } from "../../../utils";
-import {
-  getColorByString,
-  getInitials,
-} from "../../../utils/limitNotification";
-import usePagination from "../../../hooks/usePagnation";
 import { useEffect } from "react";
 import { Pagination } from "antd";
+import { getTimeAgo } from "@/lib/utils/formatTime";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import CustomSpin from "@/components/ui/spin";
+import { getForYouJobs } from "@/services/jobServices";
+import { sanitizeUrlParam } from "@/lib/utils";
+import { getColorByString, getInitials } from "@/lib/utils/limitNotification";
+import { useRouter } from "next/navigation";
 
 interface Props {
   canSeeBtn?: boolean;
@@ -21,7 +17,7 @@ interface Props {
 }
 
 const JobForYou = ({ canSeeBtn = true, limit }: Props) => {
-  const navigate = useNavigate();
+  const router =useRouter()
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
   useEffect(() => {
     if (currentPage !== pageNum) {
@@ -62,7 +58,7 @@ const JobForYou = ({ canSeeBtn = true, limit }: Props) => {
   // };
 
   const handleNavigateDetails = (id: number, title: string) => {
-    navigate(`/job-details/${id}/${sanitizeUrlParam(title)}`);
+    router.push(`/job-details/${id}/${sanitizeUrlParam(title)}`);
 
     window.scrollTo(0, 0);
   };

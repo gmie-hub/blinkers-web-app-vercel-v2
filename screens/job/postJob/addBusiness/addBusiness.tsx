@@ -1,24 +1,23 @@
 import styles from "./styles.module.scss";
-import Card from "../../../../customs/card/card";
-import RouteIndicator from "../../../../customs/routeIndicator";
 import { Form, Formik, FormikValues } from "formik";
-import Button from "../../../../customs/button/button";
-import Input from "../../../../customs/input/input";
 import { useState } from "react";
-import Upload from "../../../../customs/upload/upload";
-import ModalContent from "../../../../partials/successModal/modalContent";
-import { createBusiness, getAllCategory } from "../../../request";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { App } from "antd";
-import SearchableSelect from "../../../../customs/searchableSelect/searchableSelect";
 import * as Yup from "yup";
-import { errorMessage } from "../../../../utils/errorMessage";
-import CameraIcon from "../../../../assets/camera.svg";
-import Profile from "../../../../assets/Avatarprofile.svg";
 import { useAtom } from "jotai";
-import { userAtom } from "../../../../utils/store";
-import { useNavigate } from "react-router-dom";
-import { routes } from "../../../../routes";
+import Card from "@/components/ui/card/card";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import Button from "@/components/ui/button/button";
+import { userAtom } from "@/lib/utils/store";
+import { useRouter } from "next/navigation";
+import { routes } from "@/lib/routes";
+import Upload from "@/components/ui/upload/upload";
+import Input from "@/components/ui/input/input";
+import ModalContent from "@/components/partials/successModal/modalContent";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import SearchableSelect from "@/components/ui/searchableSelect/searchableSelect";
+import { getAllCategory } from "@/services/categoryServices";
+import { createBusiness } from "@/services/jobServices";
 
 const AddBusiness = () => {
   const [upload, setUpload] = useState<File | null>(null);
@@ -28,7 +27,7 @@ const AddBusiness = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null); // For preview
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [user] = useAtom(userAtom);
-  const navigate = useNavigate()
+  const router = useRouter()
 
   
   const handleFileBusinessChange = (
@@ -70,7 +69,7 @@ const AddBusiness = () => {
   };
   const handleNavigateToDir = ()=>{
     setOpenSuccess(false)
-    navigate(routes.directory.directory)
+    router.push(routes.directory.directory)
     
   }
 
@@ -225,7 +224,7 @@ const AddBusiness = () => {
                         src={
                           previewImage
                             ? previewImage
-                            :  Profile
+                            :  '/Avatarprofile.svg'
                         }
                         alt="profile"
                         className={styles.profile}
@@ -235,7 +234,7 @@ const AddBusiness = () => {
                         }
                       />
                       <img
-                        src={CameraIcon}
+                        src='/camera.svg'
                         alt="Camera"
                         style={{ cursor: "pointer" }}
                         onClick={() =>

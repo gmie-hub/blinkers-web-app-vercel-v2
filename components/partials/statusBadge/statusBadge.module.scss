@@ -1,0 +1,49 @@
+.approved {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background-color: var(--color-green-bg);
+    padding-block: 0.2rem;
+    padding-inline: 0.8rem;
+    border-radius: 1.6rem;
+    width: fit-content;
+  
+    & > div {
+      height: 0.6rem;
+      width: 0.6rem;
+      border-radius: 50%;
+      background: var(--color-green-text);
+    }
+  
+    & > p {
+      font-size: 1.6rem;
+      color: var(--color-green-text);
+    }
+  }
+  
+  .pending {
+    @extend .approved;
+    background-color: #fffaeb;
+  
+    & > div {
+      background: #cda11e;
+    }
+  
+    & > p {
+      color: #cda11e;
+    }
+  }
+  
+  .unapproved {
+    @extend .approved;
+    background-color: var(--color-red-bg);
+  
+    & > div {
+      background: var(--color-red-text);
+    }
+  
+    & > p {
+      color: var(--color-red-text);
+    }
+  }
+  

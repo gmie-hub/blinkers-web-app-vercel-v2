@@ -84,3 +84,66 @@ interface SkillsData {
   id: number;
   skills: string;
 }
+
+interface JobResponse extends Response {
+  data: JobData;
+}
+interface JobData {
+  data: JobDatum[];
+  total: number;
+}
+
+interface JobDetailsResponse extends Response {
+  data: JobDatum;
+}
+interface JobDatum {
+  title: string;
+  business_id: number;
+  status: string;
+  employment_type: string;
+  job_type: string;
+  level: string;
+  industry_id: string;
+  is_admin: boolean;
+  is_open: boolean;
+  location: string;
+  description: string;
+  responsibilities: string;
+  qualifications: string;
+  benefits: string;
+  id: number;
+  start_date: string;
+  end_date: string;
+  total_applicant: number;
+  business: AllBusinessesDatum;
+  renumeration: string;
+  created_at: string;
+  applicant: Applicant;
+  total_flags: number;
+  business: Business;
+  total_feedbacks: number;
+  related_jobs: RelatedJobData[];
+  user:UserData
+  
+}
+
+interface FlagJob {
+  job_id: string;
+  applicant_id: stirng;
+  action: string;
+  reason: string;
+}
+
+interface FlagJob {
+  job_id: string;
+  applicant_id: stirng;
+  message: string;
+  user_id:number
+}
+
+interface IndustriesDatum {
+  name: string;
+  id: number;
+  created_at:string;
+  updated_at:string;
+}

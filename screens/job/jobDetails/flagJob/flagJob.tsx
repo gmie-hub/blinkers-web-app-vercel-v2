@@ -2,18 +2,17 @@ import { Form, Formik, FormikValues } from "formik";
 import styles from "./flagJob.module.scss";
 import * as Yup from "yup";
 import { useState } from "react";
-import ReusableModal from "../../../../partials/deleteModal/deleteModal";
-import Input from "../../../../customs/input/input";
-import Button from "../../../../customs/button/button";
-import ModalContent from "../../../../partials/successModal/modalContent";
-import DeleteIcon from "../../../../assets/del.svg";
 import { App } from "antd";
-import { FlagJobApi } from "../../../request";
-import { errorMessage } from "../../../../utils/errorMessage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
-import { userAtom } from "../../../../utils/store";
 import { useAtomValue } from "jotai";
+import ReusableModal from "@/components/partials/deleteModal/deleteModal";
+import Input from "@/components/ui/input/input";
+import Button from "@/components/ui/button/button";
+import ModalContent from "@/components/partials/successModal/modalContent";
+import { FlagJobApi } from "@/services/jobServices";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { useSearchParams } from "next/navigation";
+import { userAtom } from "@/lib/utils/store";
 
 interface Props {
   handleCloseModal: () => void;
@@ -24,8 +23,8 @@ const FlagJobs = ({ handleCloseModal }: Props) => {
   const [isDeleteSuccessful, setIsDeleteSuccessful] = useState(false);
   const { notification } = App.useApp();
   const user = useAtomValue(userAtom);
-  const { id } = useParams(); // Extract job ID from URL
   const queryClient = useQueryClient();
+  const id = useSearchParams().get("id");
 
   const validationSchema = Yup.object().shape({
     reasonForFlag: Yup.string().required("Required"),
@@ -128,7 +127,7 @@ const FlagJobs = ({ handleCloseModal }: Props) => {
                   await flagJobHandler(values); // Pass current form values directly
                   handleDelete();
                 }}
-                icon={<img src={DeleteIcon} alt="DeleteIcon" />}
+                icon={<img src='/del.svg' alt="DeleteIcon" />}
                 disabled={flagJobMutation?.isPending}
               />
             </Form>

@@ -77,9 +77,8 @@ const PricingPlansPage = () => {
             <h1 className="error">{subErrorMessage}</h1>
           ) : (
             <>
-
-<div className={styles.plansContainer}>
-              {/* {[...subData]
+              <div className={styles.plansContainer}>
+                {/* {[...subData]
                 .sort((a, b) => {
                   const order = { free: 0, platinum: 1, gold: 2 };
                   return (
@@ -92,113 +91,112 @@ const PricingPlansPage = () => {
                   );
                 })
                 .map((plan: any, index: number) => ( */}
-              {[...subData]
-                .filter((plan) => plan?.name?.toLowerCase() !== "free")
-                .sort((a, b) => {
-                  const order = { platinum: 0, gold: 1 };
-                  return (
-                    order[a?.name?.toLowerCase() as "platinum" | "gold"] -
-                    order[b?.name?.toLowerCase() as "platinum" | "gold"]
-                  );
-                })
-                .map((plan: any, index: number) => (
-                  <div
-                    className={`${styles.planCard} ${
-                      plan.name?.toLowerCase() === "platinum"
-                        ? styles.platinumPlan
-                        : ""
-                    }`}
-                    key={index}
-                  >
-                    <div className={styles.planHeader}>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: "0.5rem",
-                          alignItems: "center",
-                        }}
-                      >
-                        <img
-                          src={getPlanImage(plan?.name)}
-                          alt={`${plan.name} plan`}
-                          className={styles.planImage}
-                        />
-                        <h3 className={styles.planTitle}>
-                          {plan.name?.charAt(0).toUpperCase() +
-                            plan.name?.slice(1)}{" "}
-                          Plan{" "}
-                        </h3>
+                {[...subData]
+                  .filter((plan) => plan?.name?.toLowerCase() !== "free")
+                  .sort((a, b) => {
+                    const order = { platinum: 0, gold: 1 };
+                    return (
+                      order[a?.name?.toLowerCase() as "platinum" | "gold"] -
+                      order[b?.name?.toLowerCase() as "platinum" | "gold"]
+                    );
+                  })
+                  .map((plan: any, index: number) => (
+                    <div
+                      className={`${styles.planCard} ${
+                        plan.name?.toLowerCase() === "platinum"
+                          ? styles.platinumPlan
+                          : ""
+                      }`}
+                      key={index}
+                    >
+                      <div className={styles.planHeader}>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "0.5rem",
+                            alignItems: "center",
+                          }}
+                        >
+                          <img
+                            src={getPlanImage(plan?.name)}
+                            alt={`${plan.name} plan`}
+                            className={styles.planImage}
+                          />
+                          <h3 className={styles.planTitle}>
+                            {plan.name?.charAt(0).toUpperCase() +
+                              plan.name?.slice(1)}{" "}
+                            Plan{" "}
+                          </h3>
+                        </div>
+
+                        <p className={styles.planPrice}>
+                          From N
+                          {Math.min(
+                            ...(plan?.pricings?.map(
+                              (item: any) => item.price
+                            ) || [])
+                          )}
+                        </p>
+
+                        {plan.name?.toLowerCase() !== "free" && (
+                          <Button
+                            variant="green"
+                            type="submit"
+                            text={"Choose Plan"}
+                            className={styles.chooseButton}
+                            onClick={() => {
+                              if (!user) {
+                                setOpenLoginModal(true);
+                              } else {
+                                localStorage.setItem(
+                                  "setPlan",
+                                  JSON.stringify(plan?.name)
+                                );
+
+                                setSelectedPlan(plan?.id);
+                                setOpenModal(true);
+                              }
+                            }}
+                          />
+                        )}
                       </div>
 
-                      <p className={styles.planPrice}>
-                        From N
-                        {Math.min(
-                          ...(plan?.pricings?.map((item: any) => item.price) ||
-                            [])
-                        )}
-                      </p>
-
-                      {plan.name?.toLowerCase() !== "free" && (
-                        <Button
-                          variant="green"
-                          type="submit"
-                          text={"Choose Plan"}
-                          className={styles.chooseButton}
-                          onClick={() => {
-                            if (!user) {
-                              setOpenLoginModal(true);
-                            } else {
-                              localStorage.setItem(
-                                "setPlan",
-                                JSON.stringify(plan?.name)
-                              );
-
-                              setSelectedPlan(plan?.id);
-                              setOpenModal(true);
-                            }
-                          }}
-                        />
-                      )}
+                      <div className={styles.planBody}>
+                        <h4 className={styles.featureTitle}>
+                          {"What's included"}
+                        </h4>
+                        <ul className={styles.featureList}>
+                          {plan?.features?.map((feature: any, idx: number) => (
+                            <li key={idx} className={styles.featureItem}>
+                              <CheckCircleFilled className={styles.icon} />{" "}
+                              {feature?.name}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-
-                    <div className={styles.planBody}>
-                      <h4 className={styles.featureTitle}>{"What's included"}</h4>
-                      <ul className={styles.featureList}>
-                        {plan?.features?.map((feature: any, idx: number) => (
-                          <li key={idx} className={styles.featureItem}>
-                            <CheckCircleFilled className={styles.icon} />{" "}
-                            {feature?.name}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-            </div>
-            <br /><br />
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Button
-                    variant="white"
-                    type="submit"
-                    text={"Choose Free Plan"}
-                    className={"buttonStyle"}
-                    onClick={() => {
-                      router.push("/create-ad");
-                      // navigate("/profile");
-                      // localStorage.setItem("activeTabKeyProfile", "3");
-                      window.scrollTo(0, 0);
-                    }}
-                  />
-                </div>
-
+                  ))}
+              </div>
+              <br />
+              <br />
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="white"
+                  type="submit"
+                  text={"Choose Free Plan"}
+                  className={"buttonStyle"}
+                  onClick={() => {
+                    router.push("/create-ad");
+                    // navigate("/profile");
+                    // localStorage.setItem("activeTabKeyProfile", "3");
+                    window.scrollTo(0, 0);
+                  }}
+                />
+              </div>
             </>
-       
-            
           )}
         </div>
-
-   
       </main>
 
       <Modal

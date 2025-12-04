@@ -2,9 +2,7 @@ import styles from "./card.module.scss";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { Pagination, Image } from "antd";
-import FaArrowLeft from "../../../assets/backArrow.svg";
 import { useEffect, useRef } from "react";
-import LocationIcon from "../../../assets/locationrelated.svg";
 import CustomSpin from "@/components/ui/spin";
 import usePagination from "@/hooks/usePagination";
 import Button from "@/components/ui/button/button";
@@ -93,7 +91,7 @@ const JobLists = ({ searchTerm, resetSearchTerm }: Props) => {
                 className="buttonStyle"
                 onClick={handleBack}
                 text="view all jobs"
-                icon={<img src={FaArrowLeft} alt="FaArrowLeft" />}
+                icon={<img src='/backArrow.svg' alt="FaArrowLeft" />}
               />
               <br />
               <br />
@@ -162,7 +160,7 @@ const JobLists = ({ searchTerm, resetSearchTerm }: Props) => {
                   <p>{getTimeAgo(item?.created_at || "")}</p>
                   {item?.location && (
                     <div style={{ display: "flex" }}>
-                      <Image width={20} src={LocationIcon} alt="LocationIcon" />
+                      <Image width={20} src='/locationrelated.svg' alt="LocationIcon" />
                       <p>{item?.location}</p>
                     </div>
                   )}
@@ -177,7 +175,7 @@ const JobLists = ({ searchTerm, resetSearchTerm }: Props) => {
                     className="buttonStyle"
                     onClick={handleBack}
                     text="view all jobs"
-                    icon={<img src={FaArrowLeft} alt="FaArrowLeft" />}
+                    icon={<img src='/backArrow.svg' alt="FaArrowLeft" />}
                   />
                 </div>
               </section>

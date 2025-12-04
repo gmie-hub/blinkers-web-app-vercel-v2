@@ -2,43 +2,36 @@ import { Form, Formik, FormikValues } from "formik";
 import styles from "./postJob.module.scss";
 import { App, Switch } from "antd";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
-import { routes } from "../../../routes";
-import Card from "../../../customs/card/card";
-import Input from "../../../customs/input/input";
-import Select from "../../../customs/select/select";
-import Button from "../../../customs/button/button";
-import ModalContent from "../../../partials/successModal/modalContent";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
-import {
-  CreateJob,
-  employmentTypeData,
-  getAllState,
-  getIndustries,
-  getJobDetails,
-  jobTypeData,
-  LevelData,
-  UpdateJob,
-} from "../../request";
-import RouteIndicator from "../../../customs/routeIndicator";
-import { userAtom } from "../../../utils/store";
+import {  useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
-import { errorMessage } from "../../../utils/errorMessage";
-import SearchableSelect from "../../../customs/searchableSelect/searchableSelect";
+import Card from "@/components/ui/card/card";
+import ModalContent from "@/components/partials/successModal/modalContent";
+import Input from "@/components/ui/input/input";
+import Button from "@/components/ui/button/button";
+import Select from "@/components/ui/select/select";
+import { CreateJob, employmentTypeData, getIndustries, getJobDetails, jobTypeData, LevelData, UpdateJob } from "@/services/jobServices";
+import { getAllState } from "@/services/locationServices";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { userAtom } from "@/lib/utils/store";
+import { routes } from "@/lib/routes";
+import { useRouter, useSearchParams } from "next/navigation";
+import SearchableSelect from "@/components/ui/searchableSelect/searchableSelect";
 
 export default function PostJobs() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [openSuccess, setOpenSuccess] = useState(false);
   const user = useAtomValue(userAtom);
   const [editSuccess, setEditSuccess] = useState(false);
   const { notification } = App.useApp();
   const queryClient = useQueryClient();
-  const { id } = useParams();
+  const id = useSearchParams().get("id");
 
   const handleSucessEdit = () => {
     setEditSuccess(false);
-    navigate(-1);
+    router.back()
+
   };
 
   const [getJobDetailsQuery, getAllIndustriesQuery, getStateQuery] = useQueries(
@@ -132,7 +125,7 @@ export default function PostJobs() {
           resetForm();
           setOpenSuccess(true);
           // resetForm();
-          navigate(routes?.job.job);
+          router.push(routes?.job.job);
         },
       });
     } catch (error) {
@@ -192,7 +185,7 @@ export default function PostJobs() {
   //   };
   const handleSucessPost = () => {
     setOpenSuccess(false);
-    navigate(routes?.job?.job);
+    router.push(routes?.job?.job);
   };
 
   const editJobMutation = useMutation({
@@ -492,3 +485,5 @@ export default function PostJobs() {
     </div>
   );
 }
+
+
