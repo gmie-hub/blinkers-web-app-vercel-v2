@@ -1,0 +1,61 @@
+.wrapper {
+  max-width: 100%;
+}
+
+/* Header Styles */
+.header {
+  width: 100%;
+  background-color: var(--color-primary-green);
+  padding: 0.8rem 0;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.headerText {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Card Styles */
+.submittedCard {
+  width: 55rem;
+  max-width: 100%;
+  // padding: 4rem;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 10px;
+  margin-block: 10rem;
+}
+
+.submittedCard h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2.4rem;
+}
+
+.amount {
+  color: #222222;
+  padding-block: 2.4rem;
+  border-bottom: solid #eeeeee;
+}
+
+.year {
+  font-size: 1.4rem;
+  color: var(--color-body-text);
+}
+
+.subBtn {
+  margin-block-start: 4rem;
+}
+
+.billing {
+  padding: 4rem;
+  @media (max-width: 800px) {
+    padding-inline: 1.6rem;
+    padding-block: 2.4rem;
+  }
+}

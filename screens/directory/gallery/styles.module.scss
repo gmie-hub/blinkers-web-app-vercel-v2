@@ -1,0 +1,67 @@
+
+.promoHead {
+  display: flex;
+  justify-content: space-between;
+  padding-inline-end: 0.4rem;
+}
+.promoHead p {
+  color: var(--color-header-text);
+  font-weight: 500;
+  font-size: 2.3rem;
+}
+
+
+
+.back {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding-block-end: 2.4rem;
+  & > p {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+}
+.promoImageContainer {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 images per row */
+  gap: 1rem; /* Spacing between images */
+  width: 100%; /* Full width of the container */
+  padding-block-end: 6.4rem; /* Padding at the bottom */
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%; /* Full width of the grid cell */
+  height: 24rem; /* Set a fixed height for all images */
+  border-radius: 0.8rem;
+  overflow: hidden; /* Prevent overflow */
+  box-sizing: border-box;
+}
+
+.image {
+  width: 100%; /* Fill the container's width */
+  height: 100%; /* Fill the container's height */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+  border-radius: 0.8rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .promoImageContainer {
+    grid-template-columns: repeat(4, 1fr); /* 4 images per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .promoImageContainer {
+    grid-template-columns: repeat(3, 1fr); /* 3 images per row */
+  }
+}
+
+@media (max-width: 480px) {
+  .promoImageContainer {
+    grid-template-columns: repeat(2, 1fr); /* 2 images per row */
+  }
+}

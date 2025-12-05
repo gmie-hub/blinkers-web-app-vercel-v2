@@ -33,3 +33,11 @@ export const getFollowersByBusiness_id = async (
     )
   )?.data as BusinessFollowersResponse;
 };
+
+export const ClaimBusinessApi = async (payload: FormData) => {
+  return (
+    await api.post("/business/claims", payload, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+  )?.data;
+};
