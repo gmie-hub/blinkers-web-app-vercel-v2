@@ -1,34 +1,30 @@
 import styles from "./styles.module.scss";
 import { CheckCircleFilled } from "@ant-design/icons";
-import Button from "../../../customs/button/button";
-import { useNavigate } from "react-router-dom";
-import {  getAllSubscriptionbyId, getApplicantsbyId } from "../../request";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../../utils/store";
 import { AxiosError } from "axios";
-import Platinum from "../../../assets/platinum.svg";
-import Free from "../../../assets/Frame 1618872852.svg";
-import Gold from "../../../assets/gold.svg";
-import {
-  formatAmount,
-  formatDateToDayMonthYear,
-} from "../../../utils/formatTime";
-import CustomSpin from "../../../customs/spin";
+
+import Button from "@/components/ui/button/button";
+import { useRouter } from "next/navigation";
+import { userAtom } from "@/lib/utils/store";
+import { formatAmount, formatDateToDayMonthYear } from "@/lib/utils/formatTime";
+import CustomSpin from "@/components/ui/spin";
+import { getApplicantsbyId } from "@/services/applicantServices";
+import { getAllSubscriptionbyId } from "@/services/profileService";
 
 
 const SubscriptionCard = () => {
   const user = useAtomValue(userAtom);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [getProfileQuery] = useQueries({
     queries: [
       {
         queryKey: ["get-profile"],
-        queryFn: () => getApplicantsbyId(user?.id!),
+        queryFn: () => getApplicantsbyId(user?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: true,
-        enabled: !!user?.id,
+        enabled: !!user?.id, 
       },
    
     ],
@@ -57,9 +53,9 @@ const SubscriptionCard = () => {
 
   const getPlanImage = () => {
     const planName = profileData && profileData?.subscription?.pricing?.plan?.name?.toLowerCase();
-    if (planName === "gold") return Gold;
-    if (planName === "free") return Free;
-    return Platinum;
+    if (planName === "gold") return '/gold.svg';
+    if (planName === "free") return '/Frame 1618872852.svg';
+    return '/platinum.svg';
   };
 
   console.log(features,'subPlan')
@@ -125,7 +121,7 @@ const SubscriptionCard = () => {
           // variant="  "
           // className={"buttonStyle"}
           onClick={() => {
-            navigate("/pricing");
+            router.push("/pricing");
             window.scroll(0, 0);
           }}
         >

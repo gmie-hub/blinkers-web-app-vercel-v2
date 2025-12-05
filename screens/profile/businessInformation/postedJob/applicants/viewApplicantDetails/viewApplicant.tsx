@@ -1,22 +1,17 @@
 import styles from "./viewApplicant.module.scss";
-import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
-import Button from "../../../../../../customs/button/button";
-import EyeIcon from "../../../../../../assets/eyewhite.svg";
-import StatusBadge from "../../../../../../partials/statusBadge/statusBadge";
 import JobDetailsElements from "./jobDetailsElements/jobDetailsElements";
-import {
-  getApplicationDetails,
-  updateApplicationStatus,
-} from "../../../../../request";
-import { Education, EmploymentHistory } from "../../../../../../utils/type";
-import { formatDateToMonthYear } from "../../../../../../utils/formatTime";
-import CustomSpin from "../../../../../../customs/spin";
 import { AxiosError } from "axios";
-import RouteIndicator from "../../../../../../customs/routeIndicator";
 import { App, Modal } from "antd";
 import { useState } from "react";
 import RejectApplication from "./rejectApplication";
+import Button from "@/components/ui/button/button";
+import StatusBadge from "@/components/partials/statusBadge/statusBadge";
+import { getApplicationDetails, updateApplicationStatus } from "@/services/profileService";
+import CustomSpin from "@/components/ui/spin";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import { formatDateToMonthYear } from "@/lib/utils/formatTime";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface BasicInformationProps {
   title?: string;
@@ -25,10 +20,11 @@ interface BasicInformationProps {
 }
 /* eslint-disable no-empty-pattern */
 export default function ApplicantDetails({}: BasicInformationProps) {
-  const { id } = useParams();
+    const id = useSearchParams().get("id");
+  
   const queryClient = useQueryClient();
   const { notification } = App.useApp();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [openDelete, setOpenDelete] = useState(false);
 
   const [getApplicantDetailsQuery] = useQueries({
@@ -78,19 +74,19 @@ export default function ApplicantDetails({}: BasicInformationProps) {
         {
           onSuccess: (data) => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: data?.message || "Application rejected successfully",
             });
             queryClient.refetchQueries({
               queryKey: ["get-all-job-applicants"],
             });
-            navigate(-1); // Go back to the previous page
+            router.back(); // Go back to the previous page
           },
         }
       );
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description:
           error?.message || "An error occurred while rejecting the application",
       });
@@ -115,7 +111,7 @@ export default function ApplicantDetails({}: BasicInformationProps) {
             <Button
               type="button"
               variant="green"
-              icon={<img src={EyeIcon} alt="TimeIcon" />}
+              icon={<img src='/eyewhite.svg' alt="TimeIcon" />}
               text="View Profile"
               className={styles.buttonStyle}
               // onClick={() => setIsDeleteModal(true)}
@@ -173,7 +169,7 @@ export default function ApplicantDetails({}: BasicInformationProps) {
               target="_blank"
               rel="noreferrer"
             >
-              <img src={EyeIcon} alt="TimeIcon" /> {ApplicantDetailsData?.name}
+              <img src='/eyewhite.svg' alt="TimeIcon" /> {ApplicantDetailsData?.name}
               's CV
             </a>
             {/* </p> */}
@@ -227,7 +223,7 @@ export default function ApplicantDetails({}: BasicInformationProps) {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img src={EyeIcon} alt="TimeIcon" />{" "}
+                <img src='/eyewhite.svg'  alt="TimeIcon" />{" "}
                 {ApplicantDetailsData?.name}'s Cover letter
               </a>
             </div>

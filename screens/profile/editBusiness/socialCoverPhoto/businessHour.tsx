@@ -4,11 +4,11 @@ import { App, Card, Checkbox, TimePicker } from 'antd';
 import dayjs from 'dayjs';
 import styles from './styles.module.scss';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { CreateBusinessHourApi } from '../../../request';
-import { errorMessage } from '../../../../utils/errorMessage';
-import Button from '../../../../customs/button/button';
 import { useAtomValue } from 'jotai/react';
-import { userAtom } from '../../../../utils/store';
+import { userAtom } from '@/lib/utils/store';
+import { CreateBusinessHourApi } from '@/services/profileService';
+import { errorMessage } from '@/lib/utils/errorMessage';
+import Button from '@/components/ui/button/button';
 
 
 type DaySchedule = {
@@ -106,7 +106,7 @@ const OpeningHoursForm: React.FC<ComponentProps> = ({ businessDetailsData }) => 
       await createBusinessHourMutation.mutateAsync(payload, {
         onSuccess: (data) => {
           notification.success({
-            message: 'Success',
+            title: 'Success',
             description: data?.message,
           });
 
@@ -118,7 +118,7 @@ const OpeningHoursForm: React.FC<ComponentProps> = ({ businessDetailsData }) => 
       resetForm();
     } catch (error) {
       notification.error({
-        message: 'Error',
+        title: 'Error',
         description: errorMessage(error) || 'An error occurred',
       });
     }

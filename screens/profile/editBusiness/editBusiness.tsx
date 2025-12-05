@@ -1,16 +1,15 @@
 import { useCallback, useState } from "react";
 import { Spin, Steps } from "antd";
 import styles from "./editBusiness.module.scss";
-// import BasicInfoForm from './basicInfo/basicInfo';
 import AddGalleryForm from "./addGallery/addGallery";
 import { useQuery } from "@tanstack/react-query";
-import RouteIndicator from "../../../customs/routeIndicator";
-import Card from "../../../customs/card/card";
-import { getBusinessById } from "../../request";
 import SocialsCoverPhotoForm from "./socialCoverPhoto/socialCoverPhoto";
 import BasicInfoForm from "./basicInfo/basicInfo";
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../../utils/store";
+import { userAtom } from "@/lib/utils/store";
+import { getBusinessById } from "@/services/businessServices";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import Card from "@/components/ui/card/card";
 
 const EditBusinessForm = () => {
   const [current, setCurrent] = useState(0);

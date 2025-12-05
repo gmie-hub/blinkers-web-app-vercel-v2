@@ -1,8 +1,7 @@
-import Card from "../../../../customs/card/card";
 import styles from './styles.module.scss';
 import { useState } from 'react';
-import GalleryView from './view'; // Import the new component
-import Right from "../../../../assets/arrow-right-green.svg";
+import GalleryView from './view';
+import Card from '@/components/ui/card/card';
 
 interface GalleryProps {
   businessDetailsData?: AllBusinessesDatum;
@@ -114,7 +113,7 @@ export default function Gallery({ businessDetailsData }: GalleryProps) {
         <div className={styles.spaceBtn}>
           <h4>Photos</h4>
           <p className={styles.seeAll} onClick={() => openGalleryView('images')}>
-            See All  <img src={Right} alt="Right" />
+            See All  <img src='/arrow-right-green.svg'  alt="Right" />
           </p>
         </div>
         <div className="line"></div>
@@ -145,7 +144,7 @@ export default function Gallery({ businessDetailsData }: GalleryProps) {
         <div className={styles.spaceBtn}>
           <h4>Videos</h4>
           <p className={styles.seeAll} onClick={() => openGalleryView('videos')}>
-            See All   <img src={Right} alt="Right" />
+            See All   <img src='/arrow-right-green.svg' alt="Right" />
           </p>
         </div>
          <div className="line"></div>

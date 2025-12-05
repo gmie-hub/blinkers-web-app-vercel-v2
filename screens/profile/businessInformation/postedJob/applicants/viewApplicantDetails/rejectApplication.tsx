@@ -3,12 +3,11 @@ import { App } from 'antd';
 import { useState } from 'react';
 import { Form, Formik, FormikValues } from 'formik';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
-import Input from '../../../../../../customs/input/input';
-import Button from '../../../../../../customs/button/button';
-import { updateApplicationStatus } from '../../../../../request';
-import ModalContent from '../../../../../../partials/successModal/modalContent';
-import DeleteIcon from "../../../../../../assets/remove_11695444 2.svg";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { updateApplicationStatus } from '@/services/profileService';
+import Button from '@/components/ui/button/button';
+import Input from '@/components/ui/input/input';
+import ModalContent from '@/components/partials/successModal/modalContent';
 
 interface Props {
   handleCloseModal: () => void;
@@ -16,11 +15,11 @@ interface Props {
 
 const RejectApplication = ({ handleCloseModal }: Props) => {
   const [openSuccess, setOpenSuccess] = useState(false);
-  const { id } = useParams();
+  const id = useSearchParams().get("id");
 
   const { notification } = App.useApp();
   const queryClient = useQueryClient();
-  const navigate =useNavigate()
+  const router =useRouter()
 
   
 
@@ -46,20 +45,20 @@ const RejectApplication = ({ handleCloseModal }: Props) => {
         {
           onSuccess: (data) => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: data?.message || "Application rejected successfully",
             });
             queryClient.refetchQueries({
               queryKey: ["get-all-job-applicants"],
             });
             handleCloseModal()
-            navigate(-1); // Go back to the previous page
+            router.back(); // Go back to the previous page
           },
         }
       );
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: error?.message || "An error occurred while rejecting the application",
       });
     }
@@ -75,7 +74,7 @@ const RejectApplication = ({ handleCloseModal }: Props) => {
         <Form style={{ marginInline: '0' }}>
           <section className={styles.RejectModalWrapper}>
             {/* <Reject /> */}
-            <img src={DeleteIcon} alt="" />
+            <img src='/remove_11695444 2.svg' alt="/remove_11695444 2.svg" />
 
             <div>
               <p className={styles.RejectModalPara}> Are You Sure You Want to Reject This Application? </p>

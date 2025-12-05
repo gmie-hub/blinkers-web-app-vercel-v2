@@ -1,3 +1,4 @@
+
 interface CoverLetter {
   id: number;
   CoverLetter: string;
@@ -147,3 +148,67 @@ interface IndustriesDatum {
   created_at:string;
   updated_at:string;
 }
+
+interface ApplicDetailsResponse {
+  message: string;
+  status: boolean;
+  data: JobApplication;
+  
+}
+
+
+interface JobApplication {
+  id: number;
+  job_id: number;
+  applicant_id: number;
+  business_id: number;
+  status: string;
+  message: string;
+  created_at: string;
+  updated_at: string;
+  applicant: Applicant;
+  job:JobDatum
+  business:AllBusinessesDatum
+  related_jobs:JobDatum[]
+}
+interface ApplicantResponse {
+  message: string;
+  status: boolean;
+  data: JobApplicationData;
+  
+}
+interface JobApplicationData {
+  current_page: number;
+  data: JobApplication[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: PaginationLink[];
+  next_page_url: string | null;
+  path: string;
+  per_page: number;
+  prev_page_url: string | null;
+  to: number;
+  total: number;
+  applicant:Applicant,
+ 
+}
+
+interface Applicant {
+  id: number;
+  user_id: number;
+  cv_url: string;
+  cover_letter_url: string;
+  specialization: string;
+  education?: Education[];
+  employment_history?: EmploymentHistory[];
+  links?: Link[];
+  created_at: string;
+  updated_at: string;
+  skills;
+  user?: UserLogin;
+  industries?:IndustriesData
+  preferred_location:string;
+}
+

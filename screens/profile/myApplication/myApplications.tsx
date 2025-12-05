@@ -1,25 +1,25 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
 import { useQueries } from "@tanstack/react-query";
-import { getMyApplications } from "../../request";
 import { AxiosError } from "axios";
 import { Pagination, Tabs, TabsProps } from "antd";
-import { getTimeAgo } from "../../../utils/formatTime";
-import CustomSpin from "../../../customs/spin";
-import usePagination from "../../../hooks/usePagnation";
 import { useState } from "react";
-import { userAtom } from "../../../utils/store";
 import { useAtomValue } from "jotai";
+import { getMyApplications } from "@/services/profileService";
+import { useRouter } from "next/navigation";
+import { getTimeAgo } from "@/lib/utils/formatTime";
+import CustomSpin from "@/components/ui/spin";
+import usePagination from "@/hooks/usePagination";
+import { userAtom } from "@/lib/utils/store";
 
 const MyApplications = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { currentPage, onChange } = usePagination();
   const user = useAtomValue(userAtom);
 
   const [activeKey, setActiveKey] = useState("0");
 
   const handleNavigateDetails = (id: number,applicationDetailsId:number) => {
-    navigate(`/my-application-details/${id}/${applicationDetailsId}`);
+    router.push(`/my-application-details/${id}/${applicationDetailsId}`);
     window.scrollTo(0, 0);
   };
 

@@ -1,38 +1,37 @@
 import styles from "./style.module.scss";
-import FlagJobicon from "../../../../assets/flag.svg";
-import JobLocation from "../../../../assets/joblocation.svg";
-import ArrowIcon from "../../../../assets/arrow-right-green.svg";
-import { useNavigate, useParams } from "react-router-dom";
 import {  Modal } from "antd";
 import { useState } from "react";
 import {  useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import DOMPurify from "dompurify";
-import JobTypeIcon from "../../../../assets/jobtype.svg";
-import WorkIcon from "../../../../assets/jobarrange.svg";
-import JobLevelIon from "../../../../assets/joblevel.svg";
-import SalaryIcon from "../../../../assets/salary.svg";
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../../../utils/store";
-import { getFlaggedJobByJob_idUser_id, getMyApplicationDetails } from "../../../request";
-import CustomSpin from "../../../../customs/spin";
-import RouteIndicator from "../../../../customs/routeIndicator";
 import FlagJob from "../../../job/jobDetails/flagJob/flagJob";
 import MoreJobsLikeThis from "../../../job/jobLikeThis/jobsLikeThis";
-import { formatAmount, formatDateToDayMonthYear, getTimeAgo } from "../../../../utils/formatTime";
-import StatusBadge from "../../../../partials/statusBadge/statusBadge";
-import Button from "../../../../customs/button/button";
+import StatusBadge from "@/components/partials/statusBadge/statusBadge";
+import { formatAmount, formatDateToDayMonthYear, getTimeAgo } from "@/lib/utils/formatTime";
+import Button from "@/components/ui/button/button";
+import { userAtom } from "@/lib/utils/store";
+import CustomSpin from "@/components/ui/spin";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import { getMyApplicationDetails } from "@/services/profileService";
+import { getFlaggedJobByJob_idUser_id } from "@/services/jobServices";
+import { useParams, useRouter } from "next/navigation";
 
 const MyApplicationDetails = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [flagJob,setFlagJob] = useState(false);
-  const { id } = useParams();
-  const { applicationDetailsId } = useParams();
+
   const user = useAtomValue(userAtom);
 
+const params =useParams()
+const id = params.id as string
+const applicationDetailsId = params.applicationDetailsId as string
+
+
+ 
 
   const handleNavigateToMoreJob = () => {
-    navigate(`/job/more-jobs-like-this/${id}`);
+    router.push(`/job/more-jobs-like-this/${id}`);
     window.scrollTo(0, 0);
   };
 
@@ -47,7 +46,7 @@ const MyApplicationDetails = () => {
       },
       {
         queryKey: ["get-flagged-job-by-userId",id],
-        queryFn: () => getFlaggedJobByJob_idUser_id(parseInt(id!), user?.id!),
+        queryFn: () => getFlaggedJobByJob_idUser_id(parseInt(id!), user?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: true,
         enabled: !!user?.id 
@@ -126,7 +125,7 @@ const MyApplicationDetails = () => {
                 <p>{JobDetailsData?.business?.name}</p>
               </span>
               <span className={styles.location}>
-                <img src={JobLocation} alt="JobLocation" />
+                <img src='/joblocation.svg' alt="JobLocation" />
                 <p>{JobDetailsData?.job?.location}</p>
               </span>
               <h3 className={styles.jobTitle}>{JobDetailsData?.job?.title}</h3>
@@ -162,7 +161,7 @@ const MyApplicationDetails = () => {
                   variant="redOutline"
                   text={hasUserFlaggedJob ? "Unflag This Job" : "Flag This Job"}
                   className={styles.buttonStyle}
-                  icon={<img src={FlagJobicon} alt="FlagJobicon" />}
+                  icon={<img src='/flag.svg' alt="FlagJobicon" />}
                   onClick={()=>{setFlagJob(true)}}
                 />
               </div>
@@ -174,7 +173,7 @@ const MyApplicationDetails = () => {
                 This job is no longer accepting applications
               </p>
             )}
-            <p>You applied for this job on the {formatDateToDayMonthYear(JobDetailsData?.created_at!)}</p>
+            <p>You applied for this job on the {formatDateToDayMonthYear(JobDetailsData?.created_at ?? '')}</p>
             {JobDetailsData?.status === '3' &&
             <p>Thank you for applying, Unfortunately you were not selected for this job</p>
 
@@ -186,7 +185,7 @@ const MyApplicationDetails = () => {
             <section className={styles.container}>
              
               <div className={styles.info}>
-                <img src={JobTypeIcon} alt="TimeIcon" />
+                <img src='/jobtype.svg' alt="TimeIcon" />
 
                 <p>Job Type</p>
               </div>
@@ -200,7 +199,7 @@ const MyApplicationDetails = () => {
               </p>
 
               <div className={styles.info}>
-                <img src={JobLevelIon} alt="TimeIcon" />
+                <img src='/joblevel.svg' alt="TimeIcon" />
 
                 <p>Full Time</p>
               </div>
@@ -211,7 +210,7 @@ const MyApplicationDetails = () => {
                     JobDetailsData?.job?.level?.slice(1)}
               </p>
               <div className={styles.info}>
-                <img src={WorkIcon} alt="TimeIcon" />
+                <img src='/jobarrange.svg' alt="TimeIcon" />
 
                 <p>Work Arrangement</p>
               </div>
@@ -222,7 +221,7 @@ const MyApplicationDetails = () => {
                     JobDetailsData?.job?.job_type?.slice(1)}
               </p>
               <div className={styles.info}>
-                <img src={SalaryIcon} alt="TimeIcon" />
+                <img src='/salary.svg' alt="TimeIcon" />
 
                 <p>Salary</p>
               </div>
@@ -293,7 +292,7 @@ const MyApplicationDetails = () => {
                 className={styles.btnWrapper}
               >
                 <p className={styles.btn}>See All</p>
-                <img src={ArrowIcon} alt="ArrowIcon" />
+                <img src='/arrow-right-green.svg' alt="ArrowIcon" />
               </div>
             </div>
             {/* <p>No Reviews available yet</p> */}

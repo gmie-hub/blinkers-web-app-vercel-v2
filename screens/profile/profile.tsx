@@ -1,9 +1,7 @@
-import Icon from "/Container.svg";
 import styles from "./styles.module.scss";
 import { useState } from "react";
 import { Tabs, TabsProps } from "antd";
 import MyBusinesses from "./myBusinesses";
-import { useParams } from "react-router-dom";
 import MyApplications from "./myApplication/myApplications";
 import MyDetails from "../job/apply/applyAsApplicant/index";
 
@@ -13,23 +11,22 @@ import MyFavorite from "./myFavorite";
 // import Notification from "../notification";
 import JobPosted from "./businessInformation/postedJob/postedJob";
 import SubscriptionCard from "./subscription/sub";
+import { useParams } from "next/navigation";
 
 const Profile = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params.id as string;
   const [activeKey, setActiveKey] = useState(() => {
     // If id is available, use it; otherwise, fallback to localStorage or "1"
     return id || localStorage.getItem("activeTabKeyProfile") || "1";
   });
 
-
   // Update localStorage whenever the active key changes
-//   useEffect(() => {
-//     localStorage.setItem("activeTabKeyProfile", activeKey);
-//   }, [activeKey]);
+  //   useEffect(() => {
+  //     localStorage.setItem("activeTabKeyProfile", activeKey);
+  //   }, [activeKey]);
 
-
-
-//do not change the key, if you want to add new tab give it another number not exisitng number
+  //do not change the key, if you want to add new tab give it another number not exisitng number
   const items: TabsProps["items"] = [
     {
       key: "1",
@@ -54,7 +51,7 @@ const Profile = () => {
     {
       key: "5",
       label: "My Application Details",
-      children: <MyDetails  showRouteIndicator={false}/>,
+      children: <MyDetails showRouteIndicator={false} />,
     },
     {
       key: "6",
@@ -71,8 +68,6 @@ const Profile = () => {
       label: "Favorites",
       children: <MyFavorite />,
       // children: <Reviews />,
-
-      
     },
     // {
     //   key: "9",
@@ -89,8 +84,6 @@ const Profile = () => {
   const handleTabChange = (key: string) => {
     setActiveKey(key);
     localStorage.setItem("activeTabKeyProfile", key);
-
-
   };
 
   return (
@@ -100,7 +93,7 @@ const Profile = () => {
           <div
             className={styles.image}
             style={{
-              backgroundImage: `url(${Icon})`, // Ensure you use the correct image reference
+              backgroundImage: "url(/Container.svg)", // Ensure you use the correct image reference
             }}
           >
             <div className={styles.home}>

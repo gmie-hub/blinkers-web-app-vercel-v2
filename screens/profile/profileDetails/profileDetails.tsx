@@ -1,20 +1,19 @@
 import styles from "./styles.module.scss";
-import Avatarprofile from "../../../assets/Avatarprofile.svg";
-import { deleteUser, getApplicantsbyId } from "../../request";
 import { useMutation, useQueries } from "@tanstack/react-query";
-import { userAtom } from "../../../utils/store";
 import { useAtomValue } from "jotai";
 import { AxiosError } from "axios";
-import CustomSpin from "../../../customs/spin";
 import ChangePassword from "./changePassword";
 import YourProfile from "./yourProfile";
-import Button from "../../../customs/button/button";
 import { App } from "antd";
-import { errorMessage } from "../../../utils/errorMessage";
-import { logout } from "../../../utils/logout";
-import ReusableModal from "../../../partials/deleteModal/deleteModal";
+import ReusableModal from "@/components/partials/deleteModal/deleteModal";
 import { useState } from "react";
-import DeleteIcon from "../../../assets/del.svg";
+import { userAtom } from "@/lib/utils/store";
+import CustomSpin from "@/components/ui/spin";
+import Button from "@/components/ui/button/button";
+import { getApplicantsbyId } from "@/services/applicantServices";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { logout } from "@/lib/utils/logout";
+import { deleteUser } from "@/services/profileService";
 
 const ProfileDetails = () => {
   const user = useAtomValue(userAtom);
@@ -25,7 +24,7 @@ const ProfileDetails = () => {
     queries: [
       {
         queryKey: ["get-profile"],
-        queryFn: () => getApplicantsbyId(user?.id!),
+        queryFn: () => getApplicantsbyId(user?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: true,
         enabled:!!user?.id
@@ -44,7 +43,7 @@ const ProfileDetails = () => {
     mutationFn: deleteUser,
     onSuccess: () => {
       notification.success({
-        message: "Success",
+        title: "Success",
         description: "Deleted successfully",
       });
       logout();
@@ -58,7 +57,7 @@ const ProfileDetails = () => {
     } catch (error: any) {
       // Handle error if the mutation fails
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }
@@ -85,7 +84,7 @@ const ProfileDetails = () => {
               <p style={{ fontWeight: "bold" }}>Your Profile</p>
               <img
                 className={styles.profile}
-                src={profileData?.profile_image || Avatarprofile}
+                src={profileData?.profile_image || '/Avatarprofile.svg'}
                 alt="ProfileImg"
                
               />
@@ -137,7 +136,7 @@ const ProfileDetails = () => {
         handleConfirm={
           DeleteUserHandler
         }
-        icon={<img src={DeleteIcon} alt="DeleteIcon" />}
+        icon={<img src='/del.svg' alt="DeleteIcon" />}
         disabled={deleteUserMutation?.isPending}
       />
 

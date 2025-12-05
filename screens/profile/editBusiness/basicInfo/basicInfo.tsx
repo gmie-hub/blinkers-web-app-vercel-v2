@@ -3,14 +3,13 @@ import styles from './basicInfo.module.scss';
 import { FC, useState } from 'react';
 import * as Yup from 'yup';
 import { useQuery } from '@tanstack/react-query';
-// import { basicInfoAtom } from '../../../../../utils/store';
-import { validator } from '../../../../utils/validator';
-import { getAllCategory } from '../../../request';
-import Input from '../../../../customs/input/input';
-import SearchableSelect from '../../../../customs/searchableSelect/searchableSelect';
-import Button from '../../../../customs/button/button';
 import { useSetAtom } from 'jotai';
-import { basicInfoAtom } from '../../../../utils/store';
+import { basicInfoAtom } from '@/lib/utils/store';
+import { validator } from '@/lib/utils/validator';
+import { getAllCategory } from '@/services/categoryServices';
+import Button from '@/components/ui/button/button';
+import Input from '@/components/ui/input/input';
+import SearchableSelect from '@/components/ui/searchableSelect/searchableSelect';
 
 interface ComponentProps {
   handleNext: () => void;

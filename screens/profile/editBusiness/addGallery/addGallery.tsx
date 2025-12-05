@@ -3,16 +3,12 @@ import styles from "./styles.module.scss";
 import { FC, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { App } from "antd";
-import Button from "../../../../customs/button/button";
-import { errorMessage } from "../../../../utils/errorMessage";
-import { deleteGalarybyId, uploadGallery } from "../../../request";
-import ModalContent from "../../../../partials/successModal/modalContent";
-// import linkIcon from "../../../../assets/link-2.svg";
-import fileIcon from "../../../../assets/filegreen.svg";
-import removeGreen from "../../../../assets/removegreen.svg";
-
-import { userAtom } from "../../../../utils/store";
 import { useAtomValue } from "jotai/react";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { userAtom } from "@/lib/utils/store";
+import { deleteGalarybyId, uploadGallery } from "@/services/profileService";
+import ModalContent from "@/components/partials/successModal/modalContent";
+import Button from "@/components/ui/button/button";
 
 interface ComponentProps {
   onPrev: () => void;
@@ -35,13 +31,13 @@ const AddGallery: FC<ComponentProps> = ({ onPrev, businessDetailsData }) => {
     try {
       await deleteGalaryMutation.mutateAsync(
         {
-          business_id: user?.business?.id!, // Ensure id is available
+          business_id: user?.business?.id ?? 0, // Ensure id is available
           ids: imageIds,
         },
         {
           onSuccess: (data) => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: data?.message,
             });
             queryClient.refetchQueries({
@@ -52,7 +48,7 @@ const AddGallery: FC<ComponentProps> = ({ onPrev, businessDetailsData }) => {
       );
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description:errorMessage(error) || "An error occurred",
       });
     }
@@ -91,7 +87,7 @@ const busId =user?.business?.id
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
 
@@ -128,7 +124,7 @@ const busId =user?.business?.id
 
       if (!isValidType) {
         notification.error({
-          message: "Invalid File Type",
+          title: "Invalid File Type",
           description:
             "Please upload an Excel file (.xls or .xlsx), an image, or a video.",
         });
@@ -184,7 +180,7 @@ const busId =user?.business?.id
                     type="button"
                     text="Upload Photos"
                     className={styles.buttonStyle}
-                    icon={<img src={fileIcon} alt="fileIcon" />}
+                    icon={<img src='/filegreen.svg' alt="fileIcon" />}
                     onClick={handleUploadClick}
                     isLoading={UploadGalleryMutation?.isPending}
                   />
@@ -214,7 +210,7 @@ const busId =user?.business?.id
                           disabled={deleteGalaryMutation.isPending}
                         >
                           <img
-                            src={removeGreen}
+                            src='/removegreen.svg'
                             alt="removeGreen"
                             className={styles.removeIcon}
                             onClick={() => DeleteGalaryHandler([item.id])}
@@ -235,7 +231,7 @@ const busId =user?.business?.id
                     type="button"
                     text="Upload Videos"
                     className={styles.buttonStyle}
-                    icon={<img src={fileIcon} alt="fileIcon" />}
+                    icon={<img src='/filegreen.svg' alt="fileIcon" />}
                     onClick={handleUploadClick}
                     isLoading={UploadGalleryMutation?.isPending}
                   />
@@ -265,7 +261,7 @@ const busId =user?.business?.id
                         >
                           {
                             <img
-                              src={removeGreen}
+                              src='/removegreen.svg'
                               alt="removeGreen"
                               className={styles.removeIcon}
                               onClick={() => DeleteGalaryHandler(item.id)}

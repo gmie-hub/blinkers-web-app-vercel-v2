@@ -4,13 +4,13 @@ import { Form, Formik, FormikValues } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import styles from "./styles.module.scss";
 import { PlusOutlined } from "@ant-design/icons";
-import api from "../../../../utils/apiClient";
-import Button from "../../../../customs/button/button";
-import Input from "../../../../customs/input/input";
 import { useAtomValue } from "jotai";
-import { basicInfoAtom, userAtom } from "../../../../utils/store";
-import { errorMessage } from "../../../../utils/errorMessage";
 import OpeningHoursForm from "./businessHour";
+import api from "@/lib/utils/apiClient";
+import Button from "@/components/ui/button/button";
+import Input from "@/components/ui/input/input";
+import { basicInfoAtom, userAtom } from "@/lib/utils/store";
+import { errorMessage } from "@/lib/utils/errorMessage";
 
 interface ComponentProps {
   onPrev: () => void;
@@ -97,7 +97,7 @@ const SocialsCoverPhotoForm: FC<ComponentProps> = ({
       await createBusinessMutation.mutateAsync(formData, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
           queryClient.refetchQueries({ queryKey: ["get-business-details"] });
@@ -106,7 +106,7 @@ const SocialsCoverPhotoForm: FC<ComponentProps> = ({
       });
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description:errorMessage(error) || "An error occurred",
       });
       

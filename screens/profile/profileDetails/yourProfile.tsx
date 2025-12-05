@@ -1,18 +1,17 @@
 import styles from "./styles.module.scss";
-import Profile from "../../../assets/Avatarprofile.svg";
-import CameraIcon from "../../../assets/camera.svg";
 import { Form, Formik, FormikValues } from "formik";
-import Input from "../../../customs/input/input";
-import Button from "../../../customs/button/button";
-import { basicInfoApi, getAllState, getLGAbyStateId } from "../../request";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import SearchableSelect from "../../../customs/searchableSelect/searchableSelect";
-import { userAtom } from "../../../utils/store";
 import { useAtomValue } from "jotai";
 import { App } from "antd";
-import { errorMessage } from "../../../utils/errorMessage";
 import * as Yup from "yup";
+import Input from "@/components/ui/input/input";
+import Button from "@/components/ui/button/button";
+import SearchableSelect from "@/components/ui/searchableSelect/searchableSelect";
+import { userAtom } from "@/lib/utils/store";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { getAllState, getLGAbyStateId } from "@/services/locationServices";
+import { basicInfoApi } from "@/services/jobServices";
 interface Props {
   profileData?: UserData;
 }
@@ -43,7 +42,7 @@ const YourProfile = ({ profileData }: Props) => {
     // Validate if the file type is valid
     if (!validFileTypes.includes(selectedFile.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description:
           "The logo field must be a file of type: jpg, jpeg, png, gif, docx, doc, ppt.",
       });
@@ -133,7 +132,7 @@ const YourProfile = ({ profileData }: Props) => {
       await basicInfoMutation.mutateAsync(formData, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
           setProfileImage(null);
@@ -145,7 +144,7 @@ const YourProfile = ({ profileData }: Props) => {
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
 
@@ -191,7 +190,7 @@ const YourProfile = ({ profileData }: Props) => {
                       src={
                         previewImage
                           ? previewImage
-                          : profileData?.profile_image || Profile
+                          : profileData?.profile_image || '/Avatarprofile.svg'
                       }
                       alt="profile"
                       className={styles.profile}
@@ -201,7 +200,7 @@ const YourProfile = ({ profileData }: Props) => {
                       }
                     />
                   <img
-                    src={CameraIcon}
+                    src='/camera.svg'
                     alt="Camera"
                     style={{ cursor: "pointer" }}
                     onClick={() =>

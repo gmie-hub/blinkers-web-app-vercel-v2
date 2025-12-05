@@ -1,48 +1,42 @@
 import { Field, Form, Formik, FormikProps, FormikValues } from "formik";
 import styles from "./editAds.module.scss";
-import { useMutation, useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
-import Input from "../../../customs/input/input";
-import SearchableSelect from "../../../customs/searchableSelect/searchableSelect";
-import Button from "../../../customs/button/button";
-import { useNavigate, useParams } from "react-router-dom";
 import {
-  deleteAdsGalarybyId,
-  deleteAdsVideobyId,
-  getAllCategory,
-  getAllState,
-  getAllSubscriptionbyId,
-  getApplicantsbyId,
-  getLGAbyStateId,
-  getProductDetails,
-  getSpecSubCategory,
-  getSubCategory,
-  UpdateAds,
-  uploadAdsGallery,
-  uploadAdsVideo,
-} from "../../request";
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { AxiosError } from "axios";
-import Checkbox from "../../../customs/checkBox/checkbox";
-import Upload from "../../../customs/upload/upload";
 import { App } from "antd";
-import { errorMessage } from "../../../utils/errorMessage";
-import DeleteIcon from "../../../assets/deleteicon.svg";
-import CustomSpin from "../../../customs/spin";
 import * as Yup from "yup";
-import SpecificationSelect from "../../../customs/select/speSelect";
-import { userAtom } from "../../../utils/store";
 import { useAtomValue } from "jotai";
-import { LimitNotification } from "../../../utils/limitNotification";
+import Button from "@/components/ui/button/button";
+import { useRouter, useSearchParams } from "next/navigation";
+import Checkbox from "@/components/ui/checkBox/checkbox";
+import CustomSpin from "@/components/ui/spin";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import SearchableSelect from "@/components/ui/searchableSelect/searchableSelect";
+import Upload from "@/components/ui/upload/upload";
+import Input from "@/components/ui/input/input";
+import { userAtom } from "@/lib/utils/store";
+import SpecificationSelect from "@/components/ui/select/speSelect";
+import { LimitNotification } from "@/lib/utils/limitNotification";
+import { deleteAdsGalarybyId, deleteAdsVideobyId, getAllSubscriptionById, UpdateAds, uploadAdsGallery, uploadAdsVideo } from "@/services/profileService";
+import { getAllState, getLGAbyStateId } from "@/services/locationServices";
+import { getProductDetails } from "@/services/adsServices";
+import { getApplicantsbyId } from "@/services/applicantServices";
+import { getAllCategory, getSpecSubCategory, getSubCategory } from "@/services/categoryServices";
 
 const EditAdz = () => {
-  const { id } = useParams();
+  const id = useSearchParams().get("id");
   const [stateId, setStateId] = useState(0);
   const [categoryId, setCategoryId] = useState(0);
   const { notification } = App.useApp();
   const [uploadFeature, setUploadFeature] = useState<File | null>(null);
   const [upload, setUpload] = useState<File | null>(null);
   const [uploadVideo, setUploadVideo] = useState<File | null>(null);
-  const navigate = useNavigate();
+  const router = useRouter();
   const queryClient = useQueryClient();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [subCategoryId, setSubCategoryId] = useState(0);
@@ -113,7 +107,7 @@ const EditAdz = () => {
 
       {
         queryKey: ["get-profile"],
-        queryFn: () => getApplicantsbyId(user?.id!),
+        queryFn: () => getApplicantsbyId(user?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: true,
         enabled: !!user?.id,
@@ -125,7 +119,7 @@ const EditAdz = () => {
 
   const { data: subPlanData } = useQuery({
     queryKey: ["get-all-sub", planId],
-    queryFn: () => getAllSubscriptionbyId(planId),
+    queryFn: () => getAllSubscriptionById(planId),
     retry: 0,
     enabled: !!planId, // only runs when planId is available
     refetchOnWindowFocus: false,
@@ -204,32 +198,33 @@ const EditAdz = () => {
   ) => {
     if (!e.target?.files) return;
 
-
     const imageLimit = findFeatureBySlug("total-ads-images")?.pivot?.limit;
 
-    const uploadedCount = productDetailsData?.add_images?.filter(
-      (img: any) => img.is_featured === 0
-    )?.length ?? 0;
+    const uploadedCount =
+      productDetailsData?.add_images?.filter(
+        (img: any) => img.is_featured === 0
+      )?.length ?? 0;
 
-    if (imageLimit === undefined || (uploadedCount  >= imageLimit)) {
+    if (imageLimit === undefined || uploadedCount >= imageLimit) {
       LimitNotification({
         message: "Limit Reached",
-        description: imageLimit === undefined
-        ? "You can't upload Image on your current plan."
-        : `You can't upload more than ${imageLimit} image${imageLimit === 1 ? '' : 's'}.`,
+        description:
+          imageLimit === undefined
+            ? "You can't upload Image on your current plan."
+            : `You can't upload more than ${imageLimit} image${
+                imageLimit === 1 ? "" : "s"
+              }.`,
         // description: `You can't upload more than ${
         //   findFeatureBySlug("total-ads-images")?.pivot?.limit
         // } images.`,
         onClick: () => {
-          navigate("/pricing");
+          router.push("/pricing");
           window.scroll(0, 0);
         },
       });
       return;
     }
 
-
-    
     const selectedFile = e.target?.files[0];
 
     const validFileTypes = [
@@ -241,7 +236,7 @@ const EditAdz = () => {
 
     if (!validFileTypes.includes(selectedFile?.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description: "Only image files (jpg, jpeg, png) are allowed.",
       });
       return;
@@ -257,27 +252,29 @@ const EditAdz = () => {
     if (!e.target?.files) return;
 
     const videoLimit = findFeatureBySlug("total-ads-videos")?.pivot?.limit;
-    const uploadedCount =  productDetailsData?.add_videos?.length ?? 0;
+    const uploadedCount = productDetailsData?.add_videos?.length ?? 0;
 
-    if (videoLimit === undefined || (uploadedCount  >= videoLimit)) {
+    if (videoLimit === undefined || uploadedCount >= videoLimit) {
       LimitNotification({
         message: "Limit Reached",
-        description: videoLimit === undefined
-      ? "You can't upload video on your current plan."
-      : `You can't upload more than ${videoLimit} video${videoLimit === 1 ? '' : 's'}.`,
+        description:
+          videoLimit === undefined
+            ? "You can't upload video on your current plan."
+            : `You can't upload more than ${videoLimit} video${
+                videoLimit === 1 ? "" : "s"
+              }.`,
         // description: `You can't upload more than ${
         //   findFeatureBySlug("total-ads-videos")?.pivot?.limit === undefined
         //     ? 0
         //     : findFeatureBySlug("total-ads-videos")?.pivot?.limit
         // } Video.`,
         onClick: () => {
-          navigate("/pricing");
+          router.push("/pricing");
           window.scroll(0, 0);
         },
       });
       return;
     }
-
 
     const selectedFile = e.target?.files[0];
 
@@ -285,7 +282,7 @@ const EditAdz = () => {
 
     if (!validFileTypes.includes(selectedFile?.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description: "Only video files (mp4,) are allowed.",
       });
       return;
@@ -312,7 +309,7 @@ const EditAdz = () => {
     // Validate if the file type is valid
     if (!validFileTypes.includes(selectedFile?.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description:
           "The logo field must be a file of type: jpg, jpeg, png, gif, docx, doc, ppt.",
       });
@@ -326,8 +323,6 @@ const EditAdz = () => {
     setSubCategoryId(value);
   };
 
-
- 
   const deleteGalaryMutation = useMutation({ mutationFn: deleteAdsGalarybyId });
 
   const DeleteGalaryHandler = async (imageIds: number[]) => {
@@ -340,7 +335,7 @@ const EditAdz = () => {
         {
           onSuccess: (data) => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: data?.message,
             });
             queryClient.refetchQueries({
@@ -351,7 +346,7 @@ const EditAdz = () => {
       );
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }
@@ -369,7 +364,7 @@ const EditAdz = () => {
         {
           onSuccess: (data) => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: data?.message,
             });
             queryClient.refetchQueries({
@@ -380,7 +375,7 @@ const EditAdz = () => {
       );
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }
@@ -405,7 +400,7 @@ const EditAdz = () => {
       await UploadGalleryMutation.mutateAsync(formData, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
 
@@ -417,7 +412,7 @@ const EditAdz = () => {
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
 
@@ -444,7 +439,7 @@ const EditAdz = () => {
       await UploadVideoMutation.mutateAsync(formData, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
 
@@ -456,7 +451,7 @@ const EditAdz = () => {
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
 
@@ -484,11 +479,11 @@ const EditAdz = () => {
   // }, [uploadFeature]);
 
   useEffect(() => {
-    setStateId(productDetailsData?.state_id!);
+    setStateId(productDetailsData?.state_id ?? 0);
   }, [productDetailsData?.state_id]);
 
   useEffect(() => {
-    setCategoryId(productDetailsData?.category_id!);
+    setCategoryId(productDetailsData?.category_id ?? 0 );
   }, [productDetailsData?.category_id]);
 
   const updateAdsMutation = useMutation({
@@ -563,20 +558,20 @@ const EditAdz = () => {
 
     try {
       await updateAdsMutation.mutateAsync(
-        { id: productDetailsData?.id!, payload: formData },
+        { id: productDetailsData?.id ?? 0, payload: formData },
         {
           onSuccess: (data) => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: data?.message,
             });
-            navigate(-1);
+            router.back();
           },
         }
       );
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }
@@ -663,26 +658,25 @@ const EditAdz = () => {
             const totalAdsCreated =
               getProfileQuery?.data?.data?.total_all_ads ?? 0;
             const adLimit = findFeatureBySlug("total-ads")?.pivot?.limit;
-            if (adLimit !== undefined && (totalAdsCreated < adLimit)) {
-              
-             
+            if (adLimit !== undefined && totalAdsCreated < adLimit) {
               UpdateAdsHandler(values);
             } else
               LimitNotification({
                 message: "Limit Reached",
-  
-                description: adLimit === undefined
-                ? "You can't Post Ads on your current plan."
-                : `You can't Post more than ${adLimit} Ad${adLimit === 1 ? '' : 's'}. on your current Plan,`,
-                
-              
+
+                description:
+                  adLimit === undefined
+                    ? "You can't Post Ads on your current plan."
+                    : `You can't Post more than ${adLimit} Ad${
+                        adLimit === 1 ? "" : "s"
+                      }. on your current Plan,`,
+
                 onClick: () => {
-                  navigate("/pricing");
+                  router.push("/pricing");
                   window.scroll(0, 0);
                 },
               });
           }}
-      
           validationSchema={validationSchema}
           enableReinitialize
         >
@@ -752,7 +746,7 @@ const EditAdz = () => {
                           className={styles.favoriteIcon}
                           onClick={() => DeleteGalaryHandler([image?.id])} // Your delete logic can be handled here
                         >
-                          <img width={30} src={DeleteIcon} alt="Favorite" />
+                          <img width={30} src='/deleteicon.svg' alt="Favorite" />
                         </div>
                       </div>
                     ))}
@@ -772,7 +766,7 @@ const EditAdz = () => {
                             className={styles.favoriteIcon}
                             onClick={() => DeleteVideoHandler([image?.id])} // Your delete logic can be handled here
                           >
-                            <img width={30} src={DeleteIcon} alt="Favorite" />
+                            <img width={30} src='/deleteicon.svg' alt="Favorite" />
                           </div>
                         </div>
                       )
@@ -917,7 +911,7 @@ const EditAdz = () => {
                       disabled={false}
                       text="Cancel"
                       className="buttonStyle"
-                      onClick={() => navigate(-1)}
+                      onClick={() => router.back()}
                     />
                     <Button
                       variant="green"
