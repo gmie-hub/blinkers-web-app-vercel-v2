@@ -1,7 +1,6 @@
 import styles from './delete.module.scss';
 import { Modal, Image } from 'antd';
 import { ReactNode } from 'react';
-import ProductIcon from '../../assets/remove_11695444 2.svg';
 import Button from '@/components/ui/button/button';
 
 interface Props {
@@ -38,7 +37,7 @@ const ReusableDeleteModal = ({
       footer={null}
     >
       <section className={styles.DeleteModalWrapper}>
-        {icon ?? <Image src={ProductIcon} alt="ProductIcon" preview={false} />}
+        {icon ?? <Image src='/remove.svg' alt="ProductIcon" preview={false} />}
         <p className={styles.ModalTitle}>{title}</p>
         <p className={styles.ModalDescription}>{description}</p>
         <div className={styles.btn}>

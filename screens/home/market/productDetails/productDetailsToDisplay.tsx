@@ -7,7 +7,7 @@ import { AxiosError } from "axios";
 import { App, Modal } from "antd";
 import { useAtomValue } from "jotai";
 import GeneralWelcome from "../marketLogin/marketLogin";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { userAtom } from "@/lib/utils/store";
 import Button from "@/components/ui/button/button";
 import { errorMessage } from "@/lib/utils/errorMessage";
@@ -29,7 +29,8 @@ const Main = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   const idOrSlug = id!;
 

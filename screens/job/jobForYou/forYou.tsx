@@ -10,6 +10,7 @@ import { getForYouJobs } from "@/services/jobServices";
 import { sanitizeUrlParam } from "@/lib/utils";
 import { getColorByString, getInitials } from "@/lib/utils/limitNotification";
 import { useRouter } from "next/navigation";
+import usePagination from "@/hooks/usePagination";
 
 interface Props {
   canSeeBtn?: boolean;

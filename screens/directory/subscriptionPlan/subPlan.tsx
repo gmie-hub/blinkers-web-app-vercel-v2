@@ -1,10 +1,9 @@
-import Button from "../../../customs/button/button";
 import styles from "./subPlan.module.scss";
-import BillingIcon from "../../..//assets/billing 1.svg";
 import { Image } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
-import { useNavigate, useParams } from "react-router-dom";
-import RouteIndicator from "../../../customs/routeIndicator";
+import { useParams, useRouter } from "next/navigation";
+import Button from "@/components/ui/button/button";
+import RouteIndicator from "@/components/ui/routeIndicator";
 
 const items = [
   "Permit business name",
@@ -17,12 +16,13 @@ const items = [
 ];
 
 const SubPlan = () => {
-  const navigate =useNavigate()
-  const { id } = useParams();
+  const router = useRouter();
+  const params = useParams();
+  const id = params.id as string;
 
   return (
     <div className="wrapper">
-      <RouteIndicator showBack/>
+      <RouteIndicator showBack />
       {/* Header Section */}
 
       {/* Card Section */}
@@ -31,7 +31,7 @@ const SubPlan = () => {
           <h1 className={styles.headerText}>Platinum Plan</h1>
         </div>
         <div className={styles.billing}>
-          <Image src={BillingIcon} alt="Billing Icon" preview={false} />
+          <Image src="/billing-1.svg" alt="Billing Icon" preview={false} />
           <h2 className={styles.amount}>
             NGN 100,000/ <span className={styles.year}>year</span>
           </h2>
@@ -44,17 +44,23 @@ const SubPlan = () => {
                   display: "flex",
                   alignItems: "center",
                   marginBottom: "0.8rem",
-                  color:'var(--color-body-text)'
+                  color: "var(--color-body-text)",
                 }}
               >
-                <CheckOutlined style={{ color: "#009900", marginRight: "8px" }} />
+                <CheckOutlined
+                  style={{ color: "#009900", marginRight: "8px" }}
+                />
                 {item}
               </li>
             ))}
           </ul>
           <div className={styles.subBtn}>
-            <Button onClick={()=>{navigate(`/claim-business/${id}`)}} text="Subscribe Now" />
-          
+            <Button
+              onClick={() => {
+                router.push(`/claim-business/${id}`);
+              }}
+              text="Subscribe Now"
+            />
           </div>
         </div>
       </div>

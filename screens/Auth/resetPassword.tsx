@@ -1,39 +1,36 @@
-import { Form, Formik, FormikValues } from 'formik';
-import styles from './index.module.scss';
+import { Form, Formik, FormikValues } from "formik";
+import styles from "./index.module.scss";
 import { App, Image } from "antd";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
 import * as Yup from "yup";
-import Card from '@/components/ui/card/card';
-import Input from '@/components/ui/input/input';
-import Button from '@/components/ui/button/button';
-import { ResetPasswordCall } from '@/services/authService';
-import { routes } from '@/lib/routes';
-import { errorMessage } from '@/lib/utils/errorMessage';
-import { useRouter, useSearchParams } from 'next/navigation';
+import Card from "@/components/ui/card/card";
+import Input from "@/components/ui/input/input";
+import Button from "@/components/ui/button/button";
+import { ResetPasswordCall } from "@/services/authService";
+import { routes } from "@/lib/routes";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { useParams, useRouter } from "next/navigation";
 
 const ResetPassword = () => {
   const { notification } = App.useApp();
   const router = useRouter();
-  const email = useSearchParams().get("email");
+  const params = useParams();
+  const email = params.email as string;
 
-  
   const ResetPasswordMutation = useMutation({
     mutationFn: ResetPasswordCall,
     mutationKey: ["reset-Password"],
   });
 
-
-  const handleNavigateToVerifyOtp = ()=> {
+  const handleNavigateToVerifyOtp = () => {
     router.push(routes?.auth?.login);
-
-  }
+  };
 
   const resetPasswordHandler = async (values: FormikValues, resetForm: any) => {
     const payload: Partial<ResetPasswordPayload> = {
-      email: email!  ,
+      email: email!,
       password: values?.password,
       confirm_password: values.confirmPassword,
- 
     };
 
     try {
@@ -43,7 +40,7 @@ const ResetPassword = () => {
             title: "Success",
             description: data?.message,
           });
-          handleNavigateToVerifyOtp()
+          handleNavigateToVerifyOtp();
 
           resetForm(); // Reset the form on success
         },
@@ -58,40 +55,45 @@ const ResetPassword = () => {
 
   const validationSchema = Yup.object().shape({
     password: Yup.string()
-    .required("Password is required")
-    .max(20, "Password must have a maximum length of 20 characters"),
-  // .matches(
-  //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/,
-  //   "Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character"
-  // ),
-  confirmPassword: Yup.string()
-    .required("Confirm password is required")
-    .oneOf([Yup.ref("password")], "Passwords must match"),
-
+      .required("Password is required")
+      .max(20, "Password must have a maximum length of 20 characters"),
+    // .matches(
+    //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/,
+    //   "Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character"
+    // ),
+    confirmPassword: Yup.string()
+      .required("Confirm password is required")
+      .oneOf([Yup.ref("password")], "Passwords must match"),
   });
 
   return (
     <section className={styles.container}>
-      <div  onClick={() => {
+      <div
+        onClick={() => {
           router.push("/");
-        }} className={styles.smallScreen}>
-      <Image src="/Frame 1618868702.svg" alt={'BlinkersLogo'} preview={false} />
+        }}
+        className={styles.smallScreen}
+      >
+        <Image
+          src="/Frame 1618868702.svg"
+          alt={"BlinkersLogo"}
+          preview={false}
+        />
       </div>
 
-      <Card  style={styles.card}>
-        <Image src='Featured icon.svg' alt={'LoginIcon'} preview={false} />
-
+      <Card style={styles.card}>
+        <Image src="Featured icon.svg" alt={"LoginIcon"} preview={false} />
 
         <p className={styles.welcome}>Reset Password</p>
         <small>Kindly create a new password </small>
 
         <Formik
           initialValues={{
-            confirmPassword: '',
-            password: '',
+            confirmPassword: "",
+            password: "",
           }}
           onSubmit={(values, { resetForm }) => {
-          resetPasswordHandler(values, resetForm);
+            resetPasswordHandler(values, resetForm);
             // resetForm();
           }}
           validationSchema={validationSchema}
@@ -99,8 +101,6 @@ const ResetPassword = () => {
           {() => {
             return (
               <Form className="fields">
-               
-
                 <div className={styles.inputContainer}>
                   <Input
                     name="password"
@@ -120,9 +120,16 @@ const ResetPassword = () => {
                   />
                 </div>
 
-          
-
-                <Button disabled={ResetPasswordMutation?.isPending} type="submit" text={ResetPasswordMutation?.isPending ? "loading..."  : "Reset Password"} className={styles.button} />
+                <Button
+                  disabled={ResetPasswordMutation?.isPending}
+                  type="submit"
+                  text={
+                    ResetPasswordMutation?.isPending
+                      ? "loading..."
+                      : "Reset Password"
+                  }
+                  className={styles.button}
+                />
               </Form>
             );
           }}

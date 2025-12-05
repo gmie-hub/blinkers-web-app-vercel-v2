@@ -3,7 +3,7 @@ import { Image, Pagination } from "antd";
 import { useQueries } from "@tanstack/react-query";
 import { useEffect } from "react";
 import usePagination from "@/hooks/usePagination";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import RouteIndicator from "@/components/ui/routeIndicator";
 import { countUpTo } from "@/lib/utils";
 import { getAdsByUserId } from "@/services/adsServices";
@@ -17,7 +17,8 @@ const SellersAds = ({
 }) => {
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   useEffect(() => {
     if (currentPage !== pageNum) {

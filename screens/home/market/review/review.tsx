@@ -3,7 +3,7 @@ import { Image, Pagination } from "antd";
 import { AxiosError } from "axios";
 import { useQueries } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import usePagination from "@/hooks/usePagination";
 import { getAllReviews } from "@/services/reviewServices";
 import CustomSpin from "@/components/ui/spin";
@@ -12,7 +12,9 @@ import { countUpTo } from "@/lib/utils";
 
 export default function AllReviews() {
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
+
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
 
   useEffect(() => {

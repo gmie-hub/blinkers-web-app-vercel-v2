@@ -1,52 +1,39 @@
 import styles from "./styles.module.scss";
 import { Image, Pagination } from "antd";
-import { useNavigate } from "react-router-dom";
-import LocationIcon from "../../../assets/locationrelated.svg";
-import CallIcon from "../../../assets/callrelated.svg";
 import { useQueries } from "@tanstack/react-query";
-import { getAllBusiness } from "../../request";
 import { AxiosError } from "axios";
-import RouteIndicator from "../../../customs/routeIndicator";
-import { sanitizeUrlParam } from "../../../utils";
-import usePagination from "../../../hooks/usePagnation";
 import { useEffect } from "react";
-
+import { sanitizeUrlParam } from "@/lib/utils";
+import usePagination from "@/hooks/usePagination";
+import { useRouter } from "next/navigation";
+import { getAllBusiness } from "@/services/businessServices";
+import RouteIndicator from "@/components/ui/routeIndicator";
 
 interface Props {
   limit?: number;
   showHeading?: boolean;
 }
-const RecommendedBusinesses = ({
-  showHeading = true,
-  limit,
-}: Props) => {
-  const navigate = useNavigate();
+const RecommendedBusinesses = ({ showHeading = true, limit }: Props) => {
+  const router = useRouter();
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
+
   useEffect(() => {
     if (currentPage !== pageNum) {
       setCurrentPage(pageNum);
     }
   }, [pageNum, currentPage, setCurrentPage]);
-  // const handleNavigateDirectory = (id: number, name:string,about:string) => {
-  //   // navigate(`/directory-details/${id}`);
-  //   navigate(`/directory-details/${id}/${sanitizeUrlParam(name)}/${sanitizeUrlParam(about)}`);
 
-  //   window.scroll(0, 0);
-  // };
-
-  const handleNavigateDirectory = (id: number, name:string) => {
+  const handleNavigateDirectory = (id: number, name: string) => {
     // navigate(`/directory-details/${id}`);
-    navigate(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
+    router.push(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
 
     window.scroll(0, 0);
   };
 
-  
-
   const [getAllRecommendedBusinessQuery] = useQueries({
     queries: [
       {
-        queryKey: ["get-all-recommended",],
+        queryKey: ["get-all-recommended"],
         queryFn: () => getAllBusiness(),
         retry: 0,
         refetchOnWindowFocus: false,
@@ -54,31 +41,23 @@ const RecommendedBusinesses = ({
     ],
   });
 
-
   const recommendedBusiness = getAllRecommendedBusinessQuery?.data?.data?.data;
 
-
-
-  const recommendedBusinessError = getAllRecommendedBusinessQuery?.error as AxiosError;
+  const recommendedBusinessError =
+    getAllRecommendedBusinessQuery?.error as AxiosError;
   const recommendedBusinessErrorMessage =
-  recommendedBusinessError?.message ||
+    recommendedBusinessError?.message ||
     "An error occurred. Please try again later.";
 
-
-
   const recommendedBusinessData =
-  recommendedBusiness && recommendedBusiness?.length > 0
+    recommendedBusiness && recommendedBusiness?.length > 0
       ? recommendedBusiness?.slice(0, limit)
       : recommendedBusiness;
 
-
-  
   return (
     <>
       <div className={showHeading ? "wrapper" : ""}>
         {showHeading && <RouteIndicator showBack />}
-
-       
 
         <div>
           {showHeading && (
@@ -94,7 +73,9 @@ const RecommendedBusinesses = ({
                 recommendedBusinessData?.length > 0 &&
                 recommendedBusinessData?.map((item: any, index: number) => (
                   <div
-                  onClick={() => handleNavigateDirectory(item?.id, item?.name)}
+                    onClick={() =>
+                      handleNavigateDirectory(item?.id, item?.name)
+                    }
                     // onClick={() => handleNavigateDirectory(item?.id, item?.name,item?.about)}
                     className={styles.promoImage}
                     key={index}
@@ -108,32 +89,33 @@ const RecommendedBusinesses = ({
                           : item?.name}
                       </p>
                       {item?.address && (
-                      <div className={styles.info}>
-                        <Image
-                          src={LocationIcon}
-                          alt="LocationIcon"
-                          preview={false}
-                        />
+                        <div className={styles.info}>
+                          <Image
+                            src="/locationrelated.svg"
+                            alt="LocationIcon"
+                            preview={false}
+                          />
 
-                        <p>
-                          {item?.address && item?.address?.length > 20
-                            ? `${item?.address?.slice(0, 20)}...`
-                            : item?.address}
-                        </p>
-                      </div>
+                          <p>
+                            {item?.address && item?.address?.length > 20
+                              ? `${item?.address?.slice(0, 20)}...`
+                              : item?.address}
+                          </p>
+                        </div>
                       )}
                       {item?.phone && (
-                      <div className={styles.info}>
-                        <Image
-                          width={20}
-                          height={20}
-                          src={CallIcon}
-                          alt="CallIcon"
-                          preview={false}
-                        />
+                        <div className={styles.info}>
+                          <Image
+                            width={20}
+                            height={20}
+                            src="/callrelated.svg"
+                            alt="CallIcon"
+                            preview={false}
+                          />
 
-                        <p>{item.phone}</p>
-                      </div>)}
+                          <p>{item.phone}</p>
+                        </div>
+                      )}
                       {/* <p className={styles.subjectBg}>Fashion Accessories</p> */}
                     </div>
                   </div>
@@ -143,7 +125,7 @@ const RecommendedBusinesses = ({
         </div>
       </div>
 
-            {showHeading && (
+      {showHeading && (
         <Pagination
           current={currentPage}
           total={getAllRecommendedBusinessQuery?.data?.data?.total} // Total number of items

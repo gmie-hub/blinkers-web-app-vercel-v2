@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 import { AxiosError } from "axios";
 import { useQueries } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { sanitizeUrlParam } from "@/lib/utils";
 import RouteIndicator from "@/components/ui/routeIndicator";
 import CustomSpin from "@/components/ui/spin";
@@ -16,7 +16,8 @@ interface Props {
 
 const MoreJobsLikeThis = ({ canSeeBtn = true, limit }: Props) => {
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   const [getJobDetailsQuery] = useQueries({
     queries: [

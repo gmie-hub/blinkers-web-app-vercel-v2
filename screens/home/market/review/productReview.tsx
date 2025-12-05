@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { useQueries } from "@tanstack/react-query";
 import { useEffect } from "react";
 import usePagination from "@/hooks/usePagination";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { getAllSellerReviews } from "@/services/reviewServices";
 import CustomSpin from "@/components/ui/spin";
 import { convertDate } from "@/lib/utils/formatTime";
@@ -12,7 +12,9 @@ import { countUpTo } from "@/lib/utils";
 
 export default function AllProductReviews() {
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
+
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 "use client";
 import styles from "./index.module.scss";
 import { Image, Modal, Pagination } from "antd";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 // import { countUpTo } from "../../trend";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 // import { getAllMarket } from "../../../request";
@@ -41,11 +41,10 @@ const ProductList: React.FC<ProductListProps> = ({
 }) => {
   // const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
-  
+
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
-  const searchParams = useSearchParams();
-  const search = searchParams.get("search");
-  // const { notification } = App.useApp();
+  const params = useParams();
+  const search = params.search as string; // const { notification } = App.useApp();
   const queryClient = useQueryClient();
   const user = useAtomValue(userAtom);
   // const currentPath = location.pathname;
@@ -217,7 +216,7 @@ const ProductList: React.FC<ProductListProps> = ({
     appliedSearchTerm = "";
     setAppliedSearchTerm("");
     // search = "";
-    setCurrentPage(1);  
+    setCurrentPage(1);
     // navigate("/market");
     router.push("/product-listing");
 
@@ -333,7 +332,11 @@ const ProductList: React.FC<ProductListProps> = ({
                   >
                     <img
                       width={30}
-                      src={favIcons.includes(item?.id) ? "/redfav.svg" : "/Icon + container.svg"}
+                      src={
+                        favIcons.includes(item?.id)
+                          ? "/redfav.svg"
+                          : "/Icon + container.svg"
+                      }
                       alt="Favorite"
                     />
                   </div>

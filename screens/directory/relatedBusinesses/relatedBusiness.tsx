@@ -1,25 +1,20 @@
 import styles from "./relatedBusiness.module.scss";
 import { Image } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
-import LocationIcon from "../../../assets/locationrelated.svg";
-import CallIcon from "../../../assets/callrelated.svg";
 import { useQueries } from "@tanstack/react-query";
-import { getBusinessById } from "../../request";
 import { AxiosError } from "axios";
-import RouteIndicator from "../../../customs/routeIndicator";
-import { sanitizeUrlParam } from "../../../utils";
-
+import { useParams, useRouter } from "next/navigation";
+import { getBusinessById } from "@/services/businessServices";
+import { sanitizeUrlParam } from "@/lib/utils";
+import RouteIndicator from "@/components/ui/routeIndicator";
 
 interface Props {
   limit?: number;
   showHeading?: boolean;
 }
-const RelatedBusinesses = ({
-  showHeading = true,
-  limit,
-}: Props) => {
-  const navigate = useNavigate();
-  const { id } = useParams();
+const RelatedBusinesses = ({ showHeading = true, limit }: Props) => {
+  const router = useRouter();
+  const params = useParams();
+  const id = params.id as string;
 
   // const handleNavigateDirectory = (id: number, name:string,about:string) => {
   //   // navigate(`/directory-details/${id}`);
@@ -28,9 +23,9 @@ const RelatedBusinesses = ({
   //   window.scroll(0, 0);
   // };
 
-  const handleNavigateDirectory = (id: number, name:string) => {
+  const handleNavigateDirectory = (id: number, name: string) => {
     // navigate(`/directory-details/${id}`);
-    navigate(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
+    router.push(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
 
     window.scroll(0, 0);
   };
@@ -55,14 +50,11 @@ const RelatedBusinesses = ({
 
   const relatedBusiness = businessDetailsData?.related_businesses;
 
-
   const relatedBusinessData =
     relatedBusiness && relatedBusiness?.length > 0
       ? relatedBusiness?.slice(0, limit)
       : relatedBusiness;
 
-
-  
   return (
     <>
       <div className={showHeading ? "wrapper" : ""}>
@@ -103,7 +95,9 @@ const RelatedBusinesses = ({
                 relatedBusinessData?.length > 0 &&
                 relatedBusinessData?.map((item: any, index: number) => (
                   <div
-                  onClick={() => handleNavigateDirectory(item?.id, item?.name)}
+                    onClick={() =>
+                      handleNavigateDirectory(item?.id, item?.name)
+                    }
                     // onClick={() => handleNavigateDirectory(item?.id, item?.name,item?.about)}
                     className={styles.promoImage}
                     key={index}
@@ -117,32 +111,33 @@ const RelatedBusinesses = ({
                           : item?.name}
                       </p>
                       {item?.address && (
-                      <div className={styles.info}>
-                        <Image
-                          src={LocationIcon}
-                          alt="LocationIcon"
-                          preview={false}
-                        />
+                        <div className={styles.info}>
+                          <Image
+                            src="/locationrelated.svg"
+                            alt="LocationIcon"
+                            preview={false}
+                          />
 
-                        <p>
-                          {item?.address && item?.address?.length > 20
-                            ? `${item?.address?.slice(0, 20)}...`
-                            : item?.address}
-                        </p>
-                      </div>
+                          <p>
+                            {item?.address && item?.address?.length > 20
+                              ? `${item?.address?.slice(0, 20)}...`
+                              : item?.address}
+                          </p>
+                        </div>
                       )}
                       {item?.phone && (
-                      <div className={styles.info}>
-                        <Image
-                          width={20}
-                          height={20}
-                          src={CallIcon}
-                          alt="CallIcon"
-                          preview={false}
-                        />
+                        <div className={styles.info}>
+                          <Image
+                            width={20}
+                            height={20}
+                            src="/callrelated.svg"
+                            alt="CallIcon"
+                            preview={false}
+                          />
 
-                        <p>{item.phone}</p>
-                      </div>)}
+                          <p>{item.phone}</p>
+                        </div>
+                      )}
                       {/* <p className={styles.subjectBg}>Fashion Accessories</p> */}
                     </div>
                   </div>

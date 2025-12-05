@@ -1,32 +1,27 @@
 import styles from "./directory.module.scss";
 import { Image, Modal, Pagination } from "antd";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Icon from "/Container.svg";
-import SearchInput from "../../customs/searchInput";
-import CallIcon from "../../assets/callrelated.svg";
-import LocationIcon from "../../assets/locationrelated.svg";
 import { useQueries } from "@tanstack/react-query";
-import { getAllBusiness, getRecommentationBusiness, getTopBusiness } from "../request";
 import { AxiosError } from "axios";
-import Button from "../../customs/button/button";
-import CustomSpin from "../../customs/spin";
-import FaArrowLeft from "../../assets/backArrow.svg";
-import usePagination from "../../hooks/usePagnation";
-import { userAtom } from "../../utils/store";
 import { useAtomValue } from "jotai";
-import { sanitizeUrlParam } from "../../utils";
-import WhiteAdd from "../../assets/add-circle.svg";
-import DirectoryImage from "../../assets/image 33.svg";
-import CheckIcon from "../../assets/checkico.svg";
-import Arrow from "../../assets/arrow-left.svg";
-import ArrowIcon from "../../assets/arrow-right-green.svg";
 import TopBusiness from "./topBusiness/topBusiness";
 import RecommendedBusinesses from "./recommended/recommendedBusiness";
 import BusinessDirectoryWelcome from "./directorLogin/directoryLoginCard";
+import { useRouter } from "next/navigation";
+import { sanitizeUrlParam } from "@/lib/utils";
+import SearchInput from "@/components/ui/searchInput";
+import Button from "@/components/ui/button/button";
+import CustomSpin from "@/components/ui/spin";
+import { userAtom } from "@/lib/utils/store";
+import usePagination from "@/hooks/usePagination";
+import {
+  getAllBusiness,
+  getRecommentationBusiness,
+  getTopBusiness,
+} from "@/services/businessServices";
 
 const Directory = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [appliedSearchTerm, setAppliedSearchTerm] = useState("");
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
@@ -35,15 +30,18 @@ const Directory = () => {
   const [showContent] = useState(true); // Manage review form visibility
   const moreBusinessesRef = useRef<HTMLParagraphElement>(null);
 
-  const [openLoginModal, setOpenLoginModal] =useState(false)
+  const [openLoginModal, setOpenLoginModal] = useState(false);
 
   const handlePageChange = (page: number) => {
     onChange(page); // this triggers the pagination logic from your custom hook
     if (moreBusinessesRef.current) {
-      moreBusinessesRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      moreBusinessesRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   };
-  
+
   useEffect(() => {
     if (currentPage !== pageNum) {
       setCurrentPage(pageNum);
@@ -57,11 +55,11 @@ const Directory = () => {
     setAppliedSearchTerm(searchTerm);
   };
   const handleNavigateTopBusiness = () => {
-    navigate(`/top-bussinesses`);
+    router.push(`/top-bussinesses`);
     window.scrollTo(0, 0);
   };
   const handleNavigateToRecommendedBusinesses = () => {
-    navigate(`/recommended-businesses`);
+    router.push(`/recommended-businesses`);
     window.scrollTo(0, 0);
   };
   // const handleNavigateDirectory = (id: number, name: string, about:string) => {
@@ -72,7 +70,7 @@ const Directory = () => {
   // };
 
   const handleNavigateDirectory = (id: number, name: string) => {
-    navigate(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
+    router.push(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
     window.scroll(0, 0);
   };
 
@@ -96,7 +94,7 @@ const Directory = () => {
       },
       {
         queryKey: ["get-all-recommended-bus"],
-        queryFn:  getRecommentationBusiness,
+        queryFn: getRecommentationBusiness,
         retry: 0,
         refetchOnWindowFocus: false,
       },
@@ -126,41 +124,15 @@ const Directory = () => {
     setAppliedSearchTerm("");
     setSearchTerm("");
     setCurrentPage(1);
-    navigate("/directory");
+    router.push("/directory");
     getAllDirectoryQuery?.refetch();
   };
   const handleAddDirectory = () => {
     if (!user) {
-      setOpenLoginModal(true)
-      // notification.open({
-      //   message: "You need to log in to complete this action.",
-      //   description: (
-      //     <>
-      //       <br />
-         
-         
-      //       <Button
-      //         type="button"
-      //         onClick={() => {
-      //           notification.destroy();
-      //           navigate(`/login?redirect=${currentPath}`);
-      //         }}
-      //       >
-      //         Click here to Login
-      //       </Button>
-      //     </>
-      //   ),
-      //   placement: "top",
-      //   duration: 4, // Auto close after 5 seconds
-      //   icon: null,
-      // });
-      
-
- 
-
+      setOpenLoginModal(true);
     } else if (user?.business === null) {
-      navigate("/job/add-business");
-    } else navigate("/profile/2");
+      router.push("/jobs/add-business");
+    } else router.push("/profile/2");
   };
 
   return (
@@ -169,7 +141,7 @@ const Directory = () => {
         <div
           className={styles.image}
           style={{
-            backgroundImage: `url(${Icon})`, // Ensure you use the correct image reference
+            backgroundImage: "url(/Container.svg)", // Ensure you use the correct image reference
           }}
         >
           <div className={styles.home}>
@@ -248,7 +220,7 @@ const Directory = () => {
                   gap: "0.5rem",
                 }}
               >
-                <Image src={CheckIcon} alt={CheckIcon} preview={false} />
+                <Image src="/checkico.svg" alt="check" preview={false} />
                 {item}
               </li>
             ))}
@@ -256,7 +228,7 @@ const Directory = () => {
           <div className={styles.btnFlex}>
             {(user && !user?.is_applicant) || !user ? (
               <Button
-                icon={<Image src={WhiteAdd} alt={WhiteAdd} preview={false} />}
+                icon={<Image src="/add-circle.svg" alt="add" preview={false} />}
                 className={styles.buttonStyle}
                 text="Add Business To Directory"
                 variant="green"
@@ -265,7 +237,11 @@ const Directory = () => {
             ) : (
               <Button
                 AfterTexticon={
-                  <Image src={Arrow} alt={Arrow} preview={false} />
+                  <Image
+                    src="/arrow-right-green.svg"
+                    alt="arrow"
+                    preview={false}
+                  />
                 }
                 className={styles.buttonStyle}
                 text="Add Business To Directory"
@@ -275,7 +251,7 @@ const Directory = () => {
             )}
           </div>
         </div>
-        <img src={DirectoryImage} alt="DirectoryImage" />
+        <img src="/image-33.svg" alt="DirectoryImage" />
       </div>
 
       {getAllTopBsinessQuery?.isLoading ? (
@@ -298,7 +274,7 @@ const Directory = () => {
                       <p className={styles.btn}>See All</p>
                       <Image
                         width={20}
-                        src={ArrowIcon}
+                        src="/arrow-right-green.svg"
                         alt="ArrowIcon"
                         preview={false}
                       />
@@ -332,7 +308,7 @@ const Directory = () => {
                       <p className={styles.btn}>See All</p>
                       <Image
                         width={20}
-                        src={ArrowIcon}
+                        src="/arrow-right-green.svg"
                         alt="ArrowIcon"
                         preview={false}
                       />
@@ -355,7 +331,7 @@ const Directory = () => {
           <div className={styles.btnFlex}>
             {((user && !user?.is_applicant) || !user) && (
               <Button
-                icon={<Image src={WhiteAdd} alt={WhiteAdd} preview={false} />}
+                icon={<Image src="/add-circle.svg" alt="add" preview={false} />}
                 className={styles.buttonStyle}
                 text="Add Business To Directory"
                 variant="green"
@@ -364,7 +340,7 @@ const Directory = () => {
             )}
           </div>
         </div>
-        <img src={DirectoryImage} alt="DirectoryImage" />
+        <img src="/image-33.svg" alt="DirectoryImage" />
       </div>
       <div className={styles.whyWrapper}>
         {getAllDirectoryQuery?.isLoading ? (
@@ -380,13 +356,15 @@ const Directory = () => {
                   className="buttonStyle"
                   onClick={handleBack}
                   text="view all"
-                  icon={<img src={FaArrowLeft} alt="FaArrowLeft" />}
+                  icon={<img src="/backArrow.svg" alt="FaArrowLeft" />}
                 />
                 <br />
                 <br />
               </div>
             )}
-            <p  ref={moreBusinessesRef} className={styles.titleHead}>More Businesses</p>
+            <p ref={moreBusinessesRef} className={styles.titleHead}>
+              More Businesses
+            </p>
 
             <section className={styles.promoImageContainer}>
               {directoryData && directoryData?.length > 0 ? (
@@ -418,7 +396,7 @@ const Directory = () => {
                         <div className={styles.info}>
                           <Image
                             width={20}
-                            src={LocationIcon}
+                            src="/locationrelated.svg"
                             alt="LocationIcon"
                           />
                           <p>
@@ -430,7 +408,11 @@ const Directory = () => {
                       )}
                       {item?.phone && (
                         <div className={styles.info}>
-                          <Image width={20} src={CallIcon} alt="CallIcon" />
+                          <Image
+                            width={20}
+                            src="/callrelated.svg"
+                            alt="CallIcon"
+                          />
 
                           <p>{item?.phone}</p>
                         </div>
@@ -450,7 +432,7 @@ const Directory = () => {
                       className="buttonStyle"
                       onClick={handleBack}
                       text="view all jobs"
-                      icon={<img src={FaArrowLeft} alt="FaArrowLeft" />}
+                      icon={<img src="/backArrow.svg" alt="FaArrowLeft" />}
                     />
                   </div>
                 </section>
@@ -474,13 +456,15 @@ const Directory = () => {
         )}
       </div>
       <Modal
-      open={openLoginModal}
-      onCancel={() => setOpenLoginModal(false)}
-      centered
-      footer={null}
-    >
-      <BusinessDirectoryWelcome handleCloseModal={() => setOpenLoginModal(false)}/>
-    </Modal>
+        open={openLoginModal}
+        onCancel={() => setOpenLoginModal(false)}
+        centered
+        footer={null}
+      >
+        <BusinessDirectoryWelcome
+          handleCloseModal={() => setOpenLoginModal(false)}
+        />
+      </Modal>
     </div>
   );
 };

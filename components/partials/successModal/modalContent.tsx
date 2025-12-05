@@ -1,7 +1,6 @@
 import styles from "./index.module.scss";
 import { Modal } from "antd";
 import { Image } from "antd";
-import DoneIcon from "/Done.svg";
 import { ReactNode } from "react";
 import Button from "@/components/ui/button/button";
 
@@ -31,7 +30,7 @@ const ModalContent = ({
   return (
     <Modal open={open} onCancel={handleCancel} centered title="" footer={null}>
       <section className={styles.ModalWrapper}>
-        {icon ? icon : <Image src={DoneIcon} alt={DoneIcon} preview={false} />}
+        {icon ? icon : <Image src="/Done.svg" alt="done" preview={false} />}
         {heading && <h3>{heading}</h3>}
 
         {text && <p className={styles.ModalPara}>{text}</p>}

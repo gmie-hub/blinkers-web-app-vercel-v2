@@ -16,7 +16,7 @@ import RouteIndicator from "@/components/ui/routeIndicator";
 import { errorMessage } from "@/lib/utils/errorMessage";
 import { userAtom } from "@/lib/utils/store";
 import { routes } from "@/lib/routes";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import SearchableSelect from "@/components/ui/searchableSelect/searchableSelect";
 
 export default function PostJobs() {
@@ -26,7 +26,8 @@ export default function PostJobs() {
   const [editSuccess, setEditSuccess] = useState(false);
   const { notification } = App.useApp();
   const queryClient = useQueryClient();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   const handleSucessEdit = () => {
     setEditSuccess(false);

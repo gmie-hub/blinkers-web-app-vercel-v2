@@ -4,7 +4,7 @@ import { App, Image } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import Card from "@/components/ui/card/card";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ResendOptCall, userVerifyOtp } from "@/services/authService";
 import { errorMessage } from "@/lib/utils/errorMessage";
 import Button from "@/components/ui/button/button";
@@ -19,7 +19,8 @@ const ResetPasswordVerificationCode = () => {
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const { notification } = App.useApp();
   const router = useRouter();
-  const email = useSearchParams().get("email");
+  const params = useParams();
+    const email = params.email as string;
 
   const [route, setRoute] = useState("Sms");
   const handleNavigateToResetPassword = (email: string) => {

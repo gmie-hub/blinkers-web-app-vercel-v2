@@ -8,7 +8,7 @@ import { useState } from "react";
 import FlagSeller from "../market/flagSeller/flagSeller";
 import ProductReviews from "../market/productDetails/tabs/productReview";
 import GeneralWelcome from "../market/marketLogin/marketLogin";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import CustomSpin from "@/components/ui/spin";
 import RouteIndicator from "@/components/ui/routeIndicator";
 import { formatDateToMonthYear } from "@/lib/utils/formatTime";
@@ -20,7 +20,8 @@ import { FollowSeller, getFollowersByUser_id } from "@/services/businessServices
 
 const SellerProfile = () => {
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   // const currentPath = location.pathname;
   const { notification } = App.useApp();

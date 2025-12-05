@@ -10,7 +10,7 @@ import { useAtomValue } from "jotai";
 import WriteReviewAds from "../writeReview/reviewAds";
 import GeneralWelcome from "../marketLogin/marketLogin";
 import { userAtom } from "@/lib/utils/store";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { handleCopyLink } from "@/lib/utils";
 import { formatDateToMonthYear, getTimeAgo } from "@/lib/utils/formatTime";
 import Button from "@/components/ui/button/button";
@@ -65,7 +65,8 @@ const BigScreen = ({
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   console.log(productDetailsData, "productDetailsData");
 

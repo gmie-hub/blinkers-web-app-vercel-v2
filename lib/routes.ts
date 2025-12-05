@@ -30,18 +30,18 @@ export const routes = {
   job: {  
     job: "/jobs",
     homeJob: "/jobs/:search",
-    jobDetails: "/job-details/:id/:title?/:description?",
-    newjobDetails: "/job-details/:id/:title?",
-    JobLikeThis: "/job/more-jobs-like-this/:id",
-    images: "/images/:id",
-    videos: "/videos/:id",
-    RegAsApplicant: "/job/register-as-applicant",
-    AddBusiness: "/job/add-business",
-    applyForJob: "/job/apply/:id",
-    postJob: "/post-job",
-    editJob: "/edit-job/:id",
-    popular:'/popular-jobs',
-    forYou:'/jobs-for-you',
+    jobDetails: "/jobs/job-details/:id/:title?/:description?",
+    newjobDetails: "/jobs/job-details/:id/:title?",
+    JobLikeThis: "/jobs/job/more-jobs-like-this/:id",
+    images: "/jobs/images/:id",
+    videos: "/jobs/videos/:id",
+    RegAsApplicant: "/jobs/register-as-applicant",
+    AddBusiness: "/jobs/add-business",
+    applyForJob: "/jobs/apply/:id",
+    postJob: "/jobs/post-job",
+    editJob: "/jobs/edit-job/:id",
+    popular:'/jobs/popular-jobs',
+    forYou:'/jobs/jobs-for-you',
   },
 
   directory: {
@@ -61,13 +61,13 @@ export const routes = {
   profile: {
     profile: "/profile/:id?",
     editBusiness: "/edit-business",
-    viewJobDetails: "/view-job-details/:id",
-    applicants: "/applicants/:id",
+    viewJobDetails: "/jobs/view-job-details/:id",
+    applicants: "/jobs/applicants/:id",
     viewApplicant: "/jobs/view-applicant/:id",
-    createAd: "/create-ad",
-    editAds: "/edit-ad/:id",
-    myAds:'/my-ads',
-    myapplicationDetails:'/my-application-details/:id/:applicationDetailsId'
+    createAd: "ads/create-ad",
+    editAds: "ads/edit-ad/:id",
+    myAds:'ads/my-ads',
+    myapplicationDetails:'/jobs/my-application-details/:id/:applicationDetailsId'
   },
   pricing:{
     pricing:'/pricing'

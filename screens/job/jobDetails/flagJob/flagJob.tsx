@@ -11,7 +11,7 @@ import Button from "@/components/ui/button/button";
 import ModalContent from "@/components/partials/successModal/modalContent";
 import { FlagJobApi } from "@/services/jobServices";
 import { errorMessage } from "@/lib/utils/errorMessage";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { userAtom } from "@/lib/utils/store";
 
 interface Props {
@@ -24,7 +24,8 @@ const FlagJobs = ({ handleCloseModal }: Props) => {
   const { notification } = App.useApp();
   const user = useAtomValue(userAtom);
   const queryClient = useQueryClient();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   const validationSchema = Yup.object().shape({
     reasonForFlag: Yup.string().required("Required"),

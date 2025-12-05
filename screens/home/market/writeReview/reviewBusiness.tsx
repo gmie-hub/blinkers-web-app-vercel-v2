@@ -5,7 +5,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { WriteReviewApi } from "@/services/reviewServices";
 import Input from "@/components/ui/input/input";
 import Button from "@/components/ui/button/button";
@@ -16,7 +16,8 @@ const WriteReviewBusinessOrDirectory = () => {
   const [showReviewForm, setShowReviewForm] = useState(true); // Manage review form visibility
   const [showCard, setShowCard] = useState(false); // Manage card visibility
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
   const { notification } = App.useApp();
   const user = useAtomValue(userAtom);
 

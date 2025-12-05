@@ -1,19 +1,8 @@
 import styles from "./directoryDetails.module.scss";
 import { useState } from "react";
-import ArrowIcon from "/arrow-right-green.svg";
 import { App, Image, Modal } from "antd";
-import Star from "/Vector.svg";
-import HouseLock from "/House-Lock.svg";
-import shareIcon from "../../../assets/share 2.svg";
-// import linkIcon from "../../../assets/link-2.svg";
 import RelatedBusinesses from "../relatedBusinesses/relatedBusiness";
-import TimeIcon from "/time42.svg";
-import LocationIcon from "../../../assets//revielocation.svg";
-import CallIcon from "/callclaim.svg";
-import copyIcon from "../../../assets/copywhite.svg";
 import {  useQueries } from "@tanstack/react-query";
-import MailIcon from "../../../assets/mailicon.svg";
-import WebICon from "../../../assets/webicon.svg";
 import { useAtomValue } from "jotai";
 import Reviews from "../../home/market/productDetails/tabs/businessReview";
 import StarYellow from "../../../assets/staryellow.svg";
@@ -25,7 +14,7 @@ import Button from "@/components/ui/button/button";
 import CustomSpin from "@/components/ui/spin";
 import RouteIndicator from "@/components/ui/routeIndicator";
 import { countUpTo, handleCopyLink } from "@/lib/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { userAtom } from "@/lib/utils/store";
 
 const NotClaim = () => {
@@ -34,12 +23,13 @@ const NotClaim = () => {
   const [openShare, setOpenShare] = useState(false);
   const user = useAtomValue(userAtom);
   const { notification } = App.useApp();
-  const currentPath = location.pathname;
+  const currentPath = usePathname();
   const currentHref = location.href;
   const [openLoginModal, setOpenLoginModal] =useState(false)
 
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   // let  type: 'images' | 'videos';
 
@@ -320,7 +310,7 @@ const NotClaim = () => {
                           className={styles.message}
                         >
                           <Image
-                            src={shareIcon}
+                            src="/share-2.svg"
                             alt="shareIcon"
                             preview={false}
                           />
@@ -368,7 +358,7 @@ const NotClaim = () => {
                         </div>
                       </div>}
                       <div className={styles.info}>
-                        <img src={LocationIcon} alt="LocationIcon" />
+                        <img src="/revielocation.svg" alt="LocationIcon" />
                         <p>{businessDetailsData?.address}</p>
                       </div>
                       <div className={styles.info}>
@@ -381,7 +371,7 @@ const NotClaim = () => {
                       <>
                         <div className={styles.info}>
                           <Image
-                            src={MailIcon}
+                            src="/mailicon.svg"
                             alt="MailIcon"
                             preview={false}
                           />
@@ -390,7 +380,7 @@ const NotClaim = () => {
                         </div>
 
                         <div className={styles.info}>
-                          <Image src={WebICon} alt="WebICon" preview={false} />
+                          <Image src="/webicon.svg" alt="WebICon" preview={false} />
 
                           <p>{businessDetailsData?.website || "N/A"}</p>
                         </div>
@@ -577,7 +567,7 @@ const NotClaim = () => {
 
               <Button
                 onClick={() => handleCopyLink(currentHref)}
-                icon={<Image src={copyIcon} alt={copyIcon} preview={false} />}
+                icon={<Image src="/copywhite.svg" alt="copy" preview={false} />}
                 className={styles.buttonStyle}
                 text="Copy Link"
               />

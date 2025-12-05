@@ -41,3 +41,34 @@ export const ClaimBusinessApi = async (payload: FormData) => {
     })
   )?.data;
 };
+
+export const getAllBusiness = async (
+  search?: number | string,
+  page?: number
+) => {
+  let url = `/businesses`;
+
+  const params = new URLSearchParams();
+
+  if (search !== undefined && search !== null && `${search}`.trim() !== "") {
+    params.append("search", `${search}`);
+  }
+
+  if (page !== undefined) {
+    params.append("page", `${page}`);
+  }
+
+  if (params.toString()) {
+    url += `?${params.toString()}`;
+  }
+
+  return (await api.get(url))?.data;
+};
+
+export const getTopBusiness = async () => {
+  return (await api.get(`/businesses?top=${1}`))?.data ;
+};
+
+export const getRecommentationBusiness = async () => {
+  return (await api.get(`/recommendations?type=${'businesses'}`))?.data ;
+};

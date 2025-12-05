@@ -6,7 +6,7 @@ import favorite from "/Icon + container.svg";
 import LocationIcon from "/locationrelated.svg";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { countUpTo, sanitizeUrlParam } from "@/lib/utils";
 import { getProductDetailsByslug } from "@/services/adsServices";
 import RouteIndicator from "@/components/ui/routeIndicator";
@@ -19,7 +19,8 @@ interface Props {
 
 const RelatedAds = ({ canSeeBtn = true, limit }: Props) => {
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   const [getProductDetailsQuery] = useQueries({
     queries: [

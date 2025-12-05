@@ -109,9 +109,9 @@ const JobDetails = () => {
   const handleEdit = () => {
     navigate(`/edit-job/${id}`);
   };
+
   const ViewApplicants =()=>{
     navigate(`/applicants/${id}`);
-
   }
 
   return (

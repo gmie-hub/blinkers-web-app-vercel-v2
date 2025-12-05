@@ -1,19 +1,20 @@
 import styles from "./styles.module.scss";
 import { Image } from "antd";
 import BackIncon from "../../../assets/back.svg";
-import { useNavigate, useParams } from "react-router-dom";
 import { useQueries } from "@tanstack/react-query";
-import { getBusinessById } from "../../request";
 import { AxiosError } from "axios";
-import CustomSpin from "../../../customs/spin";
+import { useParams, useRouter } from "next/navigation";
+import { getBusinessById } from "@/services/businessServices";
+import CustomSpin from "@/components/ui/spin";
 
 // Main component with `limit` prop to control how many data to display
-const ImagePage = ({}: { limit?: number }) => {
-  const navigate = useNavigate();
-  const { id } = useParams();
+const ImagePage = () => {
+  const router = useRouter();
+  const params = useParams();
+  const id = params.id as string;
 
   const handleNavigateToPrevious = () => {
-    navigate(-1);
+    router.back();
     window.scrollTo(0, 0);
   };
 

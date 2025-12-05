@@ -17,7 +17,7 @@ import { userAtom } from "@/lib/utils/store";
 import { errorMessage } from "@/lib/utils/errorMessage";
 import ModalContent from "@/components/partials/successModal/modalContent";
 import { routes } from "@/lib/routes";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import {
   ApplyForJobApi,
   getFlaggedJobByJob_idUser_id,
@@ -29,7 +29,8 @@ const JobDetails = () => {
   const router = useRouter();
 
   const [flagJob, setFlagJob] = useState(false);
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;  
 
   const user = useAtomValue(userAtom);
   const [regModal, setRegModal] = useState(false);
@@ -143,7 +144,6 @@ const JobDetails = () => {
     mutationFn: ApplyForJobApi,
     mutationKey: ["apply-job"],
   });
-  console.log(user?.applicant?.id);
 
   const ApplyJobHandler = async () => {
     const payload: Partial<FlagJob> = {

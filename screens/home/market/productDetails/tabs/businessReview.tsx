@@ -2,7 +2,7 @@ import styles from "./details.module.scss";
 import { Image,  } from "antd";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { getAllReviews } from "@/services/reviewServices";
 import CustomSpin from "@/components/ui/spin";
 import Button from "@/components/ui/button/button";
@@ -18,7 +18,8 @@ export default function Reviews({
   limit?: number;
 }) {
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   // Fetch reviews
   const [getAllReviewQuery] = useQueries({

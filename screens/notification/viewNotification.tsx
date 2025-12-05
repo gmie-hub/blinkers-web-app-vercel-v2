@@ -4,13 +4,14 @@ import { useAtom } from "jotai";
 import { AxiosError } from "axios";
 import { getUserNotificationById } from "@/services/notificationServices";
 import CustomSpin from "@/components/ui/spin";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { userAtom } from "@/lib/utils/store";
 import RouteIndicator from "@/components/ui/routeIndicator";
 
 const ViewNotification = () => {
   const [user] = useAtom(userAtom);
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   const [getAllUserNotificationQuery] = useQueries({
     queries: [

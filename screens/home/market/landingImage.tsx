@@ -1,13 +1,14 @@
 import styles from "./index.module.scss";
 import { useState } from "react";
 import ProductSection from "./page";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import SearchInput from "@/components/ui/searchInput";
 import Button from "@/components/ui/button/button";
 
 const Market = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const search = useSearchParams().get("search") || "";
+  const params = useParams();
+  const search = params.search as string;
   const [appliedSearchTerm, setAppliedSearchTerm] = useState(search || "");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,24 +1,23 @@
 import styles from "./styles.module.scss";
 import { Image, Pagination } from "antd";
-import { useNavigate } from "react-router-dom";
-import LocationIcon from "../../../assets/locationrelated.svg";
-import CallIcon from "../../../assets/callrelated.svg";
 import { useQueries } from "@tanstack/react-query";
-import { getTopBusiness } from "../../request";
 import { AxiosError } from "axios";
-import RouteIndicator from "../../../customs/routeIndicator";
-import { sanitizeUrlParam } from "../../../utils";
-import CustomSpin from "../../../customs/spin";
-import usePagination from "../../../hooks/usePagnation";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import usePagination from "@/hooks/usePagination";
+import { sanitizeUrlParam } from "@/lib/utils";
+import { getTopBusiness } from "@/services/businessServices";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import CustomSpin from "@/components/ui/spin";
 
 interface Props {
   limit?: number;
   showHeading?: boolean;
 }
 const TopBusiness = ({ showHeading = true, limit }: Props) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
+
   useEffect(() => {
     if (currentPage !== pageNum) {
       setCurrentPage(pageNum);
@@ -34,7 +33,7 @@ const TopBusiness = ({ showHeading = true, limit }: Props) => {
 
   const handleNavigateDirectory = (id: number, name: string) => {
     // navigate(`/directory-details/${id}`);
-    navigate(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
+    router.push(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
 
     window.scroll(0, 0);
   };
@@ -101,7 +100,7 @@ const TopBusiness = ({ showHeading = true, limit }: Props) => {
                       {item?.address && (
                         <div className={styles.info}>
                           <Image
-                            src={LocationIcon}
+                            src="/locationrelated.svg"
                             alt="LocationIcon"
                             preview={false}
                           />
@@ -118,7 +117,7 @@ const TopBusiness = ({ showHeading = true, limit }: Props) => {
                           <Image
                             width={20}
                             height={20}
-                            src={CallIcon}
+                            src="/callrelated.svg"
                             alt="CallIcon"
                             preview={false}
                           />

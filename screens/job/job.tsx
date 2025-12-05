@@ -14,11 +14,12 @@ import Button from "@/components/ui/button/button";
 import ModalContent from "@/components/partials/successModal/modalContent";
 import { routes } from "@/lib/routes";
 import { userAtom } from "@/lib/utils/store";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { getForYouJobs, getPopularJobs } from "@/services/jobServices";
 
 const Jobs = () => {
-    const search = useSearchParams().get("search");
+  const params = useParams();
+  let search = params.search as string;
   const router = useRouter();
   const [openAddBusiness, setOpenAddBusiness] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -38,11 +39,11 @@ const Jobs = () => {
   };
 
   const handleNavigateToPopularJob = () => {
-    router.push(`/popular-jobs`);
+    router.push(routes.job.popular);
     window.scrollTo(0, 0);
   };
   const handleNavigateToForYouJob = () => {
-    router.push(`/jobs-for-you`);
+    router.push(routes.job.forYou);
     window.scrollTo(0, 0);
   };
 
@@ -100,15 +101,14 @@ const Jobs = () => {
       //   icon: null,
       // });
     } else {
-      router.push("/job/register-as-applicant");
+      router.push(routes.job.RegAsApplicant);
       window.scrollTo(0, 0);
     }
- 
   };
 
   const handleNavigateAddBusiness = () => {
     if (!user) {
-      setOpenLoginModal(true)
+      setOpenLoginModal(true);
       // notification.open({
       //   message: "You need to log in to complete this action.",
       //   description: (
@@ -143,8 +143,6 @@ const Jobs = () => {
       router.push(routes.job.postJob);
       window.scrollTo(0, 0);
     }
-
-   
   };
 
   const handleCloseBusinessModal = () => {
@@ -206,7 +204,13 @@ const Jobs = () => {
             </p>
             <div className={styles.btnFlex}>
               <Button
-                icon={<Image src='/whitecircleadd.svg' alt={'WhiteAdd'} preview={false} />}
+                icon={
+                  <Image
+                    src="/whitecircleadd.svg"
+                    alt={"WhiteAdd"}
+                    preview={false}
+                  />
+                }
                 className={styles.buttonStyle}
                 text={
                   user && user?.security_token
@@ -221,8 +225,8 @@ const Jobs = () => {
                 <Button
                   icon={
                     <Image
-                      src='/whiteaddprofile.svg'
-                      alt={'WhiteProfile'}
+                      src="/whiteaddprofile.svg"
+                      alt={"WhiteProfile"}
                       preview={false}
                     />
                   }
@@ -234,7 +238,7 @@ const Jobs = () => {
               )}
             </div>
           </div>
-          <img src='/viewVacancy.svg' alt="ViewVacancy" />
+          <img src="/viewVacancy.svg" alt="ViewVacancy" />
         </div>
 
         {getPopularJobsQuery?.isLoading ? (
@@ -256,7 +260,7 @@ const Jobs = () => {
                         className={styles.btnWrapper}
                       >
                         <p className={styles.btn}>See All</p>
-                        <img src={'/arrow-right-green.svg'} alt="ArrowIcon" />
+                        <img src={"/arrow-right-green.svg"} alt="ArrowIcon" />
                       </div>
                     )}
                   </div>
@@ -287,7 +291,7 @@ const Jobs = () => {
                         className={styles.btnWrapper}
                       >
                         <p className={styles.btn}>See All</p>
-                        <img src={'/arrow-right-green.svg'} alt="ArrowIcon" />
+                        <img src={"/arrow-right-green.svg"} alt="ArrowIcon" />
                       </div>
                     )}
                   </div>
@@ -310,8 +314,8 @@ const Jobs = () => {
                 <Button
                   icon={
                     <Image
-                      src='/whiteaddprofile.svg'
-                      alt={'WhiteProfile'}
+                      src="/whiteaddprofile.svg"
+                      alt={"WhiteProfile"}
                       preview={false}
                     />
                   }
@@ -323,7 +327,7 @@ const Jobs = () => {
               )}
             </div>
           </div>
-          <img src='/image 39.svg' alt="JobImage" />
+          <img src="/image 39.svg" alt="JobImage" />
         </div>
 
         <JobLists
@@ -333,7 +337,7 @@ const Jobs = () => {
       </div>
 
       <ModalContent
-        icon={<img src='/warned.svg' alt="warn" />}
+        icon={<img src="/warned.svg" alt="warn" />}
         open={openAddBusiness}
         handleCancel={() => setOpenAddBusiness(false)}
         handleClick={handleCloseBusinessModal}
@@ -360,9 +364,7 @@ const Jobs = () => {
         centered
         footer={null}
       >
-        <JobWelcome
-          handleCloseModal={() => setOpenLoginModal(false)}
-        />
+        <JobWelcome handleCloseModal={() => setOpenLoginModal(false)} />
       </Modal>
     </div>
   );

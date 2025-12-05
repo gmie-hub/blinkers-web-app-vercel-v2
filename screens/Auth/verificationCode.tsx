@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import Button from "@/components/ui/button/button";
 import Card from "@/components/ui/card/card";
 import { errorMessage } from "@/lib/utils/errorMessage";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ResendOptCall, userVerifyOtp } from "@/services/authService";
 
 interface FormValues {
@@ -20,11 +20,10 @@ const VerificationCode = () => {
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const { notification } = App.useApp();
   const router = useRouter();
-    const email = useSearchParams().get("email");
-    const phoneNumber = useSearchParams().get("phoneNumber");
-  console.log(phoneNumber, email, "jum");
+  const params = useParams();
+  const email = params.email as string;
+  const phoneNumber = params.phoneNumber as string;
   const [route, setRoute] = useState("SMS");
-  console.log(route, "eroute");
   // useEffect(() => {
   //   const timer = setInterval(() => {
   //     setTimeLeft((prevTime: number) => {
@@ -372,7 +371,7 @@ const VerificationCode = () => {
                   cursor: "pointer",
                 }}
               >
-                <Image src='/back.svg' alt={'BackIcon'} preview={false} />
+                <Image src="/back.svg" alt={"BackIcon"} preview={false} />
 
                 <p>Back to Register</p>
               </div>

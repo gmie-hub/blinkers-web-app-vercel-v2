@@ -8,7 +8,7 @@ import { useAtomValue } from "jotai";
 import * as Yup from "yup";
 import { AxiosError } from "axios";
 import { userAtom } from "@/lib/utils/store";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ClaimBusinessApi, getBusinessById } from "@/services/businessServices";
 import { errorMessage } from "@/lib/utils/errorMessage";
 import CustomSpin from "@/components/ui/spin";
@@ -26,7 +26,8 @@ const ClaimBusiness = () => {
   const user = useAtomValue(userAtom);
 
   const router = useRouter();
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   //   const hasReviews = reviewData?.length;
   //   console.log(hasReviews , "hasReviews")
