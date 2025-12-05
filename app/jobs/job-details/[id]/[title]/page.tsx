@@ -18,7 +18,7 @@ export async function generateMetadata(
     title: job?.data.title,
     description: job?.data.description,
     openGraph: {
-      images: [job?.data?.business?.logo, ...previousImages],
+      images: [job?.data?.business?.logo ?? "", ...previousImages],
     },
   };
 }
