@@ -14,14 +14,15 @@ api.interceptors.request.use(
   function (config) {
     let token = "";
 
-    if (typeof (config?.headers as any).authorization === "undefined") {
-      const tokenModel = JSON.parse(
-        localStorage.getItem("blinkers-web&site#") || "{}"
-      );
+    if (typeof window !== "undefined") {
+      if (typeof (config?.headers as any).authorization === "undefined") {
+        const tokenModel = JSON.parse(
+          localStorage.getItem("blinkers-web&site#") || "{}"
+        );
 
-      if (tokenModel?.security_token) {
-        token = tokenModel?.security_token;
-
+        if (tokenModel?.security_token) {
+          token = tokenModel?.security_token;
+        }
       }
     }
     config.headers = {
@@ -55,7 +56,9 @@ function getOnlineStatus() {
   return navigator.onLine ? "online" : "offline";
 }
 
-window.addEventListener("offline", getOnlineStatus);
-window.addEventListener("online", getOnlineStatus);
+if (typeof window !== "undefined") {
+  window.addEventListener("offline", getOnlineStatus);
+  window.addEventListener("online", getOnlineStatus);
+}
 
 export default api;

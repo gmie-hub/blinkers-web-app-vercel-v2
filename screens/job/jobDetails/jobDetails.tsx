@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "./jobDetails.module.scss";
 import MoreJobsLikeThis from "../jobLikeThis/jobsLikeThis";
 import { App, Modal } from "antd";

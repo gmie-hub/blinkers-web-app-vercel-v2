@@ -12,7 +12,7 @@ import { App } from "antd";
 import * as Yup from "yup";
 import { useAtomValue } from "jotai";
 import Button from "@/components/ui/button/button";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Checkbox from "@/components/ui/checkBox/checkbox";
 import CustomSpin from "@/components/ui/spin";
 import { errorMessage } from "@/lib/utils/errorMessage";
@@ -22,14 +22,27 @@ import Input from "@/components/ui/input/input";
 import { userAtom } from "@/lib/utils/store";
 import SpecificationSelect from "@/components/ui/select/speSelect";
 import { LimitNotification } from "@/lib/utils/limitNotification";
-import { deleteAdsGalarybyId, deleteAdsVideobyId, getAllSubscriptionById, UpdateAds, uploadAdsGallery, uploadAdsVideo } from "@/services/profileService";
+import {
+  deleteAdsGalarybyId,
+  deleteAdsVideobyId,
+  getAllSubscriptionById,
+  UpdateAds,
+  uploadAdsGallery,
+  uploadAdsVideo,
+} from "@/services/profileService";
 import { getAllState, getLGAbyStateId } from "@/services/locationServices";
 import { getProductDetails } from "@/services/adsServices";
 import { getApplicantsbyId } from "@/services/applicantServices";
-import { getAllCategory, getSpecSubCategory, getSubCategory } from "@/services/categoryServices";
+import {
+  getAllCategory,
+  getSpecSubCategory,
+  getSubCategory,
+} from "@/services/categoryServices";
 
 const EditAdz = () => {
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
+
   const [stateId, setStateId] = useState(0);
   const [categoryId, setCategoryId] = useState(0);
   const { notification } = App.useApp();
@@ -483,7 +496,7 @@ const EditAdz = () => {
   }, [productDetailsData?.state_id]);
 
   useEffect(() => {
-    setCategoryId(productDetailsData?.category_id ?? 0 );
+    setCategoryId(productDetailsData?.category_id ?? 0);
   }, [productDetailsData?.category_id]);
 
   const updateAdsMutation = useMutation({
@@ -746,7 +759,11 @@ const EditAdz = () => {
                           className={styles.favoriteIcon}
                           onClick={() => DeleteGalaryHandler([image?.id])} // Your delete logic can be handled here
                         >
-                          <img width={30} src='/deleteicon.svg' alt="Favorite" />
+                          <img
+                            width={30}
+                            src="/deleteicon.svg"
+                            alt="Favorite"
+                          />
                         </div>
                       </div>
                     ))}
@@ -766,7 +783,11 @@ const EditAdz = () => {
                             className={styles.favoriteIcon}
                             onClick={() => DeleteVideoHandler([image?.id])} // Your delete logic can be handled here
                           >
-                            <img width={30} src='/deleteicon.svg' alt="Favorite" />
+                            <img
+                              width={30}
+                              src="/deleteicon.svg"
+                              alt="Favorite"
+                            />
                           </div>
                         </div>
                       )

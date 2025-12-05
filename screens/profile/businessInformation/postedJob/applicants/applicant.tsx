@@ -1,24 +1,25 @@
 // import styles from './index.module.scss';
-import { PaginationProps, Spin, Table, Tabs, TabsProps } from 'antd';
-import { useCallback, useState } from 'react';
-import { ColumnsType } from 'antd/es/table';
-import { useQueries } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-import RouteIndicator from '@/components/ui/routeIndicator';
-import Button from '@/components/ui/button/button';
-import { formatDateOnly } from '@/lib/utils/formatTime';
-import StatusBadge from '@/components/partials/statusBadge/statusBadge';
-import { getAllApplication } from '@/services/profileService';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { PaginationProps, Spin, Table, Tabs, TabsProps } from "antd";
+import { useCallback, useState } from "react";
+import { ColumnsType } from "antd/es/table";
+import { useQueries } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import Button from "@/components/ui/button/button";
+import { formatDateOnly } from "@/lib/utils/formatTime";
+import StatusBadge from "@/components/partials/statusBadge/statusBadge";
+import { getAllApplication } from "@/services/profileService";
+import { useParams, useRouter } from "next/navigation";
 
 const Applicants = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-    const id = useSearchParams().get("id");
-  
-  const [status, setStatus] = useState('0')
+  const params = useParams();
+  const id = params.id as string;
 
-  const onChange: PaginationProps['onChange'] = (page) => {
+  const [status, setStatus] = useState("0");
+
+  const onChange: PaginationProps["onChange"] = (page) => {
     setCurrentPage(page);
   };
   // const handleNavigateToViewApplicantDetails = useCallback(() => {
@@ -31,42 +32,50 @@ const Applicants = () => {
 
       router.push(`/jobs/view-applicant/${id}`);
     },
-    [router],
+    [router]
   );
 
   const columns: ColumnsType<JobDatum> = [
     {
-      title: 'Name of  Applicants',
-      dataIndex: 'applicant_id',
-      key: 'applicant_id',
+      title: "Name of  Applicants",
+      dataIndex: "applicant_id",
+      key: "applicant_id",
       render: (_, record) => record?.applicant?.user?.name,
     },
     {
-      title: 'Date Applied',
-      dataIndex: 'created_at',
-      key: 'created_at',
+      title: "Date Applied",
+      dataIndex: "created_at",
+      key: "created_at",
       render: (_, record) => formatDateOnly(record?.created_at),
     },
     {
-      title: 'Status',
-      dataIndex: 'status',  
-      key: 'status',
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
       render: (_, { status }) => (
         <StatusBadge
-          status={status === '0' ? 'Pending' : status === '1' ? 'Shortlisted' : status === '2' ? 'Approved' : 'Rejected'}
+          status={
+            status === "0"
+              ? "Pending"
+              : status === "1"
+              ? "Shortlisted"
+              : status === "2"
+              ? "Approved"
+              : "Rejected"
+          }
         />
       ),
     },
-    
+
     {
-      title: 'Action',
-      key: 'action',
+      title: "Action",
+      key: "action",
       render: (_: any, record: any) => (
         <Button
           type="button"
           variant="white"
           text="View More"
-        //   className={styles.actionBtn}
+          //   className={styles.actionBtn}
           onClick={() => {
             handleNavigateToViewApplicantDetails(record?.id);
           }}
@@ -78,12 +87,13 @@ const Applicants = () => {
   const [getAllApplicantQuery] = useQueries({
     queries: [
       {
-        queryKey: ['get-all-job-applicants',id,status],
+        queryKey: ["get-all-job-applicants", id, status],
         // queryFn: () => getjobApplicationbyJobId(parseInt(id!)),
-        queryFn: ()=>getAllApplication(currentPage,parseInt(id!), parseInt(status)),
+        queryFn: () =>
+          getAllApplication(currentPage, parseInt(id!), parseInt(status)),
         retry: 0,
         refetchOnWindowFocus: false,
-        enabled:!!id
+        enabled: !!id,
       },
     ],
   });
@@ -91,10 +101,9 @@ const Applicants = () => {
   // const Applicants = Array.isArray(getAllApplicantQuery?.data?.data) ? getAllApplicantQuery.data.data : [];
 
   const jobApplicantsError = getAllApplicantQuery?.error as AxiosError;
-  const jobApplicantsErrorMessage = jobApplicantsError?.message || 'An error occurred. Please try again later.';
+  const jobApplicantsErrorMessage =
+    jobApplicantsError?.message || "An error occurred. Please try again later.";
 
-
-  
   const items: TabsProps["items"] = [
     { key: "0", label: "Pending" },
     { key: "1", label: "Shortlisted" },
@@ -106,9 +115,9 @@ const Applicants = () => {
     setStatus(key);
     localStorage?.setItem("activeTabKeyBasicInfo", key);
   };
- 
+
   return (
-    <div className='wrapper'>
+    <div className="wrapper">
       {/* <Card style={styles.card}> */}
       {/* <div>
           <h3>Jobs</h3>
@@ -119,39 +128,35 @@ const Applicants = () => {
         </div> */}
 
       {/* <div> */}
-      <RouteIndicator showBack/>
+      <RouteIndicator showBack />
 
       {getAllApplicantQuery?.isLoading ? (
         <Spin />
       ) : getAllApplicantQuery?.isError ? (
         <h1 className="error">{jobApplicantsErrorMessage}</h1>
       ) : (
-
         <>
-         <div>
-            <Tabs
-              activeKey={status}
-              onChange={handleTabChange}
-              items={items}
-            />
+          <div>
+            <Tabs activeKey={status} onChange={handleTabChange} items={items} />
           </div>
-          
-        <Table
-          columns={columns}
-          dataSource={Applicants}
-          pagination={{
-            current: currentPage,
-            total: getAllApplicantQuery?.data?.data?.total,
-            onChange: onChange,
-            position: ['bottomCenter'],
-            pageSize:20 
-          }}
-          scroll={{ x: 'max-content' }}
-          locale={{
-            // emptyText: <EmptyTableState headerText="No Job Applicant Added Yet" bodyText="" />,
-            
-          }}
-        />
+
+          <Table
+            columns={columns}
+            dataSource={Applicants}
+            pagination={{
+              current: currentPage,
+              total: getAllApplicantQuery?.data?.data?.total,
+              onChange: onChange,
+              position: ["bottomCenter"],
+              pageSize: 20,
+            }}
+            scroll={{ x: "max-content" }}
+            locale={
+              {
+                // emptyText: <EmptyTableState headerText="No Job Applicant Added Yet" bodyText="" />,
+              }
+            }
+          />
         </>
       )}
     </div>

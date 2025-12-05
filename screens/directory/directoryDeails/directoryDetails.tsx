@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./directoryDetails.module.scss";
 import { useState } from "react";
 import { App, Image, Modal } from "antd";
@@ -5,7 +7,6 @@ import RelatedBusinesses from "../relatedBusinesses/relatedBusiness";
 import {  useQueries } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
 import Reviews from "../../home/market/productDetails/tabs/businessReview";
-import StarYellow from "../../../assets/staryellow.svg";
 import { groupBusinessHours } from "./displayBusinessHour";
 import BusinessDirectoryWelcome from "../directorLogin/directoryLoginCard";
 import { getBusinessById } from "@/services/businessServices";
@@ -250,7 +251,7 @@ const NotClaim = () => {
                             businessDetailsData?.average_rating || 0,
                             <Image
                               width={20}
-                              src={StarYellow}
+                              src="/staryellow.svg"
                               alt="StarYellow"
                               preview={false}
                             />,

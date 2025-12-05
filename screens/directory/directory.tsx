@@ -70,7 +70,7 @@ const Directory = () => {
   // };
 
   const handleNavigateDirectory = (id: number, name: string) => {
-    router.push(`/directory-details/${id}/${sanitizeUrlParam(name)}`);
+    router.push(`/directory/directory-details/${id}/${sanitizeUrlParam(name)}`);
     window.scroll(0, 0);
   };
 
@@ -127,6 +127,7 @@ const Directory = () => {
     router.push("/directory");
     getAllDirectoryQuery?.refetch();
   };
+
   const handleAddDirectory = () => {
     if (!user) {
       setOpenLoginModal(true);

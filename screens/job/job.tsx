@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./job.module.scss";
 import { Image, Modal } from "antd";
 import { useState } from "react";

@@ -3,15 +3,18 @@ import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import JobDetailsElements from "./jobDetailsElements/jobDetailsElements";
 import { AxiosError } from "axios";
 import { App, Modal } from "antd";
-import { useState } from "react";
+import { JSX, useState } from "react";
 import RejectApplication from "./rejectApplication";
 import Button from "@/components/ui/button/button";
 import StatusBadge from "@/components/partials/statusBadge/statusBadge";
-import { getApplicationDetails, updateApplicationStatus } from "@/services/profileService";
+import {
+  getApplicationDetails,
+  updateApplicationStatus,
+} from "@/services/profileService";
 import CustomSpin from "@/components/ui/spin";
 import RouteIndicator from "@/components/ui/routeIndicator";
 import { formatDateToMonthYear } from "@/lib/utils/formatTime";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 interface BasicInformationProps {
   title?: string;
@@ -20,8 +23,9 @@ interface BasicInformationProps {
 }
 /* eslint-disable no-empty-pattern */
 export default function ApplicantDetails({}: BasicInformationProps) {
-    const id = useSearchParams().get("id");
-  
+  const params = useParams();
+  const id = params.id as string;
+
   const queryClient = useQueryClient();
   const { notification } = App.useApp();
   const router = useRouter();
@@ -34,7 +38,7 @@ export default function ApplicantDetails({}: BasicInformationProps) {
         queryFn: () => getApplicationDetails(parseInt(id!)),
         retry: 0,
         refetchOnWindowFocus: false,
-        enabled:!!id
+        enabled: !!id,
       },
     ],
   });
@@ -93,8 +97,6 @@ export default function ApplicantDetails({}: BasicInformationProps) {
     }
   };
 
- 
-  
   return (
     <div className="wrapper">
       {getApplicantDetailsQuery?.isLoading ? (
@@ -111,7 +113,7 @@ export default function ApplicantDetails({}: BasicInformationProps) {
             <Button
               type="button"
               variant="green"
-              icon={<img src='/eyewhite.svg' alt="TimeIcon" />}
+              icon={<img src="/eyewhite.svg" alt="TimeIcon" />}
               text="View Profile"
               className={styles.buttonStyle}
               // onClick={() => setIsDeleteModal(true)}
@@ -169,7 +171,8 @@ export default function ApplicantDetails({}: BasicInformationProps) {
               target="_blank"
               rel="noreferrer"
             >
-              <img src='/eyewhite.svg' alt="TimeIcon" /> {ApplicantDetailsData?.name}
+              <img src="/eyewhite.svg" alt="TimeIcon" />{" "}
+              {ApplicantDetailsData?.name}
               's CV
             </a>
             {/* </p> */}
@@ -223,7 +226,7 @@ export default function ApplicantDetails({}: BasicInformationProps) {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img src='/eyewhite.svg'  alt="TimeIcon" />{" "}
+                <img src="/eyewhite.svg" alt="TimeIcon" />{" "}
                 {ApplicantDetailsData?.name}'s Cover letter
               </a>
             </div>

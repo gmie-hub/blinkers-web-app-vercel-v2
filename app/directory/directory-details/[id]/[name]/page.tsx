@@ -1,6 +1,6 @@
-import JobDetails from "@/screens/job/jobDetails/jobDetails";
-import { getJobDetails } from "@/services/jobServices";
 
+import NotClaim from "@/screens/directory/directoryDeails/directoryDetails";
+import { getBusinessById } from "@/services/businessServices";
 import { Metadata, ResolvingMetadata } from "next";
 
 export async function generateMetadata(
@@ -9,22 +9,22 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const params = await props.params;
   // fetch data
-  const job = await getJobDetails(params.id);
+  const product = await getBusinessById(params.id);
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: job?.data.title,
-    description: job?.data.description,
+    title: product?.data.name,
+    description: product?.data.category.title,
     openGraph: {
-      images: [job?.data?.business?.logo, ...previousImages],
+      images: [product?.data.logo, ...previousImages],
     },
   };
 }
 
-const JobDetailsPage = () => {
-  return <JobDetails />;
+const DirectoryDetailsPage = () => {
+  return <NotClaim />;
 };
 
-export default JobDetailsPage;
+export default DirectoryDetailsPage;

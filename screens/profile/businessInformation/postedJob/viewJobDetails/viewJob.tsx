@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import DOMPurify from "dompurify";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Button from "@/components/ui/button/button";
 import StatusBadge from "@/components/partials/statusBadge/statusBadge";
 import { getJobDetails } from "@/services/jobServices";
@@ -20,7 +20,8 @@ const JobDetails = () => {
   const router = useRouter();
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isDeleteSuccessful, setIsDeleteSucessful] = useState(false);
-  const id = useSearchParams().get("id");
+  const params = useParams();
+  const id = params.id as string;
 
   const { notification } = App.useApp();
   const queryClient = useQueryClient();

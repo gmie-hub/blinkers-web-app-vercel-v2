@@ -1,9 +1,5 @@
 import styles from "./index.module.scss";
 import { Image } from "antd";
-import Star from "/Vector.svg";
-import StarYellow from "/staryellow.svg";
-import favorite from "/Icon + container.svg";
-import LocationIcon from "/locationrelated.svg";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
@@ -86,7 +82,7 @@ const RelatedAds = ({ canSeeBtn = true, limit }: Props) => {
                   key={index}
                 >
                   <div className={styles.favoriteIcon}>
-                    <img width={30} src={favorite} alt="Favorite" />
+                    <img width={30} src="/Icon + container.svg" alt="Favorite" />
                   </div>
                   <img
                     className={styles.proImage}
@@ -104,7 +100,7 @@ const RelatedAds = ({ canSeeBtn = true, limit }: Props) => {
                     </p>
                     {item?.state?.state_name !== null && (
                       <div className={styles.info}>
-                        <Image src={LocationIcon} alt="Location" />
+                        <Image src="/locationrelated.svg" alt="Location" />
                         <p>
                           <span>
                             {item?.local_govt?.local_government_area}{" "}
@@ -121,13 +117,13 @@ const RelatedAds = ({ canSeeBtn = true, limit }: Props) => {
                         0,
                         <Image
                           width={13}
-                          src={StarYellow}
+                          src="/staryellow.svg"
                           alt="Star Yellow"
                           preview={false}
                         />,
                         <Image
                           width={13}
-                          src={Star}
+                          src="/Vector.svg"
                           alt="Star"
                           preview={false}
                         />

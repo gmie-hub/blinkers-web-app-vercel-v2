@@ -59,7 +59,7 @@ const PopularJobs = ({ canSeeBtn = true, limit }: Props) => {
   // };
 
   const handleNavigateDetails = (id: number, title: string) => {
-    router.push(`/job-details/${id}/${sanitizeUrlParam(title)}`);
+    router.push(`/jobs/job-details/${id}/${sanitizeUrlParam(title)}`);
 
     window.scrollTo(0, 0);
   };

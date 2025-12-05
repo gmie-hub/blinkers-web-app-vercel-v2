@@ -1,8 +1,8 @@
 "use client";
-import JobDetails from "@/screens/profile/businessInformation/postedJob/viewJobDetails/viewJob";
+import Jobs from "@/screens/job/job";
 
-const JobDetailsPage = () => {
-  return <JobDetails />;
+const JobsPage = () => {
+  return <Jobs />;
 };
 
-export default JobDetailsPage;
+export default JobsPage;
