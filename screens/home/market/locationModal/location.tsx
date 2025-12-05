@@ -52,7 +52,7 @@ const LocationModal = ({ handleClose }: Props) => {
   const handleMyLocation = () => {
     if (!navigator.geolocation) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: "Geolocation is not supported on this device.",
       });
       return;
@@ -75,7 +75,7 @@ const LocationModal = ({ handleClose }: Props) => {
 
           if (!detectedState) {
             notification.error({
-              message: "Error",
+              title: "Error",
               description: "Unable to detect your state. Try again.",
             });
             setLoading(false);
@@ -89,7 +89,7 @@ const LocationModal = ({ handleClose }: Props) => {
 
           if (!stateObj) {
             notification.error({
-              message: "Error",
+              title: "Error",
               description: "Your state is not supported.",
             });
             setLoading(false);
@@ -118,7 +118,7 @@ const LocationModal = ({ handleClose }: Props) => {
         } catch (err) {
           console.error("Location error:", err);
           notification.error({
-            message: "Error",
+            title: "Error",
             description: "Unable to detect your location.",
           });
         } finally {
@@ -128,7 +128,7 @@ const LocationModal = ({ handleClose }: Props) => {
       (error) => {
         console.error(error);
         notification.error({
-          message: "Error",
+          title: "Error",
           description: "Failed to access location. Please enable GPS.",
         });
         setLoading(false);

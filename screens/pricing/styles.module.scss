@@ -1,0 +1,228 @@
+.pricingPage {
+    text-align: center;
+    padding: 4rem 1rem;
+  }
+  
+  .title {
+    font-size: 4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #222222;
+  }
+  
+  .subtitle {
+    font-size: 2rem;
+    color: #707070;
+    margin-bottom: 11rem;
+    margin-inline: auto;
+  }
+  
+  .para {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-inline: 15rem;
+  }
+  
+  .plansContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.4rem;
+    flex-wrap: wrap;
+  }
+  
+  .planCard {
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    width: 30%;
+    min-height: 540px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+    border: solid 1px #eeeeee;
+  }
+  
+  .planCard:hover {
+    transform: translateY(-5px);
+  }
+  
+  .planHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .badge {
+    font-size: 1.5rem;
+  }
+  
+  .planTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #222222;
+  }
+  
+  .planPrice {
+    margin: 1rem 0;
+    font-size: 3.2rem;
+    font-weight: 600;
+    color: #222222;
+  }
+  
+  .chooseButton {
+    width: 100%;
+    background-color: #00a000;
+    padding: 1rem 0;
+    font-size: 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chooseButton:hover {
+    background-color: #008500;
+  }
+  
+  .planBody {
+    width: 100%;
+    text-align: left;
+    margin-top: 1.5rem;
+  }
+  
+  .featureTitle {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+    color: #222222;
+  }
+  
+  .featureList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .featureItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    color: #707070;
+  }
+  
+  .icon {
+    color: #00a000;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .platinumPlan {
+    // transform: scale(1.05);
+    // margin-top: -37px;
+    // z-index: 2;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    @media (max-width: 640px) {
+        margin-top: 0px;
+
+    }
+  }
+  
+  /* ✅ RESPONSIVENESS */
+  @media (max-width: 1024px) {
+    .para {
+      padding-inline: 5rem;
+    }
+  
+    .subtitle {
+      font-size: 1.6rem;
+      margin-bottom: 6rem;
+    }
+  
+    .planPrice {
+      font-size: 2.6rem;
+    }
+  
+    .featureItem {
+      font-size: 1.4rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .title {
+      font-size: 3rem;
+    }
+  
+    .subtitle {
+      font-size: 1.4rem;
+      margin-bottom: 4rem;
+    }
+  
+    .para {
+      padding-inline: 2rem;
+    }
+  
+    .planCard {
+      width: 100%;
+      max-width: 400px;
+      margin-block-end: 2rem;
+    }
+  
+    .plansContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .planPrice {
+      font-size: 2.2rem;
+    }
+  
+    .featureItem {
+      font-size: 1.3rem;
+    }
+  
+    .featureTitle {
+      font-size: 1.4rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 2.2rem;
+    }
+  
+    .subtitle {
+      font-size: 1.2rem;
+    }
+  
+    .planPrice {
+      font-size: 2rem;
+    }
+  
+    .planTitle {
+      font-size: 1.6rem;
+    }
+  
+    .featureItem {
+      font-size: 1.2rem;
+    }
+  
+    .featureTitle {
+      font-size: 1.2rem;
+    }
+  
+    .chooseButton {
+      font-size: 0.9rem;
+      padding: 0.8rem 0;
+    }
+  }
+  

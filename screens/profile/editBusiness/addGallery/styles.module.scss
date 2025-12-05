@@ -1,0 +1,176 @@
+.textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  & p:nth-child(1) {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-block-start: 4rem;
+    margin-block-end: 1rem;
+    color: var(--color-header-text);
+    text-transform: capitalize;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem; /* Smaller font on mobile */
+      margin-block-start: 2rem;
+    }
+  }
+}
+
+.inputContainer {
+  gap: 1.9rem;
+  display: flex;
+  flex-direction: column !important;
+  margin-block: 2.4rem;
+
+  @media (min-width: 768px) {
+    margin-inline: 7.2rem;
+    margin-block: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-inline: 1.2rem; /* Reduced margin for smaller screens */
+    margin-block: 1.5rem;
+  }
+}
+
+.buttonGroup {
+  margin-block-start: 2rem;
+  // margin-inline: 1.6rem;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2.4rem;
+  }
+}
+
+.btn {
+  width: 100%;
+}
+
+.buttonStyle {
+  width: 25.5rem;
+
+  @media (max-width: 768px) {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+
+.saveStyle {
+  width: auto;
+  padding: 2rem;
+}
+
+.addPhoto {
+  color: var(--color-header-text);
+  cursor: pointer;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem; /* Smaller font size for mobile */
+  }
+}
+
+.imageRow {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 10px; /* Space between images */
+  justify-content: flex-start;
+
+  @media (max-width: 768px) {
+    gap: 5px; /* Smaller gap between images on mobile */
+  }
+}
+
+.section {
+  border: 1px solid var(--color-grey-light);
+  padding: 2rem;
+  border-radius: 8px;
+
+  @media (max-width: 768px) {
+    padding: 1rem; /* Smaller padding for mobile */
+  }
+}
+
+.imageContainer {
+  position: relative; /* Allows the RemoveIcon to be positioned relative to this container */
+  width: calc(33.33% - 10px); /* 33.33% for 3 images per row */
+  // height: auto; /* Height will adjust automatically */
+
+  position: relative;
+  height: 16.3rem;
+
+  @media (max-width: 768px) {
+    width: calc(50% - 5px); /* 50% width for 2 images per row on mobile */
+  }
+
+  @media (max-width: 480px) {
+    width: 100%; /* Full width on very small screens */
+  }
+}
+
+.image {
+  width: 100%; /* Ensure image takes the full width of the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+.ModalWrapper {
+  text-align: center;
+  line-height: 3.2rem;
+  padding-block: 2rem;
+}
+.ModalPara {
+  color: var(--color-header-text);
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding-block: 2rem;
+}
+
+
+.imageRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 150px; // Set a fixed width
+  height: 150px; // Set a fixed height
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image,
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; // Ensures the content fills the box while maintaining aspect ratio
+  border-radius: 8px;
+}
+
+.removeIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 5px;
+}
+
+

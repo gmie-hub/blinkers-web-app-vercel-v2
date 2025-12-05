@@ -1,0 +1,101 @@
+.whyWrapper {
+    margin: 0; /* Remove any default margins */
+    padding: 0; /* Remove padding */
+    width: 100%; /* Ensure the wrapper spans the full width */
+    margin-block: 4rem;
+  }
+  
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line when necessary */
+    // justify-content: space-between; /* Align items with no extra space at edges */
+    gap: 3.4rem; /* Space between cards */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    width: 100%; /* Ensure the container spans the full width */
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+  }
+  
+  .dot {
+    margin-inline-end: 0.5rem;
+    height: 0.6rem;
+    width: 0.6rem;
+    border-radius: 50%;
+    background: #828282;
+    display: inline-block; /* Ensure it's treated as a single inline block */
+  }
+  .chooseCard {
+    cursor: pointer;
+    border: #eeeeee solid 1px;
+    flex: 1 1 calc(25% - 3.4rem); /* Adjust width for 4 cards per row, considering the gap */
+    background-color: var(--color-primary-white);
+    padding-block: 1.2rem;
+    padding-inline: 1.6rem;
+    box-shadow: 0px 4px 40px 0px #00990012;
+    box-sizing: border-box;
+    border-radius: 0.8rem;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    gap: 1.2rem; /* Space between card elements */
+    color: #828282;
+  
+    max-width: calc(25% - 2.4rem);
+    @media (max-width: 1024px) {
+      flex: 1 1 calc(50% - 2.4rem); /* 2 cards per row on medium screens */
+    }
+    @media (max-width: 820px) {
+      flex: 1 1 calc(50% - 2.4rem); /* 2 cards per row on medium screens */
+      max-width: 50%;
+    }
+  
+    @media (max-width: 600px) {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
+  
+  .cardWrapper {
+    display: flex; /* Use flexbox for the card container */
+    align-items: flex-start; /* Align items to the top */
+    gap: 0.5rem; /* Add space between icon and text */
+  }
+  
+  .icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+  
+  .textContent {
+    display: flex;
+    flex-direction: column; /* Stack text vertically */
+    // justify-content: center; /* Center text vertically */
+    text-align: start;
+  }
+  
+  .title {
+    margin: 0; /* Remove default margin */
+    color: #222222;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+  
+  .para {
+    font-size: 1.2rem;
+    color: #828282;
+  }
+  
+  
+  .noDataContainer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .noDataContainer p {
+    font-size: 18px;
+    color: #555;
+  }
+  
+  

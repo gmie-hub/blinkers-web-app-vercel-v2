@@ -1,0 +1,167 @@
+.mainContent {
+  margin-block-start: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+  flex-wrap: nowrap; /* Prevent wrapping of columns */
+}
+.leftColumn,
+.middleColumn,
+.rightColumn {
+  padding: 2rem !important;
+}
+
+// .leftColumn {
+//   flex: 0 0 30%; /* 30% width */
+//   display: flex;
+//   flex-direction: column;
+// }
+
+.middleColumn {
+  flex: 0 0 50%; /* 50% width */
+  border-inline-start: rgb(183, 164, 164) solid 1px;
+  border-inline-end: rgb(183, 164, 164) solid 1px;
+}
+
+.rightColumn {
+  flex: 0 0 20%; /* 20% width */
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 1200px) {
+  .mainContent {
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+  }
+
+  .leftColumn,
+  .middleColumn,
+  .rightColumn {
+    flex: 0 0 100%; /* Full width for each column */
+    padding: 2rem !important;
+  }
+
+  .middleColumn {
+    border-inline-start: none;
+    border-inline-end: none;
+  }
+}
+
+// .container {
+//   display: grid;
+//   grid-template-columns: repeat(1, 1fr); /* Two columns */
+//   gap: 16px; /* Adjust the gap between items */
+// }
+
+// .smalcard {
+//   padding: 10px;
+//   border: 1px solid #ccc;
+//   border-radius: 4px;
+//   background-color: #f9f9f9;
+//   text-align: center;
+
+//   max-width:  px; /* Set the maximum width */
+//   word-wrap: break-word; /* Ensure long words break to the next line */
+//   white-space: normal;
+// }
+
+.delete {
+  background: transparent !important;
+  color: red !important;
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 1200px) {
+  .mainContent {
+    flex-direction: column;
+    align-items: center; /* Centers columns on smaller screens */
+  }
+
+  .middleColumn {
+    border-inline-start: none;
+    border-inline-end: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr; /* Single column for small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .leftColumn,
+  .middleColumn,
+  .rightColumn {
+    padding: 1rem;
+    min-width: 95%;
+  }
+
+  .smalcard {
+    padding: 8px;
+  }
+}
+
+.inputContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.inputContainer > * {
+  flex: 1; /* Each input takes up an equal share of the available space */
+}
+
+.leftColumn {
+  flex: 0 0 30%; /* 30% width */
+  display: flex;
+  flex-direction: column;
+  max-width: 30%; /* Ensure the width of leftColumn is constrained */
+}
+
+.container {
+  // display: grid;
+  grid-template-columns: 1fr; /* Single column for smalcards */
+  gap: 16px; /* Adjust the gap between items */
+  width: 100%; /* Make sure the container takes the full width of leftColumn */
+}
+
+.smalcard {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  text-align: center;
+  margin-block: 1rem;
+  text-align: start;
+
+  max-width: 100%; /* Prevent crossing parent container */
+  box-sizing: border-box; /* Include padding and border in width calculations */
+  word-wrap: break-word; /* Break long words */
+  white-space: normal; /* Allow text to wrap */
+}
+
+
+.abs {
+  position: relative;
+  display: inline-block;
+}
+
+.profile {
+  width: 13.8rem;
+  height: 13.8rem;
+  border-radius: 50%;
+  background-color: aliceblue;
+  padding: 1rem;
+}
+
+.abs img:last-child {
+  position: absolute;
+  bottom: 2rem;
+  left: 8rem;
+  width: 4rem;
+  height: 4rem;
+  transform: translate(50%, 50%);
+  border-radius: 50%;
+}

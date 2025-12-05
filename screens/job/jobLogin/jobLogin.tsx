@@ -1,20 +1,19 @@
 import styles from "./styles.module.scss";
-import { useNavigate } from "react-router-dom";
-import Button from "../../../customs/button/button";
-import JobImage from "../../../assets/image 39.svg";
+import { useRouter } from "next/navigation";
+import Button from "@/components/ui/button/button";
 
 interface Props {
   handleCloseModal: () => void;
 }
 
 const JobWelcome = ({handleCloseModal}:Props) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const currentPath = location.pathname;
 
   return (
     <div className={styles.container}>
       
-      <img src={JobImage} alt="DirectoryImage" />
+      <img src='/image 39.svg' alt="DirectoryImage" />
 
       <h2 className={styles.title}>Welcome To Blinkers Job Portal</h2>
       <p className={styles.subtitle}>
@@ -31,7 +30,7 @@ const JobWelcome = ({handleCloseModal}:Props) => {
 
       <Button
         onClick={() => {
-          navigate(`/login?redirect=${currentPath}`);
+          router.push(`/login?redirect=${currentPath}`);
         }}
         type="button"
       >
@@ -43,7 +42,7 @@ const JobWelcome = ({handleCloseModal}:Props) => {
 
       <Button
       variant="greenOutline"
-        onClick={() => navigate("/sign-up")}
+        onClick={() => router.push("/sign-up")}
       >
         Sign Up
       </Button>

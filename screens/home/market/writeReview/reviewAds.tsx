@@ -54,7 +54,7 @@ const WriteReviewAds = ({id}:Props) => {
       });
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }

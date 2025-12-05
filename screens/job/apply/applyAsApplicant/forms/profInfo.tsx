@@ -113,7 +113,7 @@ const ProfInfoForm: FC<{ onPrev: () => void }> = ({ onPrev }) => {
     ];
     if (!validImageTypes.includes(selectedFile.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description:
           "Please upload a valid file. Supported formats include: JPEG, PNG, JPG, PDF, DOC, DOCX, TXT, GIF.",
       });
@@ -406,7 +406,7 @@ const ProfInfoForm: FC<{ onPrev: () => void }> = ({ onPrev }) => {
       setSelectedIndustries([]);
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description:
           errorMessage(error) ||
           "An error occurred while submitting your information.",
@@ -507,7 +507,7 @@ const ProfInfoForm: FC<{ onPrev: () => void }> = ({ onPrev }) => {
       await EditProfInfoMutation.mutateAsync(payload, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
           // clearLocalStorageData()
@@ -519,7 +519,7 @@ const ProfInfoForm: FC<{ onPrev: () => void }> = ({ onPrev }) => {
       setSelectedIndustries([]);
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: "An error occurred while submitting your information.",
       });
     }

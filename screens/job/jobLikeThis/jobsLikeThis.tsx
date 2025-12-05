@@ -1,13 +1,13 @@
-import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.scss";
-import { getTimeAgo } from "../../../utils/formatTime";
 import { AxiosError } from "axios";
 import { useQueries } from "@tanstack/react-query";
-import { getJobDetails } from "../../request";
-import RouteIndicator from "../../../customs/routeIndicator";
-import CustomSpin from "../../../customs/spin";
-import { sanitizeUrlParam } from "../../../utils";
-import { getColorByString, getInitials } from "../../../utils/limitNotification";
+import { useRouter, useSearchParams } from "next/navigation";
+import { sanitizeUrlParam } from "@/lib/utils";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import CustomSpin from "@/components/ui/spin";
+import { getColorByString, getInitials } from "@/lib/utils/limitNotification";
+import { getTimeAgo } from "@/lib/utils/formatTime";
+import { getJobDetails } from "@/services/jobServices";
 
 interface Props {
   canSeeBtn?: boolean;
@@ -15,8 +15,8 @@ interface Props {
 }
 
 const MoreJobsLikeThis = ({ canSeeBtn = true, limit }: Props) => {
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const router = useRouter();
+  const id = useSearchParams().get("id");
 
   const [getJobDetailsQuery] = useQueries({
     queries: [
@@ -54,7 +54,7 @@ const MoreJobsLikeThis = ({ canSeeBtn = true, limit }: Props) => {
   // };
 
   const handleNavigateDetails = (id: number, title: string) => {
-    navigate(`/job-details/${id}/${sanitizeUrlParam(title)}`);
+    router.push(`/job-details/${id}/${sanitizeUrlParam(title)}`);
 
     window.scrollTo(0, 0);
   };

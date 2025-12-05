@@ -1,35 +1,26 @@
 import styles from "./job.module.scss";
 import { Image, Modal } from "antd";
 import { useState } from "react";
-import Icon from "/Container.svg";
-// import Button from "../../customs/button/button";
-import JobImage from "../../assets/image 39.svg";
-import { useNavigate, useParams } from "react-router-dom";
-// import ModalContent from "../../partials/successModal/modalContent";
-import warn from "../../assets/warned.svg";
 import JobLists from "./cards/cards";
-import { userAtom } from "../../utils/store";
 import { useAtomValue } from "jotai";
-import { routes } from "../../routes";
-import ViewVacancy from "../../assets/viewVacancy.svg";
-import WhiteAdd from "../../assets/whitecircleadd.svg";
-import WhiteProfile from "../../assets/whiteaddprofile.svg";
 import PopularJobs from "./popularJob/popularJob";
 import { AxiosError } from "axios";
-import { getForYouJobs, getPopularJobs } from "../request";
 import { useQueries } from "@tanstack/react-query";
-// import ArrowIcon from "../../assets/arrow-right-green.svg";
 import JobForYou from "./jobForYou/forYou";
 import CustomSpin from "@/components/ui/spin";
 import JobWelcome from "./jobLogin/jobLogin";
 import SearchInput from "@/components/ui/searchInput";
 import Button from "@/components/ui/button/button";
 import ModalContent from "@/components/partials/successModal/modalContent";
+import { routes } from "@/lib/routes";
+import { userAtom } from "@/lib/utils/store";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getForYouJobs, getPopularJobs } from "@/services/jobServices";
 
 const Jobs = () => {
-  const navigate = useNavigate();
+    const search = useSearchParams().get("search");
+  const router = useRouter();
   const [openAddBusiness, setOpenAddBusiness] = useState(false);
-  let { search } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [appliedSearchTerm, setAppliedSearchTerm] = useState(search || "");
   const user = useAtomValue(userAtom);
@@ -47,11 +38,11 @@ const Jobs = () => {
   };
 
   const handleNavigateToPopularJob = () => {
-    navigate(`/popular-jobs`);
+    router.push(`/popular-jobs`);
     window.scrollTo(0, 0);
   };
   const handleNavigateToForYouJob = () => {
-    navigate(`/jobs-for-you`);
+    router.push(`/jobs-for-you`);
     window.scrollTo(0, 0);
   };
 
@@ -109,7 +100,7 @@ const Jobs = () => {
       //   icon: null,
       // });
     } else {
-      navigate("/job/register-as-applicant");
+      router.push("/job/register-as-applicant");
       window.scrollTo(0, 0);
     }
  
@@ -149,7 +140,7 @@ const Jobs = () => {
       setOpenAddBusiness(true);
     }
     if (user?.claim_status === "successful" || user?.role === "2") {
-      navigate(routes.job.postJob);
+      router.push(routes.job.postJob);
       window.scrollTo(0, 0);
     }
 
@@ -158,12 +149,12 @@ const Jobs = () => {
 
   const handleCloseBusinessModal = () => {
     setOpenAddBusiness(false);
-    navigate(routes.job.AddBusiness);
+    router.push(routes.job.AddBusiness);
   };
 
   const handleNavigateTOSellerSignup = () => {
     setOpenAddBusiness(false);
-    navigate(routes.auth.sellerVerification);
+    router.push(routes.auth.sellerVerification);
   };
 
   const resetSearchTerm = () => {
@@ -178,7 +169,7 @@ const Jobs = () => {
         <div
           className={styles.image}
           style={{
-            backgroundImage: `url(${Icon})`, // Ensure you use the correct image reference
+            backgroundImage: "url(/Container.svg)", // Ensure you use the correct image reference
           }}
         >
           <div className={styles.home}>
@@ -215,7 +206,7 @@ const Jobs = () => {
             </p>
             <div className={styles.btnFlex}>
               <Button
-                icon={<Image src={WhiteAdd} alt={WhiteAdd} preview={false} />}
+                icon={<Image src='/whitecircleadd.svg' alt={'WhiteAdd'} preview={false} />}
                 className={styles.buttonStyle}
                 text={
                   user && user?.security_token
@@ -230,8 +221,8 @@ const Jobs = () => {
                 <Button
                   icon={
                     <Image
-                      src={WhiteProfile}
-                      alt={WhiteProfile}
+                      src='/whiteaddprofile.svg'
+                      alt={'WhiteProfile'}
                       preview={false}
                     />
                   }
@@ -243,7 +234,7 @@ const Jobs = () => {
               )}
             </div>
           </div>
-          <img src={ViewVacancy} alt="ViewVacancy" />
+          <img src='/viewVacancy.svg' alt="ViewVacancy" />
         </div>
 
         {getPopularJobsQuery?.isLoading ? (
@@ -319,8 +310,8 @@ const Jobs = () => {
                 <Button
                   icon={
                     <Image
-                      src={WhiteProfile}
-                      alt={WhiteProfile}
+                      src='/whiteaddprofile.svg'
+                      alt={'WhiteProfile'}
                       preview={false}
                     />
                   }
@@ -332,7 +323,7 @@ const Jobs = () => {
               )}
             </div>
           </div>
-          <img src={JobImage} alt="JobImage" />
+          <img src='/image 39.svg' alt="JobImage" />
         </div>
 
         <JobLists
@@ -342,7 +333,7 @@ const Jobs = () => {
       </div>
 
       <ModalContent
-        icon={<img src={warn} alt="warn" />}
+        icon={<img src='/warned.svg' alt="warn" />}
         open={openAddBusiness}
         handleCancel={() => setOpenAddBusiness(false)}
         handleClick={handleCloseBusinessModal}

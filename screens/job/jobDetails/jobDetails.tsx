@@ -1,52 +1,43 @@
-import Button from "../../../customs/button/button";
 import styles from "./jobDetails.module.scss";
-import FlagJobicon from "../../../assets/flag.svg";
-import JobLocation from "../../../assets/joblocation.svg";
-import StatusBadge from "../../../partials/statusBadge/statusBadge";
-import ArrowIcon from "../../../assets/arrow-right-green.svg";
 import MoreJobsLikeThis from "../jobLikeThis/jobsLikeThis";
-import { useNavigate, useParams } from "react-router-dom";
 import { App, Modal } from "antd";
 import { useState } from "react";
 import FlagJob from "./flagJob/flagJob";
 import { useMutation, useQueries } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import DOMPurify from "dompurify";
+import { useAtomValue } from "jotai";
+import JobWelcome from "../jobLogin/jobLogin";
+import { getColorByString, getInitials } from "@/lib/utils/limitNotification";
+import CustomSpin from "@/components/ui/spin";
+import Button from "@/components/ui/button/button";
+import { formatAmount, getTimeAgo } from "@/lib/utils/formatTime";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import { userAtom } from "@/lib/utils/store";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import ModalContent from "@/components/partials/successModal/modalContent";
+import { routes } from "@/lib/routes";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   ApplyForJobApi,
   getFlaggedJobByJob_idUser_id,
   getJobDetails,
-} from "../../request";
-import { AxiosError } from "axios";
-import { formatAmount, getTimeAgo } from "../../../utils/formatTime";
-import DOMPurify from "dompurify";
-import JobTypeIcon from "../../../assets/jobtype.svg";
-import WorkIcon from "../../../assets/jobarrange.svg";
-import JobLevelIon from "../../../assets/joblevel.svg";
-import SalaryIcon from "../../../assets/salary.svg";
-import RouteIndicator from "../../../customs/routeIndicator";
-import { userAtom } from "../../../utils/store";
-import { useAtomValue } from "jotai";
-import { routes } from "../../../routes";
-import ModalContent from "../../../partials/successModal/modalContent";
-import { errorMessage } from "../../../utils/errorMessage";
-import CustomSpin from "../../../customs/spin";
-import {
-  getColorByString,
-  getInitials,
-} from "../../../utils/limitNotification";
-import JobWelcome from "../jobLogin/jobLogin";
+} from "@/services/jobServices";
+import StatusBadge from "@/components/partials/statusBadge/statusBadge";
 
 const JobDetails = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+
   const [flagJob, setFlagJob] = useState(false);
-  const { id } = useParams();
+  const id = useSearchParams().get("id");
+
   const user = useAtomValue(userAtom);
   const [regModal, setRegModal] = useState(false);
   const { notification } = App.useApp();
-  // const currentPath = location.pathname;
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
   const handleNavigateToMoreJob = () => {
-    navigate(`/job/more-jobs-like-this/${id}`);
+    router.push(`/job/more-jobs-like-this/${id}`);
     window.scrollTo(0, 0);
   };
   const handleNavigateApplyToJob = () => {
@@ -145,7 +136,7 @@ const JobDetails = () => {
   };
 
   const handleRegModal = () => {
-    navigate(routes?.job?.RegAsApplicant);
+    router.push(routes?.job?.RegAsApplicant);
   };
 
   const ApplyJobMutation = useMutation({
@@ -165,14 +156,14 @@ const JobDetails = () => {
       await ApplyJobMutation.mutateAsync(payload, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
         },
       });
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }
@@ -226,7 +217,7 @@ const JobDetails = () => {
                 </p>
               </span>
               <span className={styles.location}>
-                <img src={JobLocation} alt="JobLocation" />
+                <img src="/joblocation.svg" alt="JobLocation" />
                 <p>{JobDetailsData?.location}</p>
               </span>
               <h3 className={styles.jobTitle}>{JobDetailsData?.title}</h3>
@@ -262,7 +253,7 @@ const JobDetails = () => {
                   variant="redOutline"
                   text={hasUserFlaggedJob ? "Unflag This Job" : "Flag This Job"}
                   className={styles.buttonStyle}
-                  icon={<img src={FlagJobicon} alt="FlagJobicon" />}
+                  icon={<img src="/flag.svg" alt="FlagJobicon" />}
                   onClick={handleFlagJob}
                 />
               </div>
@@ -277,7 +268,7 @@ const JobDetails = () => {
 
             <section className={styles.container}>
               <div className={styles.info}>
-                <img src={JobTypeIcon} alt="TimeIcon" />
+                <img src="/jobtype.svg" alt="TimeIcon" />
 
                 <p>Job Type</p>
               </div>
@@ -289,7 +280,7 @@ const JobDetails = () => {
               </p>
 
               <div className={styles.info}>
-                <img src={JobLevelIon} alt="TimeIcon" />
+                <img src="/joblevel.svg" alt="TimeIcon" />
 
                 <p>Full Time</p>
               </div>
@@ -300,7 +291,7 @@ const JobDetails = () => {
                     JobDetailsData?.level?.slice(1)}
               </p>
               <div className={styles.info}>
-                <img src={WorkIcon} alt="TimeIcon" />
+                <img src="/jobarrange.svg" alt="TimeIcon" />
 
                 <p>Work Arrangement</p>
               </div>
@@ -311,7 +302,7 @@ const JobDetails = () => {
                     JobDetailsData?.job_type?.slice(1)}
               </p>
               <div className={styles.info}>
-                <img src={SalaryIcon} alt="TimeIcon" />
+                <img src="/salary.svg" alt="TimeIcon" />
 
                 <p>Salary</p>
               </div>
@@ -381,7 +372,7 @@ const JobDetails = () => {
                         className={styles.btnWrapper}
                       >
                         <p className={styles.btn}>See All</p>
-                        <img src={ArrowIcon} alt="ArrowIcon" />
+                        <img src="/arrow-right-green.svg" alt="ArrowIcon" />
                       </div>
                     )}
                 </div>
@@ -417,9 +408,7 @@ const JobDetails = () => {
         centered
         footer={null}
       >
-        <JobWelcome
-          handleCloseModal={() => setOpenLoginModal(false)}
-        />
+        <JobWelcome handleCloseModal={() => setOpenLoginModal(false)} />
       </Modal>
     </main>
   );
