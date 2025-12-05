@@ -1,20 +1,18 @@
 import { useState } from "react";
 import styles from "./basicInfo.module.scss";
 import { Tabs, TabsProps } from "antd";
-import postIcon from "../../../../assets/plusgreen.svg";
-import Button from "../../../../customs/button/button";
-import edit from "../../../../assets/editgreen.svg";
-import { getBusinessById } from "../../../request";
 import { useQueries } from "@tanstack/react-query";
-import { userAtom } from "../../../../utils/store";
 import { useAtomValue } from "jotai";
 import { AxiosError } from "axios";
 import Gallery from "../gallery/gallery";
 import BasicInformation from "./basicInfo";
 import Reviews from "../review/review";
-import CustomSpin from "../../../../customs/spin";
-import { routes } from "../../../../routes";
-import { useNavigate } from "react-router-dom";
+import Button from "@/components/ui/button/button";
+import { userAtom } from "@/lib/utils/store";
+import { getBusinessById } from "@/services/businessServices";
+import CustomSpin from "@/components/ui/spin";
+import { routes } from "@/lib/routes";
+import { useRouter } from "next/navigation";
 
 interface BasicInformationProps {
   title?: string;
@@ -29,13 +27,13 @@ export default function Index({}: BasicInformationProps) {
   });
 
   const user = useAtomValue(userAtom);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [getBusinessDetailsQuery] = useQueries({
     queries: [
       {
         queryKey: ["get-business-details", user?.business?.id],
-        queryFn: () => getBusinessById(user?.business?.id!),
+        queryFn: () => getBusinessById(user?.business?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: true,
         enabled: !!user?.business?.id,
@@ -78,12 +76,12 @@ export default function Index({}: BasicInformationProps) {
   };
 
   const handleNavigateToPostJob = () => {
-    navigate(routes.job.postJob);
+    router.push(routes.job.postJob);
     window.scroll(0,0)
   };
 
   const handleNavigateToEditBusiness = () => {
-    navigate(routes.profile.editBusiness);
+    router.push(routes.profile.editBusiness);
     window.scroll(0,0)
   };
 
@@ -99,14 +97,14 @@ export default function Index({}: BasicInformationProps) {
             <p>Business Information</p>
             <div>
               <Button
-                icon={<img src={edit} alt={edit} />}
+                icon={<img src='/editgreen.svg' alt={'edit'} />}
                 className="buttonStyle"
                 text="Edit Information"
                 variant="green"
                 onClick={handleNavigateToEditBusiness}
               />
               <Button
-                icon={<img src={postIcon} alt={postIcon} />}
+                icon={<img src='/plusgreen.svg' alt={'postIcon'} />}
                 className="buttonStyle"
                 text="Post a Job"
                 variant="white"

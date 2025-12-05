@@ -1,34 +1,26 @@
 import { Field, Form, Formik, FormikValues } from "formik";
 import styles from "./editAds.module.scss";
 import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
-import Input from "../../../customs/input/input";
-import SearchableSelect from "../../../customs/searchableSelect/searchableSelect";
-import Button from "../../../customs/button/button";
-import { useNavigate } from "react-router-dom";
-import {
-  createAds,
-  //   deleteAdsGalarybyId,
-  getAllCategory,
-  getAllState,
-  getAllSubscriptionbyId,
-  getApplicantsbyId,
-  getLGAbyStateId,
-  getSpecSubCategory,
-  getSubCategory,
-  //   uploadAdsGallery,
-  //   uploadAdsVideo,
-} from "../../request";
 import { useRef, useState } from "react";
-import Checkbox from "../../../customs/checkBox/checkbox";
-import Upload from "../../../customs/upload/upload";
 import { App } from "antd";
-import { errorMessage } from "../../../utils/errorMessage";
 
 import * as Yup from "yup";
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../../utils/store";
-import { LimitNotification } from "../../../utils/limitNotification";
-import SpecificationSelect from "../../../customs/select/speSelect";
+import Checkbox from "@/components/ui/checkBox/checkbox";
+import Input from "@/components/ui/input/input";
+import Button from "@/components/ui/button/button";
+import { useRouter } from "next/navigation";
+import SearchableSelect from "@/components/ui/searchableSelect/searchableSelect";
+import Upload from "@/components/ui/upload/upload";
+import { getApplicantsbyId } from "@/services/applicantServices";
+import { getAllCategory, getSpecSubCategory, getSubCategory } from "@/services/categoryServices";
+import { getAllState, getLGAbyStateId } from "@/services/locationServices";
+import { userAtom } from "@/lib/utils/store";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { LimitNotification } from "@/lib/utils/limitNotification";
+import SpecificationSelect from "@/components/ui/select/speSelect";
+import { getAllSubscriptionById } from "@/services/pricingService";
+import { createAds } from "@/services/profileService";
 
 const CreateAdz = () => {
   const [stateId, setStateId] = useState(0);
@@ -42,7 +34,7 @@ const CreateAdz = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleStateChange = (value: number, setFieldValue: any) => {
     setStateId(value);
@@ -102,7 +94,7 @@ const CreateAdz = () => {
 
       {
         queryKey: ["get-profile"],
-        queryFn: () => getApplicantsbyId(user?.id!),
+        queryFn: () => getApplicantsbyId(user?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: true,
         enabled: !!user?.id,
@@ -114,7 +106,7 @@ const CreateAdz = () => {
 
   const { data: subPlanData } = useQuery({
     queryKey: ["get-all-sub", planId],
-    queryFn: () => getAllSubscriptionbyId(planId),
+    queryFn: () => getAllSubscriptionById(planId),
     retry: 0,
     enabled: !!planId, // only runs when planId is available
     refetchOnWindowFocus: false,
@@ -199,7 +191,7 @@ const CreateAdz = () => {
         //   findFeatureBySlug("total-ads-images")?.pivot?.limit
         // } images.`,
         onClick: () => {
-          navigate("/pricing");
+          router.push("/pricing");
           window.scroll(0, 0);
         },
       });
@@ -215,7 +207,7 @@ const CreateAdz = () => {
       setFieldValue("imageFiles", [...uploads, ...validFiles]);
     } else {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description: "Only image files (jpg, jpeg, png) are allowed.",
       });
     }
@@ -246,7 +238,7 @@ const CreateAdz = () => {
         //     : findFeatureBySlug("total-ads-videos")?.pivot?.limit
         // } Video.`,
         onClick: () => {
-          navigate("/pricing");
+          router.push("/pricing");
           window.scroll(0, 0);
         },
       });
@@ -271,7 +263,7 @@ const CreateAdz = () => {
       setFieldValue("videoFiles", [...uploadVideos, ...validVideos]);
     } else {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description: "Only video files (mp4, mkv, webm) are allowed.",
       });
     }
@@ -295,7 +287,7 @@ const CreateAdz = () => {
     // Validate if the file type is valid
     if (!validFileTypes.includes(selectedFile.type)) {
       notification.error({
-        message: "Invalid File Type",
+        title: "Invalid File Type",
         description:
           "The logo field must be a file of type: jpg, jpeg, png, gif, docx, doc, ppt.",
       });
@@ -314,7 +306,7 @@ const CreateAdz = () => {
   const handleNavigateToProfile = () => {
     localStorage.setItem("activeTabKeyProfile", "7");
 
-    navigate("/profile");
+    router.push("/profile");
     window.scrollTo(0, 0);
   };
   const createAdsMutation = useMutation({
@@ -389,7 +381,7 @@ const CreateAdz = () => {
       await createAdsMutation.mutateAsync(formData, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
           resetForm();
@@ -399,7 +391,7 @@ const CreateAdz = () => {
       });
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
       clearFile();
@@ -476,7 +468,7 @@ const CreateAdz = () => {
               
             
               onClick: () => {
-                navigate("/pricing");
+                router.push("/pricing");
                 window.scroll(0, 0);
               },
             });
@@ -725,7 +717,7 @@ const CreateAdz = () => {
                     disabled={false}
                     text="Cancel"
                     className="buttonStyle"
-                    onClick={() => navigate(-1)}
+                    onClick={() => router.back()}
                   />
                   <Button
                     variant="green"

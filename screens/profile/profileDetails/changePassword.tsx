@@ -1,11 +1,11 @@
 import { Form, Formik, FormikValues } from "formik";
-import Button from "../../../customs/button/button";
-import Input from "../../../customs/input/input";
 import * as Yup from "yup";
-import { changePassword } from "../../request";
 import { useMutation } from "@tanstack/react-query";
 import { App } from "antd";
-import { errorMessage } from "../../../utils/errorMessage";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { changePassword } from "@/services/profileService";
+import Input from "@/components/ui/input/input";
+import Button from "@/components/ui/button/button";
 
 const ChangePassword = () => {
   const { notification } = App.useApp();
@@ -27,7 +27,7 @@ const ChangePassword = () => {
       await changePasswordMutation.mutateAsync(payload, {
         onSuccess: (data) => {
           notification.success({
-            message: "Success",
+            title: "Success",
             description: data?.message,
           });
           resetForm();
@@ -35,7 +35,7 @@ const ChangePassword = () => {
       });
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }

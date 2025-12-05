@@ -1,25 +1,23 @@
 import styles from "./styles.module.scss";
-import TimeIcon from "../../assets/time42.svg";
 import { Image } from "antd";
-import CallIcon from "../../assets/callclaim.svg";
-import LocationIcon from "../../assets/locationnot.svg";
-import Button from "../../customs/button/button";
-import { getApplicantsbyId, getBusinessById } from "../request";
-import { userAtom } from "../../utils/store";
 import { useAtomValue } from "jotai";
 import { useQueries } from "@tanstack/react-query";
 import Index from "./businessInformation/basicInfomation";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
-import CustomSpin from "../../customs/spin";
-import { useNavigate } from "react-router-dom";
 import { groupBusinessHours } from "../directory/directoryDeails/displayBusinessHour";
+import Button from "@/components/ui/button/button";
+import { userAtom } from "@/lib/utils/store";
+import CustomSpin from "@/components/ui/spin";
+import { useRouter } from "next/navigation";
+import { getBusinessById } from "@/services/businessServices";
+import { getApplicantsbyId } from "@/services/applicantServices";
 
 const MyBusinesses = () => {
   const user = useAtomValue(userAtom);
   const [businessId, setBusinessId] = useState<string>('')
   const [showBusinessInfo, setShowBusinessInfo] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
   const [getBusinessDetailsQuery, getProfileQuery] = useQueries({
     queries: [
       {
@@ -31,7 +29,7 @@ const MyBusinesses = () => {
       },
       {
         queryKey: ["get-profile"],
-        queryFn: () => getApplicantsbyId(user?.id!),
+        queryFn: () => getApplicantsbyId(user?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: true,
         enabled: !!user?.id,
@@ -83,7 +81,7 @@ const MyBusinesses = () => {
 
                   <div className={styles.info}>
                     <Image
-                      src={TimeIcon}
+                      src='/time42.svg'
                       alt="TimeIcon"
                       preview={false}
                       width={24}
@@ -98,7 +96,7 @@ const MyBusinesses = () => {
                   </div>
                   <div className={styles.info}>
                     <Image
-                      src={LocationIcon}
+                      src='/locationnot.svg'
                       alt="LocationIcon"
                       preview={false}
                       width={24}
@@ -108,7 +106,7 @@ const MyBusinesses = () => {
                   </div>
                   <div className={styles.info}>
                     <Image
-                      src={CallIcon}
+                      src='/callclaim.svg'
                       alt="CallIcon"
                       preview={false}
                       width={24}
@@ -143,7 +141,7 @@ const MyBusinesses = () => {
             ) : (
               <p
                 style={{ cursor: "pointer", textAlign: "center" }}
-                onClick={() => navigate("/job/add-business")}
+                onClick={() => router.push("/job/add-business")}
               >
                 Please click to create a business{" "}
               </p>

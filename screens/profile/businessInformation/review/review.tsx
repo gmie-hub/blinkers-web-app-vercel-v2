@@ -1,21 +1,19 @@
-import Card from "../../../../customs/card/card";
 import styles from "./review.module.scss";
-import Star from "../../../../assets/Vector.svg";
-import StarYellow from "../../../../assets/staryellow.svg";
 import { AxiosError } from "axios";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
-import { getAllReviews, replyReview } from "../../../request";
-import { formatDateOnly, getTimeFromDate } from "../../../../utils/formatTime";
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../../../utils/store";
-import Input from "../../../../customs/input/input";
 import * as Yup from "yup";
 import { Formik, FormikValues } from "formik";
-import Button from "../../../../customs/button/button";
-import CustomSpin from "../../../../customs/spin";
 import { useState } from "react";
 import { App } from "antd";
-import { countUpTo } from "../../../../utils";
+import Card from "@/components/ui/card/card";
+import { userAtom } from "@/lib/utils/store";
+import { countUpTo } from "@/lib/utils";
+import Input from "@/components/ui/input/input";
+import Button from "@/components/ui/button/button";
+import CustomSpin from "@/components/ui/spin";
+import { formatDateOnly, getTimeFromDate } from "@/lib/utils/formatTime";
+import { getAllReviews, replyReview } from "@/services/profileService";
 
 export default function Reviews() {
   const user = useAtomValue(userAtom);
@@ -33,7 +31,7 @@ export default function Reviews() {
       {
         queryKey: ["get-business-review"],
         // queryFn: () => getAllReviews("14"),
-        queryFn: () => getAllReviews(user?.business?.id?.toString()!),
+        queryFn: () => getAllReviews(user?.business?.id?.toString() ?? ''),
 
         retry: 0,
         refetchOnWindowFocus: false,
@@ -76,7 +74,7 @@ export default function Reviews() {
         {
           onSuccess: (data) => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: data?.message || "ads rejected successfully",
             });
             queryClient.refetchQueries({
@@ -89,7 +87,7 @@ export default function Reviews() {
       );
     } catch (error: any) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description:
           error?.message || "An error occurred while rejecting the application",
       });
@@ -122,8 +120,8 @@ export default function Reviews() {
                 <div className={styles.starWrapper}>
                   {countUpTo(
                     item?.rating,
-                    <img width={13} src={StarYellow} alt="Star Yellow" />,
-                    <img width={13} src={Star} alt="Star" />
+                    <img width={13} src='/staryellow.svg' alt="Star Yellow" />,
+                    <img width={13} src='/Vector.svg' alt="Star" />
                   )}
                 </div>
                 <div className={styles.flex}>
@@ -156,7 +154,7 @@ export default function Reviews() {
                       reply:item?.owner_comment ||  "",
                     }}
                     onSubmit={(values) =>
-                      replyReviewHandler(values, item?.id!)
+                      replyReviewHandler(values, item?.id ?? '')
                     }
                     validationSchema={validationSchema}
                   >

@@ -1,4 +1,4 @@
-import Card from "../../../../customs/card/card";
+import Card from "@/components/ui/card/card";
 import BusinessDetailsElements from "../../businessElementDetails";
 import styles from "./basicInfo.module.scss";
 interface BasicInformationProps {

@@ -1,20 +1,21 @@
 // import styles from './index.module.scss';
 import { PaginationProps, Spin, Table, Tabs, TabsProps } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useState } from 'react';
 import { ColumnsType } from 'antd/es/table';
 import { useQueries } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { formatDateOnly } from '../../../../../utils/formatTime';
-import StatusBadge from '../../../../../partials/statusBadge/statusBadge';
-import Button from '../../../../../customs/button/button';
-import { getAllApplication } from '../../../../request';
-import RouteIndicator from '../../../../../customs/routeIndicator';
+import RouteIndicator from '@/components/ui/routeIndicator';
+import Button from '@/components/ui/button/button';
+import { formatDateOnly } from '@/lib/utils/formatTime';
+import StatusBadge from '@/components/partials/statusBadge/statusBadge';
+import { getAllApplication } from '@/services/profileService';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const Applicants = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-  const { id } = useParams();
+    const id = useSearchParams().get("id");
+  
   const [status, setStatus] = useState('0')
 
   const onChange: PaginationProps['onChange'] = (page) => {
@@ -28,9 +29,9 @@ const Applicants = () => {
     (id: number) => {
       // navigate(`/jobs/view-job-details`);
 
-      navigate(`/jobs/view-applicant/${id}`);
+      router.push(`/jobs/view-applicant/${id}`);
     },
-    [navigate],
+    [router],
   );
 
   const columns: ColumnsType<JobDatum> = [

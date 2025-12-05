@@ -1,37 +1,29 @@
-import Button from "../../../../../customs/button/button";
 import styles from "./viewJob.module.scss";
-import DeleteIcon from "../../../../../assets/deleteicon.svg";
-import JobLocation from "../../../../../assets/joblocation.svg";
-import StatusBadge from "../../../../../partials/statusBadge/statusBadge";
-import EditIcon from "../../../../../assets/edit-2.svg";
-import EyeIcon from "../../../../../assets/eyewhite.svg"
-import { useNavigate, useParams } from "react-router-dom";
 import { App } from "antd";
 import { useState } from "react";
-// import FlagJob from "./flagJob/flagJob";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
-import {  deleteJob, getJobDetails } from "../../../../request";
 import { AxiosError } from "axios";
 import DOMPurify from "dompurify";
-import JobTypeIcon from "../../../../../assets/jobtype.svg";
-import WorkIcon from "../../../../../assets/jobarrange.svg";
-import JobLevelIon from "../../../../../assets/joblevel.svg";
-import SalaryIcon from "../../../../../assets/salary.svg";
-import RouteIndicator from "../../../../../customs/routeIndicator";
-import CustomSpin from "../../../../../customs/spin";
-import { formatAmount, getTimeAgo } from "../../../../../utils/formatTime";
-import ReusableModal from "../../../../../partials/deleteModal/deleteModal";
-import ModalContent from "../../../../../partials/successModal/modalContent";
-import { errorMessage } from "../../../../../utils/errorMessage";
+import { useRouter, useSearchParams } from "next/navigation";
+import Button from "@/components/ui/button/button";
+import StatusBadge from "@/components/partials/statusBadge/statusBadge";
+import { getJobDetails } from "@/services/jobServices";
+import RouteIndicator from "@/components/ui/routeIndicator";
+import CustomSpin from "@/components/ui/spin";
+import ModalContent from "@/components/partials/successModal/modalContent";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { deleteJob } from "@/services/profileService";
+import { formatAmount, getTimeAgo } from "@/lib/utils/formatTime";
+import ReusableModal from "@/components/partials/deleteModal/deleteModal";
 
 const JobDetails = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isDeleteSuccessful, setIsDeleteSucessful] = useState(false);
-    const { id } = useParams();
+  const id = useSearchParams().get("id");
+
   const { notification } = App.useApp();
   const queryClient = useQueryClient();
-
 
   const [getJobDetailsQuery] = useQueries({
     queries: [
@@ -72,7 +64,7 @@ const JobDetails = () => {
 
   const handleNavigateTojobPage = () => {
     setIsDeleteSucessful(true);
-    navigate(-1)
+    router.back();
   };
 
   const deleteJobMutation = useMutation({ mutationFn: deleteJob });
@@ -86,33 +78,32 @@ const JobDetails = () => {
         {
           onSuccess: () => {
             notification.success({
-              message: 'Success',
-              description: 'deleted Successfully',
+              title: "Success",
+              description: "deleted Successfully",
             });
             setIsDeleteModal(false);
             setIsDeleteSucessful(true);
 
             queryClient.refetchQueries({
-              queryKey: ['get-all-jobs'],
+              queryKey: ["get-all-jobs"],
             });
           },
-        },
+        }
       );
-    } catch (error  : any) {
+    } catch (error: any) {
       notification.error({
-        message: 'Error',
-        description:errorMessage(error) || "An error occurred",
+        title: "Error",
+        description: errorMessage(error) || "An error occurred",
       });
     }
   };
-  
-  const handleEdit = () => {
-    navigate(`/edit-job/${id}`);
-  };
-  const ViewApplicants =()=>{
-    navigate(`/applicants/${id}`);
 
-  }
+  const handleEdit = () => {
+    router.push(`/edit-job/${id}`);
+  };
+  const ViewApplicants = () => {
+    router.push(`/applicants/${id}`);
+  };
 
   return (
     <main>
@@ -127,18 +118,17 @@ const JobDetails = () => {
           </div>
           <section className={styles.header}>
             <div>
-            <span className={styles.logo}>
-             
+              <span className={styles.logo}>
                 <>
-                {JobDetailsData?.business?.logo ? (
-                  <img
-                    className={styles.icon}
-                    src={JobDetailsData.business.logo}
-                    alt="Business Logo"
-                  />
-                ) : (
-                  <div className={styles.placeholderCircle}></div>
-                )}
+                  {JobDetailsData?.business?.logo ? (
+                    <img
+                      className={styles.icon}
+                      src={JobDetailsData.business.logo}
+                      alt="Business Logo"
+                    />
+                  ) : (
+                    <div className={styles.placeholderCircle}></div>
+                  )}
                 </>
 
                 <p>
@@ -155,7 +145,7 @@ const JobDetails = () => {
                 <p>{JobDetailsData?.business?.name}</p>
               </span> */}
               <span className={styles.location}>
-                <img src={JobLocation} alt="JobLocation" />
+                <img src="/joblocation.svg" alt="JobLocation" />
                 <p>{JobDetailsData?.location}</p>
               </span>
               <h3 className={styles.jobTitle}>{JobDetailsData?.title}</h3>
@@ -172,13 +162,12 @@ const JobDetails = () => {
                 <StatusBadge status={getStatus()} />
 
                 <Button
-                    icon={<img src={EyeIcon} alt="EyeIcon" />}
-                    type="submit"
-                    text="View Applicants"
-                    className="buttonStyle"
-                    onClick={ViewApplicants}
-                  />
-
+                  icon={<img src="/eyewhite.svg" alt="EyeIcon" />}
+                  type="submit"
+                  text="View Applicants"
+                  className="buttonStyle"
+                  onClick={ViewApplicants}
+                />
               </div>
             </div>
 
@@ -186,7 +175,7 @@ const JobDetails = () => {
               {JobDetailsData?.status?.toString() === "1" && (
                 <div>
                   <Button
-                    icon={<img src={EditIcon} alt="FlagJobicon" />}
+                    icon={<img src="/edit-2.svg" alt="FlagJobicon" />}
                     type="submit"
                     text="Edit Job"
                     className="buttonStyle"
@@ -201,9 +190,9 @@ const JobDetails = () => {
                   variant="redOutline"
                   text="Delete Job"
                   className={styles.buttonStyle}
-                  icon={<img src={DeleteIcon} alt="FlagJobicon" />}
+                  icon={<img src="/deleteicon.svg" alt="FlagJobicon" />}
                   onClick={() => setIsDeleteModal(true)}
-                  />
+                />
               </div>
             </div>
           </section>
@@ -216,7 +205,7 @@ const JobDetails = () => {
 
             <section className={styles.container}>
               <div className={styles.info}>
-                <img src={JobTypeIcon} alt="TimeIcon" />
+                <img src="/jobtype.svg" alt="TimeIcon" />
 
                 <p>Job Type</p>
               </div>
@@ -228,7 +217,7 @@ const JobDetails = () => {
               </p>
 
               <div className={styles.info}>
-                <img src={JobLevelIon} alt="TimeIcon" />
+                <img src="/joblevel.svg" alt="TimeIcon" />
 
                 <p>Full Time</p>
               </div>
@@ -239,7 +228,7 @@ const JobDetails = () => {
                     JobDetailsData?.level?.slice(1)}
               </p>
               <div className={styles.info}>
-                <img src={WorkIcon} alt="TimeIcon" />
+                <img src="/jobarrange.svg" alt="TimeIcon" />
 
                 <p>Work Arrangement</p>
               </div>
@@ -250,7 +239,7 @@ const JobDetails = () => {
                     JobDetailsData?.job_type?.slice(1)}
               </p>
               <div className={styles.info}>
-                <img src={SalaryIcon} alt="TimeIcon" />
+                <img src="/salary.svg" alt="TimeIcon" />
 
                 <p>Salary</p>
               </div>
@@ -311,14 +300,16 @@ const JobDetails = () => {
         handleConfirm={DeleteJobHandler}
         title="Are You Sure You Want to Delete This Job?"
         description="All details about this job will be deleted along with the user applications."
-        confirmText={deleteJobMutation?.isPending ? 'loading...' : "Yes, Delete Job"}
+        confirmText={
+          deleteJobMutation?.isPending ? "loading..." : "Yes, Delete Job"
+        }
         cancelText="No, Go Back"
         disabled={deleteJobMutation?.isPending}
       />
 
       <ModalContent
         open={isDeleteSuccessful}
-        handleCancel={ handleNavigateTojobPage}
+        handleCancel={handleNavigateTojobPage}
         handleClick={handleNavigateTojobPage}
         text={"Job Updated Successfully"}
       />

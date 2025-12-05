@@ -1,13 +1,13 @@
 import styles from "./postedJob.module.scss";
-import { useNavigate,  } from "react-router-dom";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { Spin } from "antd"; // Import Spin from Ant Design
-import { getJobBYBusinessId } from "../../../request";
-import { userAtom } from "../../../../utils/store";
 import { useAtomValue } from "jotai";
-import { formatDateToMonthYear } from "../../../../utils/formatTime";
-import Card from "../../../../customs/card/card";
+import Card from "@/components/ui/card/card";
+import { formatDateToMonthYear } from "@/lib/utils/formatTime";
+import { useRouter } from "next/navigation";
+import { getJobBYBusinessId } from "@/services/profileService";
+import { userAtom } from "@/lib/utils/store";
 
 interface JobItem {
   id: number;
@@ -19,24 +19,24 @@ interface JobItem {
 }
 
 export default function JobPosted() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const user = useAtomValue(userAtom);
 
   const [getAllJobByBusinessQuery] = useQueries({
     queries: [
       {
         queryKey: ["get-all-jobs",user?.id],
-        queryFn: () => getJobBYBusinessId(user?.id!),
+        queryFn: () => getJobBYBusinessId(user?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: false,
-        enabled:!!user?.id!
+        enabled:!!user?.id
       },
     ],
   });
 
   const handleNavigateToViewJobDetails = 
     (jobId: number) => {
-      navigate(`/view-job-details/${jobId}`);
+      router.push(`/view-job-details/${jobId}`);
 
     }
   

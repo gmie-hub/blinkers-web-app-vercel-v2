@@ -1,29 +1,29 @@
 import styles from "./styles.module.scss";
 import { useQueries } from "@tanstack/react-query";
-import { deleteAds,  updateAdsStatus, getMyAdzByUserId } from "../../request";
+// import { deleteAds,  updateAdsStatus, getMyAdzByUserId } from "../../request";
 import { AxiosError } from "axios";
-import usePagination from "../../../hooks/usePagnation";
-import { formatDateToMonthYear } from "../../../utils/formatTime";
 import { App, Pagination, Tabs, TabsProps } from "antd";
-import Button from "../../../customs/button/button";
-// import EditIcon from "../../../assets/editgreen.svg";
-// import DeleteIcon from "../../../assets/deleteicon.svg";
-import CustomSpin from "../../../customs/spin";
+
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../../utils/store";
-import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { errorMessage } from "../../../utils/errorMessage";
-import ReusableModal from "../../../partials/deleteModal/deleteModal";
-import ModalContent from "../../../partials/successModal/modalContent";
 import { useState } from "react";
-import DoneIcon from "../../../assets/Done.svg";
 import { Image } from "antd";
+import usePagination from "@/hooks/usePagination";
+import Button from "@/components/ui/button/button";
+import { formatDateToMonthYear } from "@/lib/utils/formatTime";
+import CustomSpin from "@/components/ui/spin";
+import { userAtom } from "@/lib/utils/store";
+import { useRouter } from "next/navigation";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import ModalContent from "@/components/partials/successModal/modalContent";
+import ReusableModal from "@/components/partials/deleteModal/deleteModal";
+import { getMyAdzByUserId, updateAdsStatus } from "@/services/profileService";
+import { deleteAds } from "@/services/notificationServices";
 
 const MyAds = () => {
   const { currentPage, onChange } = usePagination();
   const user = useAtomValue(userAtom);
-  const navigate = useNavigate();
+  const router = useRouter();
   const { notification } = App.useApp();
   const queryClient = useQueryClient();
   const [isDeleteModal, setIsDeleteModal] = useState(false);
@@ -38,7 +38,7 @@ const MyAds = () => {
   // Check if an ad has expired
 
   const handleEditAds = (id: number) => {
-    navigate(`/edit-ad/${id}`);
+    router.push(`/edit-ad/${id}`);
   };
 
   const deleteAdsMutation = useMutation({ mutationFn: deleteAds });
@@ -52,7 +52,7 @@ const MyAds = () => {
         {
           onSuccess: () => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: "deleted Successfully",
             });
             setIsDeleteModal(false);
@@ -66,7 +66,7 @@ const MyAds = () => {
       );
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description: errorMessage(error) || "An error occurred",
       });
     }
@@ -137,7 +137,7 @@ const MyAds = () => {
         {
           onSuccess: (data) => {
             notification.success({
-              message: "Success",
+              title: "Success",
               description: data?.message || "ad rejected successfully",
             });
             queryClient.refetchQueries({
@@ -148,7 +148,7 @@ const MyAds = () => {
       );
     } catch (error) {
       notification.error({
-        message: "Error",
+        title: "Error",
         description:
           errorMessage(error) ||
           "An error occurred while rejecting the application",
@@ -324,7 +324,7 @@ const MyAds = () => {
         cancelText="No, Go Back"
         disabled={activateAdsMutation?.isPending}
         confirmVariant={'green'}
-        icon={ <Image src={DoneIcon} alt="DoneIcon" preview={false} />}
+        icon={ <Image src='/Done.svg' alt="DoneIcon" preview={false} />}
       />
     </div>
   );
