@@ -3,14 +3,16 @@ import { getProductDetailsByslug } from "@/services/adsServices";
 import Main from "@/screens/home/market/productDetails/productDetailsToDisplay";
 
 export async function generateMetadata(
-  { params }: { params: { id: string } },
+  props: { params: Promise<{ id: string }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const params = await props.params;
   // fetch data
   const product = await getProductDetailsByslug(params.id);
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
+
   const imageUrl = product?.data?.cover_image_url;
 
   return {
