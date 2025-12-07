@@ -1,6 +1,5 @@
 import styles from "./styles.module.scss";
 import { Image } from "antd";
-import BackIncon from "../../../assets/back.svg";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useParams, useRouter } from "next/navigation";
@@ -50,7 +49,7 @@ const ImagePage = () => {
 
 <div className="wrapper">
       <div onClick={() => handleNavigateToPrevious()} className={styles.back}>
-        <Image width={9} src={BackIncon} alt="BackIncon" preview={false} />
+        <Image width={9} src="/back.svg" alt="BackIncon" preview={false} />
         <p>Back</p>
       </div>
 

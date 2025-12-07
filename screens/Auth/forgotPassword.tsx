@@ -7,7 +7,6 @@ import {
   FormikValues,
 } from "formik";
 import styles from "./index.module.scss";
-import LoginIcon from "../../assets/Featured icon.svg";
 import * as Yup from "yup";
 import { App, Image, Tabs, TabsProps } from "antd";
 import { useMutation } from "@tanstack/react-query";
@@ -115,7 +114,7 @@ const ForgotPassword = () => {
       </div>
 
       <Card style={styles.card}>
-        <Image src={LoginIcon} alt="Login Icon" preview={false} />
+        <Image src="/Featured icon.svg" alt="Login Icon" preview={false} />
         <p className={styles.welcome}>Forgot Password</p>
         <small>Enter the email address associated with your account</small>
 

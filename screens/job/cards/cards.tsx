@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "./card.module.scss";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";

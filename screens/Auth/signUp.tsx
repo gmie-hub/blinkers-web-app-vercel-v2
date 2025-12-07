@@ -11,7 +11,7 @@ import * as Yup from "yup";
 import { App, Image } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import PhoneInput from "react-phone-input-2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CountryData } from "react-phone-input-2"; // Import the CountryData type
 import Card from "@/components/ui/card/card";
 import Input from "@/components/ui/input/input";
@@ -28,10 +28,16 @@ const SignUp = () => {
   const router = useRouter();
   const [countryCode, setCountryCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [referralCode, setReferralCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.href.split("?").pop() || "");
+      setReferralCode(params.get("referral_code"));
+    }
+  }, []);
   // const [recaptchaToken, setRecaptchaToken] = useState(""); // State for reCAPTCHA
   // const recaptchaRef = useRef<ReCAPTCHA | null>(null); // Reference for reCAPTCHA
-  const params = new URLSearchParams(window.location.href.split("?").pop());
-  const referralCode = params.get("referral_code");
 
   const SignUpMutation = useMutation({
     mutationFn: SignUpCall,

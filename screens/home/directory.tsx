@@ -135,7 +135,7 @@ const HomeDirectory = () => {
         centered
         width={1300}
         style={{ top: "40px" }}
-        bodyStyle={{ paddingBlockStart: "5px" }}
+        styles={{ body: { paddingBlockStart: "5px" } }}
       >
         <CategoriesCard handleClose={() => setIsCardVisible(false)} />
       </Modal>

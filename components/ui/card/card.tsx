@@ -1,4 +1,4 @@
-import  { FC, PropsWithChildren } from 'react';
+import  { FC, JSX, PropsWithChildren } from 'react';
 import styles from './index.module.scss';
 import classNames from 'classnames';
 

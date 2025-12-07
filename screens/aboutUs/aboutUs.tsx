@@ -1,4 +1,3 @@
-import Icon from "/Container.svg";
 import styles from "./aboutUs.module.scss";
 import { Image } from "antd";
 import Main from "./secondSection.tsx";
@@ -7,13 +6,18 @@ import DOMPurify from "dompurify";
 import { useCms } from "@/hooks/getCms";
 import Aim from "./aim/aims";
 import WhyChooseUs from "./whyChooseUs";
+import { useEffect, useState } from "react";
 
 interface DescriptionProps {
   description: string;
 }
 
 const Description = ({ description }: DescriptionProps) => {
-  const sanitizedDescription = DOMPurify.sanitize(description);
+ const [sanitizedDescription, setSanitizedDescription] = useState("");
+
+  useEffect(() => {
+    setSanitizedDescription(DOMPurify.sanitize(description));
+  }, [description]);
 
   return (
     <div

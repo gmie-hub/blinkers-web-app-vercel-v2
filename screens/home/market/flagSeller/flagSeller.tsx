@@ -50,6 +50,7 @@ const FlagSellerContent = ({
         onSuccess: (data) => {
           notification.success({
             message: "Success",
+            title: "",
             description: data?.message,
           });
           queryClient.refetchQueries({

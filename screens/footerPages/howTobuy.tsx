@@ -1,4 +1,4 @@
-
+import { useState, useEffect } from "react";
 import RouteIndicator from "@/components/ui/routeIndicator";
 import { useCms } from "@/hooks/getCms";
 import DOMPurify from "dompurify";
@@ -8,7 +8,11 @@ interface DescriptionProps {
 }
 
 const Description = ({ description }: DescriptionProps) => {
-  const sanitizedDescription = DOMPurify.sanitize(description);
+  const [sanitizedDescription, setSanitizedDescription] = useState("");
+
+  useEffect(() => {
+    setSanitizedDescription(DOMPurify.sanitize(description));
+  }, [description]);
 
   return (
     <div

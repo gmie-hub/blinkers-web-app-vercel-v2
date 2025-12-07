@@ -232,7 +232,13 @@ const handleResendClick = () => {
     mutationFn: userVerifyOtp,
     mutationKey: ["verify-otp"],
   });
-  const savedPin = localStorage.getItem("savedPinSignUp");
+  const [savedPin, setSavedPin] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setSavedPin(localStorage.getItem("savedPinSignUp"));
+    }
+  }, []);
 
 
   const verifyOtpHandler = async (values: FormValues) => {

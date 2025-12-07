@@ -15,8 +15,6 @@ const EditBusinessForm = () => {
   const [current, setCurrent] = useState(0);
   const user = useAtomValue(userAtom);
 
-  const { Step } = Steps;
-
   const next = useCallback(() => {
     setCurrent((prev) => prev + 1);
   }, []);
@@ -30,8 +28,80 @@ const EditBusinessForm = () => {
     queryFn: () => getBusinessById(user?.business?.id ?? 0),
   });
 
-  const businessDetailsData = data?.data
-  console.log(businessDetailsData,'businessDetailsData')
+  const businessDetailsData = data?.data;
+  console.log(businessDetailsData, "businessDetailsData");
+
+  const stepsItems = [
+    {
+      title: "Basic Information",
+      icon: (
+        <div
+          style={{
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+            background:
+              current >= 0
+                ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
+                : "#e0e0e0",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "2rem",
+          }}
+        >
+          1
+        </div>
+      ),
+    },
+    {
+      title: "Socials & Cover Photo",
+      icon: (
+        <div
+          style={{
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+            background:
+              current >= 1
+                ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
+                : "#e0e0e0",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "2rem",
+          }}
+        >
+          2
+        </div>
+      ),
+    },
+    {
+      title: "Add Gallery",
+      icon: (
+        <div
+          style={{
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+            background:
+              current >= 2
+                ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
+                : "#e0e0e0",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "2rem",
+          }}
+        >
+          3
+        </div>
+      ),
+    },
+  ];
 
   if (isLoading) {
     return <Spin size="large" />;
@@ -40,86 +110,20 @@ const EditBusinessForm = () => {
   return (
     <div className="wrapper">
       <RouteIndicator showBack={true} />
-      <div  style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <Card style={styles.card}>
           <section className={styles.textContainer}>
             <div>
               <p>Edit business details</p>
             </div>
 
-            <Steps current={current} labelPlacement="vertical" responsive>
-              <Step
-                title="Basic Information"
-                icon={
-                  <div
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                      background:
-                        current >= 0
-                          ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
-                          : "#e0e0e0",
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "2rem",
-                    }}
-                  >
-                    1
-                  </div>
-                }
-              />
-              <Step
-                title="Socials & Cover Photo"
-                icon={
-                  <div
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                      background:
-                        current >= 1
-                          ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
-                          : "#e0e0e0",
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "2rem",
-                    }}
-                  >
-                    2
-                  </div>
-                }
-              />
-              <Step
-                title="Add Gallery" // The new third step
-                icon={
-                  <div
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                      background:
-                        current >= 2
-                          ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
-                          : "#e0e0e0",
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "2rem",
-                    }}
-                  >
-                    3
-                  </div>
-                }
-              />
-            </Steps>
+            <Steps
+              current={current}
+              items={stepsItems}
+              labelPlacement="vertical"
+              responsive
+            />
           </section>
-          {/* Conditionally render the forms based on the current step */}
           {current === 0 && (
             <BasicInfoForm
               businessDetailsData={businessDetailsData}
@@ -138,8 +142,7 @@ const EditBusinessForm = () => {
               onPrev={prev}
               businessDetailsData={businessDetailsData}
             />
-          )}{" "}
-          {/* Add Gallery form */}
+          )}
         </Card>
       </div>
     </div>

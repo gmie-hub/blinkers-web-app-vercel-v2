@@ -136,6 +136,7 @@ const Main = () => {
     } catch {
       notification.open({
         message: "You need to logged in to save an item",
+        title: "",
         description: (
           <>
             <br />

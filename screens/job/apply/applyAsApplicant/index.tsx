@@ -16,12 +16,10 @@ interface ApplyAsApplicantProps {
   showRouteIndicator?: boolean;
 }
 
-const ApplyAsApplicant = ({ showRouteIndicator =true}: ApplyAsApplicantProps) => {
+const ApplyAsApplicant = ({ showRouteIndicator = true }: ApplyAsApplicantProps) => {
   const [displayForm, setDisplayForm] = useState(false);
   const [current, setCurrent] = useState(0);
   const user = useAtomValue(userAtom);
-
-  const { Step } = Steps;
 
   const next = useCallback(() => {
     setCurrent(current + 1);
@@ -42,7 +40,7 @@ const ApplyAsApplicant = ({ showRouteIndicator =true}: ApplyAsApplicantProps) =>
         queryFn: () => getApplicantsbyId(user?.id ?? 0),
         retry: 0,
         refetchOnWindowFocus: false,
-        enabled:!!user?.id
+        enabled: !!user?.id,
       },
     ],
   });
@@ -52,6 +50,55 @@ const ApplyAsApplicant = ({ showRouteIndicator =true}: ApplyAsApplicantProps) =>
   const applicantDetailsErrorMessage =
     applicantDetailsError?.message ||
     "An error occurred. Please try again later.";
+
+  const stepsItems = [
+    {
+      title: "Basic Information",
+      icon: (
+        <div
+          style={{
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+            background:
+              current >= 0
+                ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
+                : "#e0e0e0",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "2rem",
+          }}
+        >
+          1
+        </div>
+      ),
+    },
+    {
+      title: "Professional Information",
+      icon: (
+        <div
+          style={{
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+            background:
+              current >= 1
+                ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
+                : "#e0e0e0",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "2rem",
+          }}
+        >
+          2
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="wrapper">
@@ -74,54 +121,12 @@ const ApplyAsApplicant = ({ showRouteIndicator =true}: ApplyAsApplicantProps) =>
                 </p>
               </div>
 
-              <Steps current={current} labelPlacement="vertical" responsive>
-                <Step
-                  title="Basic Information"
-                  icon={
-                    <div
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                        background:
-                          current >= 0
-                            ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
-                            : "#e0e0e0",
-                        color: "white",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "2rem",
-                      }}
-                    >
-                      1
-                    </div>
-                  }
-                />
-                <Step
-                  title="Professional Information"
-                  icon={
-                    <div
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                        background:
-                          current >= 1
-                            ? "linear-gradient(180deg, #009900 0%, #2fce2f 100%)"
-                            : "#e0e0e0",
-                        color: "white",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "2rem",
-                      }}
-                    >
-                      2
-                    </div>
-                  }
-                />
-              </Steps>
+              <Steps
+                current={current}
+                items={stepsItems}
+                labelPlacement="vertical"
+                responsive
+              />
             </section>
 
             {!displayForm ? (

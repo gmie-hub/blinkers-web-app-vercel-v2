@@ -27,7 +27,7 @@ import ModalContent from "@/components/partials/successModal/modalContent";
 import CustomSpin from "@/components/ui/spin";
 import api from "@/lib/utils/apiClient";
 import { getAllState } from "@/services/locationServices";
-import { getIndustries } from "@/services/jobServices";
+import { getIndustries, ProfInfoApi } from "@/services/jobServices";
 import { getApplicantsbyId } from "@/services/applicantServices";
 import { routes } from "@/lib/routes";
 import { useRouter } from "next/navigation";

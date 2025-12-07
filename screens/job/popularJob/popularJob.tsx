@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "./styles.module.scss";
 import { AxiosError } from "axios";
 import { useQueries } from "@tanstack/react-query";

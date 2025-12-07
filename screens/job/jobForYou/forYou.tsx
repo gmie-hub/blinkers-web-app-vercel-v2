@@ -1,3 +1,4 @@
+"use client"
 import styles from "./styles.module.scss";
 import { AxiosError } from "axios";
 import { useQueries } from "@tanstack/react-query";
@@ -20,6 +21,7 @@ interface Props {
 const JobForYou = ({ canSeeBtn = true, limit }: Props) => {
   const router =useRouter()
   const { currentPage, setCurrentPage, onChange, pageNum } = usePagination();
+  
   useEffect(() => {
     if (currentPage !== pageNum) {
       setCurrentPage(pageNum);
@@ -81,7 +83,6 @@ const JobForYou = ({ canSeeBtn = true, limit }: Props) => {
           <h1 className="error">{jobDetailsErrorMessage}</h1>
         ) : (
           <div className={styles.cardContainer}>
-            {/* Only map through the data if it's not empty */}
             {popularJobs && popularJobs.length > 0 ? (
               popularJobs?.map((item: any, index: number) => (
                 <div
@@ -89,12 +90,6 @@ const JobForYou = ({ canSeeBtn = true, limit }: Props) => {
                   className={styles.chooseCard}
                   key={index}
                 >
-                  {/* <div className={styles.cardWrapper}>
-                    <div className={styles.textContent}>
-                      <h3>{item?.title}</h3>
-                      {item?.business?.name}
-                    </div>
-                  </div> */}
                   <div className={styles.cardWrapper}>
                     {item?.business?.logo ? (
                       <img

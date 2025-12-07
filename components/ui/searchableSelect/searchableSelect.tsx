@@ -35,7 +35,7 @@ const SearchableSelect: FC<SearchableSelectProps> = ({
   return (
     <Field name={name}>
       {({ field, form, meta }: FieldProps) => (
-        <div>
+        <div className={styles.wrapper}>
           <label>{label}</label>
 
           <Select

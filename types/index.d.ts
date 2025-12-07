@@ -31,3 +31,10 @@ interface ContactUs {
   created_at: string,
   updated_at: string,
 }
+
+interface FlagSeller{
+  user_id: number,
+  seller_id: number,
+  action: string,
+  reason: string
+}

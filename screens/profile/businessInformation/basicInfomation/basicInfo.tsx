@@ -1,6 +1,7 @@
 import Card from "@/components/ui/card/card";
 import BusinessDetailsElements from "../../businessElementDetails";
 import styles from "./basicInfo.module.scss";
+import { JSX } from "react";
 interface BasicInformationProps {
   title?: string;
   name?: JSX.Element | string;

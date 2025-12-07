@@ -1,3 +1,5 @@
+"use client"
+
 import { routes } from "@/lib/routes";
 import styles from "./footer.module.scss";
 import { Image } from "antd";

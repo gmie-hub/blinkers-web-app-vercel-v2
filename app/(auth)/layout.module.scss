@@ -7,8 +7,6 @@
 }
 
 .leftSide {
-  // height: 100vh;
-
   background-color: #f1fff1;
   flex: 1;
   max-width: 50%;
@@ -18,12 +16,11 @@
   padding-inline-start: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Ensure logo stays at the top */
+  justify-content: flex-start;
   position: relative;
   @media screen and (min-width: 1024px) {
     padding-inline: 10rem;
   }
-
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -43,7 +40,7 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  flex: 1; /* Ensures the middle content takes up remaining space */
+  flex: 1;
   padding-top: 4rem;
 }
 

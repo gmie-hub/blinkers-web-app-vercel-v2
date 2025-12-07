@@ -1,5 +1,7 @@
+"use client"
+
 import { useEffect, useState } from "react";
-import { Image, Modal, Dropdown, Menu } from "antd";
+import { Image, Modal, Dropdown, type MenuProps } from "antd";
 import Link from "next/link";
 import styles from "./styles.module.scss";
 
@@ -7,7 +9,7 @@ import { userAtom } from "@/lib/utils/store";
 import { useAtom } from "jotai";
 import { logout } from "@/lib/utils/logout";
 import { isCurrentDateGreaterThan } from "@/lib/utils";
-import { jwtDecode } from "jwt-decode";
+import  { jwtDecode } from "jwt-decode";
 
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import SuccessModalContent from "@/components/partials/sucessModal";
@@ -76,17 +78,25 @@ const Header = () => {
   const notifyTotal = getAllUserNotificationQuery?.data?.data?.total;
 
   useEffect(() => {
-    try {
-      const decoded: any = jwtDecode(token!);
-      const date = new Date(decoded.exp * 1000);
-      const expDate = date?.toUTCString();
+  // Only try decode if token is a non-empty string
+  if (!token || typeof token !== "string") return;
+
+  try {
+    const decoded: any = jwtDecode(token);
+    const expSeconds = decoded?.exp;
+    if (typeof expSeconds === "number") {
+      const expDate = new Date(expSeconds * 1000).toUTCString();
       if (isCurrentDateGreaterThan(expDate)) {
         logout();
       }
-    } catch (error) {
-      console.error("Invalid token", error);
+    } else {
+      // decoded.exp missing or not a number — optionally log/debug
+      console.warn("Token decoded but has no numeric 'exp' field", decoded);
     }
-  }, [token]);
+  } catch (error) {
+    console.error("Failed to decode token", error);
+  }
+}, [token]);
 
   const handleNavigateToLogin = () => {
     router.push("/login");
@@ -123,51 +133,44 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const profileMenu = (
-    <Menu>
-      <Menu.Item
-        key="1"
-        onClick={() => {
-          setIsMenuOpen(false);
-          handleNavigateToProfile();
-        }}
-      >
-        View Profile
-      </Menu.Item>
-      <Menu.Item key="2" onClick={() => setIsLogout(true)}>
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
+  const profileMenuItems: MenuProps["items"] = [
+    {
+      key: "1",
+      label: "View Profile",
+      onClick: () => {
+        setIsMenuOpen(false);
+        handleNavigateToProfile();
+      },
+    },
+    {
+      key: "2",
+      label: "Logout",
+      onClick: () => setIsLogout(true),
+    },
+  ];
 
-  const notificationMenu = (
-    <Menu style={{ maxHeight: 250, overflowY: "auto", width: 300 }}>
-      {notifyData && notifyData.length > 0 ? (
-        <>
-          {notifyData
+  const notificationMenuItems: MenuProps["items"] =
+    notifyData && notifyData.length > 0
+      ? [
+          ...notifyData
             .slice(0, 5)
-            .map((noty: NotificationDatum, index: number) => (
-              <Menu.Item
-                key={index}
-                onClick={() => {
-                  // navigate(`/notifications/${noty?.id}`);
-                  // const route = getRouteFromNotification(noty?.notification?.route);
-                  getRouteFromNotification(noty?.notification?.route);
-                  readNotificationHandler(noty?.id);
-                  setNotificationDropdownOpen(false);
-                }}
-              >
-                {noty.title.length > 40
+            .map((noty: any, index: number) => ({
+              key: index,
+              label:
+                noty.title.length > 40
                   ? noty.title.slice(0, 40) + "..."
-                  : noty.title}
-              </Menu.Item>
-            ))}
-          {notifyData.length > 0 && (
-            <Menu.Item
-              key="footer"
-              disabled
-              style={{ cursor: "default", padding: "8px 12px" }}
-            >
+                  : noty.title,
+              onClick: () => {
+                getRouteFromNotification(noty?.notification?.route);
+                readNotificationHandler(noty?.id);
+                setNotificationDropdownOpen(false);
+              },
+            })),
+          {
+            key: "footer",
+            disabled: true,
+            style: { cursor: "default", padding: "8px 12px" },
+            label: (
               <div
                 style={{
                   display: "flex",
@@ -180,35 +183,38 @@ const Header = () => {
                   style={{ color: "#1890ff", cursor: "pointer" }}
                   onClick={() => {
                     router.push("/notifications");
-                    // setNotificationDropdownOpen(false); // ✅ Close on "View All"
+                    setNotificationDropdownOpen(false);
                   }}
                 >
                   View All
                 </div>
               </div>
-            </Menu.Item>
-          )}
-        </>
-      ) : (
-        <>
-          <Menu.Item disabled>No new notifications</Menu.Item>
-          <Menu.Item>
-            <span
-              style={{ color: "#1890ff", cursor: "pointer" }}
-              onClick={() => {
-                setIsMenuOpen(false);
+            ),
+          },
+        ]
+      : [
+          {
+            key: "no-notify",
+            disabled: true,
+            label: "No new notifications",
+          },
+          {
+            key: "view-previous",
+            label: (
+              <span
+                style={{ color: "#1890ff", cursor: "pointer" }}
+                onClick={() => {
+                  setIsMenuOpen(false);
 
-                router.push(`/notifications`);
-                setNotificationDropdownOpen(false); // ✅ Close on fallback
-              }}
-            >
-              View previous Notifications
-            </span>
-          </Menu.Item>
-        </>
-      )}
-    </Menu>
-  );
+                  router.push(`/notifications`);
+                  setNotificationDropdownOpen(false);
+                }}
+              >
+                View previous Notifications
+              </span>
+            ),
+          },
+        ];
 
   const readNotificationMutation = useMutation({
     mutationFn: ReadNotification,
@@ -280,7 +286,10 @@ const Header = () => {
             <div className={styles.mobileButtonWrapper}>
               <div className={styles.loggedInIcons}>
                 <Dropdown
-                  overlay={notificationMenu}
+                  menu={{
+                    items: notificationMenuItems,
+                    style: { maxHeight: 250, overflowY: "auto", width: 300 },
+                  }}
                   trigger={["click"]}
                   // open={notificationDropdownOpen}
                   // onOpenChange={(flag) => setNotificationDropdownOpen(flag)}
@@ -305,7 +314,7 @@ const Header = () => {
 
                 {/* <img src={ChatIcon} alt="Messages" className={styles.chatIcon} /> */}
               </div>
-              <Dropdown overlay={profileMenu} trigger={["click"]}>
+              <Dropdown menu={{ items: profileMenuItems }} trigger={["click"]}>
                 <img
                   src="/Avatarprofile.svg"
                   alt="profile"
@@ -339,7 +348,10 @@ const Header = () => {
         {user?.email !== undefined ? (
           <div className={styles.loggedInIcons}>
             <Dropdown
-              overlay={notificationMenu}
+              menu={{
+                items: notificationMenuItems,
+                style: { maxHeight: 250, overflowY: "auto", width: 300 },
+              }}
               trigger={["click"]}
               open={notificationDropdownOpen}
               onOpenChange={(flag) => setNotificationDropdownOpen(flag)}
@@ -366,7 +378,7 @@ const Header = () => {
               alt="Messages"
               className={styles.chatIcon}
             />
-            <Dropdown overlay={profileMenu} trigger={["click"]}>
+            <Dropdown menu={{ items: profileMenuItems }} trigger={["click"]}>
               <img
                 src="/Avatarprofile.svg"
                 alt="Profile"
@@ -396,7 +408,7 @@ const Header = () => {
         centered
         width={1300}
         style={{ top: "40px" }}
-        bodyStyle={{ paddingBlockStart: "5px" }}
+        styles={{ body: { paddingBlockStart: "5px" } }}
       >
         <CategoriesCard handleClose={() => setIsCardVisible(false)} />
       </Modal>

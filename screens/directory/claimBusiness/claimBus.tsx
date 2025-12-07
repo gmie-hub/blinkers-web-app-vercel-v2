@@ -75,6 +75,7 @@ const ClaimBusiness = () => {
     if (!validFileTypes.includes(selectedFile.type)) {
       notification.error({
         message: "Invalid File Type",
+        title: "",
         description:
           "The logo field must be a file of type: jpg, jpeg, png, gif, docx, doc, ppt.",
       });
@@ -120,6 +121,7 @@ const ClaimBusiness = () => {
     } catch (error) {
       notification.error({
         message: "Error",
+        title: "",
         description: errorMessage(error) || "An error occurred",
       });
     }

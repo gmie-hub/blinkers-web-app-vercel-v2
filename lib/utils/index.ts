@@ -7,6 +7,7 @@
 //   }
 
 import { message } from "antd";
+import { JSX } from "react";
 
 export function sanitizeUrlParam(param: string): string {
   // Handle null, undefined, and empty strings

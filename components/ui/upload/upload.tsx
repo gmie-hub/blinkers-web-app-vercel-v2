@@ -2,7 +2,7 @@ import { Field, FieldProps } from "formik";
 import styles from "./upload.module.scss";
 import classNames from "classnames";
 import { Image } from "antd";
-import DocIcon from "../../assets/document-upload.svg";
+import { JSX } from "react";
 
 interface UploadProps
   extends React.DetailedHTMLProps<
@@ -40,7 +40,7 @@ const Upload: React.FC<UploadProps> = ({
 
           <label className={styles.upload}>
             <input type="file" hidden {...field} {...rest} value="" />
-            {icon || <Image src={DocIcon} alt="DocIcon" preview={false} />}
+            {icon || <Image src="/document-upload.svg" alt="DocIcon" preview={false} />}
 
             <div>
               <h5 className={styles.fileTitle}>

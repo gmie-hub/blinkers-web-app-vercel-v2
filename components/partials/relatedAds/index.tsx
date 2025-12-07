@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "./index.module.scss";
 import { Image } from "antd";
 import { useQueries } from "@tanstack/react-query";

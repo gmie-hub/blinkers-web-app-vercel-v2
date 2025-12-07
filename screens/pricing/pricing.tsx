@@ -1,14 +1,13 @@
+"use client"
+
 import { Modal } from "antd";
 // import Button from "../../customs/button/button";
 import PricingOptions from "./priceModal/pricemodal";
 import styles from "./styles.module.scss";
 import { CheckCircleFilled } from "@ant-design/icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import Gold from "../../assets/gold.svg";
-import Free from "../../assets/Frame 1618872852.svg";
-import Platinum from "../../assets/platinum.svg";
 import { useAtomValue } from "jotai";
 import Button from "@/components/ui/button/button";
 import { getAllSubscription } from "@/services/pricingService";
@@ -24,6 +23,7 @@ const PricingPlansPage = () => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [selectedPlanFromStorage, setSelectedPlanFromStorage] = useState("");
   const user = useAtomValue(userAtom);
 
   const router = useRouter();
@@ -45,17 +45,39 @@ const PricingPlansPage = () => {
 
   const getPlanImage = (name: string) => {
     const planName = name?.toLowerCase();
-    if (planName === "gold") return Gold;
-    if (planName === "free") return Free;
-    return Platinum;
+    if (planName === "gold") return "/gold.svg";
+    if (planName === "free") return "/free.svg";
+    return "/platinum.svg";
   };
 
   const resetSelection = () => {
     setResetTrigger((prev) => !prev);
   };
-  const selectedPlanFromStorage = JSON.parse(
-    localStorage.getItem("setPlan") || "{}"
-  );
+
+  const handleChoosePlan = (plan: any) => {
+  if (!user) {
+    setOpenLoginModal(true);
+    return;
+  }
+
+  if (typeof window !== "undefined") {
+    localStorage.setItem("setPlan", JSON.stringify(plan?.name));
+  }
+
+  setSelectedPlan(plan?.id);
+  setOpenModal(true);
+};
+
+  useEffect(() => {
+  if (openSuccess) {
+    if (typeof window !== "undefined") {
+      const planFromStorage = JSON.parse(
+        localStorage.getItem("setPlan") || "null"
+      );
+      setSelectedPlanFromStorage(planFromStorage || "");
+    }
+  }
+}, [openSuccess]);
 
   return (
     <>
@@ -78,19 +100,6 @@ const PricingPlansPage = () => {
           ) : (
             <>
               <div className={styles.plansContainer}>
-                {/* {[...subData]
-                .sort((a, b) => {
-                  const order = { free: 0, platinum: 1, gold: 2 };
-                  return (
-                    order[
-                      a?.name?.toLowerCase() as "free" | "platinum" | "gold"
-                    ] -
-                    order[
-                      b?.name?.toLowerCase() as "free" | "platinum" | "gold"
-                    ]
-                  );
-                })
-                .map((plan: any, index: number) => ( */}
                 {[...subData]
                   .filter((plan) => plan?.name?.toLowerCase() !== "free")
                   .sort((a, b) => {
@@ -145,19 +154,7 @@ const PricingPlansPage = () => {
                             type="submit"
                             text={"Choose Plan"}
                             className={styles.chooseButton}
-                            onClick={() => {
-                              if (!user) {
-                                setOpenLoginModal(true);
-                              } else {
-                                localStorage.setItem(
-                                  "setPlan",
-                                  JSON.stringify(plan?.name)
-                                );
-
-                                setSelectedPlan(plan?.id);
-                                setOpenModal(true);
-                              }
-                            }}
+                            onClick={() => handleChoosePlan(plan)}
                           />
                         )}
                       </div>
@@ -190,7 +187,9 @@ const PricingPlansPage = () => {
                     router.push("/create-ad");
                     // navigate("/profile");
                     // localStorage.setItem("activeTabKeyProfile", "3");
-                    window.scrollTo(0, 0);
+                    if (typeof window !== "undefined") {
+                      window.scrollTo(0, 0);
+                    }
                   }}
                 />
               </div>

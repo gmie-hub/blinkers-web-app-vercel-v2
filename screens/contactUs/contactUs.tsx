@@ -88,6 +88,7 @@ const ContactUs = () => {
         onSuccess: (data) => {
           notification.success({
             message: "Success",
+            title: "",
             description: data?.message,
           });
           
@@ -97,6 +98,7 @@ const ContactUs = () => {
     } catch (error) {
       notification.error({
         message: "Error",
+        title: "",
         description: errorMessage(error) || "An error occurred",
       });
     }

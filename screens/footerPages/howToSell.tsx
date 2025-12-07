@@ -1,13 +1,18 @@
 import RouteIndicator from "@/components/ui/routeIndicator";
 import { useCms } from "@/hooks/getCms";
 import DOMPurify from "dompurify";
+import { useEffect, useState } from "react";
 
 interface DescriptionProps {
   description: string;
 }
 
 const Description = ({ description }: DescriptionProps) => {
-  const sanitizedDescription = DOMPurify.sanitize(description);
+  const [sanitizedDescription, setSanitizedDescription] = useState("");
+
+  useEffect(() => {
+    setSanitizedDescription(DOMPurify.sanitize(description));
+  }, [description]);
 
   return (
     <div

@@ -5,6 +5,16 @@ const usePagination = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  if (!searchParams) {
+    return {
+      currentPage: 1,
+      setCurrentPage: () => {},
+      onChange: () => {},
+      pageNum: 1,
+    };
+  }
+
   const pageNum = parseInt(searchParams.get("pageNum") || "1", 10);
 
   const onChange = (page: number) => {
@@ -14,9 +24,6 @@ const usePagination = () => {
     window.scrollTo(0, 0);
   };
   
-  // To maintain some backward compatibility with the old return signature,
-  // we can provide a 'setCurrentPage' that is just an alias for 'onChange'.
-  // 'currentPage' is now just 'pageNum'.
   return { currentPage: pageNum, setCurrentPage: onChange, onChange, pageNum };
 };
 

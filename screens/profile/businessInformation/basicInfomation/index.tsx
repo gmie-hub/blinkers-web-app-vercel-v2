@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { JSX, useState } from "react";
 import styles from "./basicInfo.module.scss";
 import { Tabs, TabsProps } from "antd";
 import { useQueries } from "@tanstack/react-query";

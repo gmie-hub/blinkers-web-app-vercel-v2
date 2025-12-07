@@ -85,8 +85,6 @@ const PictureBg = () => {
             <span className={styles.arrowDown}>▼</span>
           </div> */}
 
-        
-
           {/* Search Input */}
           <div className={styles.searchInputBox}>
             <SearchInput
@@ -100,7 +98,7 @@ const PictureBg = () => {
             Search
           </button>
         </div>
-        <br />  
+        <br />
 
         {/* CTA Button */}
         <Button
@@ -139,9 +137,9 @@ const PictureBg = () => {
         onCancel={() => setOpenLocationModal(false)}
         footer={null}
         centered
-          width={1300}
+        width={1300}
       >
-        <LocationModal handleClose={()=>setOpenLocationModal(false)}/>
+        <LocationModal handleClose={() => setOpenLocationModal(false)} />
       </Modal>
     </div>
   );

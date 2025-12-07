@@ -1,8 +1,13 @@
 "use client";
 import MyAds from "@/screens/profile/myAds/myAds";
+import { Suspense } from "react";
 
 const MyAdsPage = () => {
-  return <MyAds />;
+  return (
+    <Suspense>
+      <MyAds />
+    </Suspense>
+  );
 };
 
 export default MyAdsPage;

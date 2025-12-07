@@ -176,6 +176,7 @@ const NotClaim = () => {
     if (!user) {
       notification.open({
         message: "You need to log in to complete this action.",
+        title: "",
         description: (
           <>
             <br />
@@ -197,6 +198,7 @@ const NotClaim = () => {
     } else if (businessDetailsData?.business_status?.toString() !== "2") {
       notification.error({
         message: "Error",
+        title: "",
         description: "This business is under approval",
       });
     } else {

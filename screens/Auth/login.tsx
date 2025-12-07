@@ -11,7 +11,7 @@ import * as Yup from "yup";
 import { App, Image, Tabs, TabsProps } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput, { CountryData } from "react-phone-input-2";
 import { routes } from "@/lib/routes";
@@ -32,12 +32,18 @@ const Login = () => {
   const [activeKey, setActiveKey] = useState("1");
   const [countryCode, setCountryCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [redirectPath, setRedirectPath] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const queryParams = new URLSearchParams(window.location.search);
+      setRedirectPath(queryParams.get("redirect"));
+    }
+  }, []);
   // const [formData, setFormData] = useState({
   //   email: "",
   //   phoneNumber: "",
   // });
-  const queryParams = new URLSearchParams(location.search);
-  const redirectPath = queryParams.get("redirect");
 
   // const handleNavigateToVerifyOtp = (phoneNumber: string) => {
   //   navigate(`/verification-code/${phoneNumber}`);

@@ -27,7 +27,7 @@ interface Props {
 const Main = ({ appliedSearchTerm, setAppliedSearchTerm }: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
   const [categoryId, setCategoryId] = useState(0);
   const [selectedItems, setSelectedItems] = useState<number[]>([]); // Array of strings
   const [stateId, setStateId] = useState(0);

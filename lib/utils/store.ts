@@ -12,24 +12,32 @@ import {
 } from "./type";
 import { routeParts } from "../routes";
 
+// Helper function to safely get localStorage values
+const getStorageValue = (key: string, defaultValue: string) => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem(key) ?? defaultValue;
+  }
+  return defaultValue;
+};
+
 const educationInfo = JSON.parse(
-  localStorage.getItem("education-info") ?? "[]"
+  getStorageValue("education-info", "[]")
 );
 const empHistoryInfo = JSON.parse(
-  localStorage.getItem("employment-History") ?? "[]"
+  getStorageValue("employment-History", "[]")
 );
 const coverLetterInfo = JSON.parse(
-  localStorage.getItem("cover-letter") ?? "{}"
+  getStorageValue("cover-letter", "{}")
 );
-const skillData = JSON.parse(localStorage.getItem("skill-data") ?? "[]");
-const linkDataInfo = JSON.parse(localStorage.getItem("link-data") ?? "[]");
+const skillData = JSON.parse(getStorageValue("skill-data", "[]"));
+const linkDataInfo = JSON.parse(getStorageValue("link-data", "[]"));
 
-const socialInfo = JSON.parse(localStorage.getItem("social-info") ?? "{}");
-const routes = JSON.parse(localStorage.getItem("routes") ?? "[]");
+const socialInfo = JSON.parse(getStorageValue("social-info", "{}"));
+const routes = JSON.parse(getStorageValue("routes", "[]"));
 const routesParts = JSON.parse(
-  localStorage.getItem("route-part") ?? JSON.stringify(routeParts)
+  getStorageValue("route-part", JSON.stringify(routeParts))
 );
-const basicInfo = JSON.parse(localStorage.getItem("basic-info") ?? "{}");
+const basicInfo = JSON.parse(getStorageValue("basic-info", "{}"));
 
 export const EducationInfoAtom = atomWithStorage<Education[]>(
   "education-info",
@@ -144,5 +152,7 @@ export interface UserLogin {
 
 export const userAtom = atomWithStorage<UserLogin | undefined | null>(
   "blinkers-web&site#",
-  JSON.parse(localStorage.getItem("blinkers-web&site#")!) ?? undefined
+  typeof window !== "undefined"
+    ? JSON.parse(localStorage.getItem("blinkers-web&site#")!) ?? undefined
+    : undefined
 );

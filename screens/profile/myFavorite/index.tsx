@@ -1,14 +1,13 @@
 import styles from "./myFavorite.module.scss";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { formatDateOnly, getTimeFromDate } from "../../../utils/formatTime";
-import CustomSpin from "../../../customs/spin";
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../../utils/store";
-import favorite from "../../../assets/Icon + container.svg";
-import { AddToFav } from "../../request";
 import { App } from "antd";
-import { errorMessage } from "../../../utils/errorMessage";
+import { userAtom } from "@/lib/utils/store";
+import { AddToFav } from "@/services/adsServices";
+import { errorMessage } from "@/lib/utils/errorMessage";
+import { formatDateOnly, getTimeFromDate } from "@/lib/utils/formatTime";
+import CustomSpin from "@/components/ui/spin";
 
 const MyFavorites = () => {
   const user = useAtomValue(userAtom);
@@ -20,7 +19,7 @@ const MyFavorites = () => {
   };
 
   const getFavapi = axios.create({
-    baseURL: import.meta.env.VITE_GATEWAY_URL,
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
       "Cache-Control": "no-cache",
       "Content-Type": "application/json",
@@ -78,6 +77,7 @@ const MyFavorites = () => {
     } catch (error) {
       notification.error({
         message: "Error",
+        title: "",
         description: errorMessage(error) || "An error occurred",
       });
     }
@@ -155,7 +155,7 @@ const MyFavorites = () => {
                             addToFavHandler(item?.id?.toString());
                           }}
                         >
-                          <img src={favorite} alt="" />
+                          <img src="/Icon + container.svg" alt="favorite" />
                         </div>
                       </div>
                     </div>

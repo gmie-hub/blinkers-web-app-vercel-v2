@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./faq.module.scss";
 import DOMPurify from "dompurify";
 import { useCms } from "@/hooks/getCms";
@@ -14,11 +14,14 @@ const FAQ = () => {
   const cmsItem = (id: number) => {
     return data?.data?.data?.find((item: any) => item.id === id);
   };
-  
-  
+
   const Description = ({ description }: { description: string }) => {
     // Sanitize the HTML to prevent XSS attacks
-    const sanitizedDescription = DOMPurify.sanitize(description);
+    const [sanitizedDescription, setSanitizedDescription] = useState("");
+
+    useEffect(() => {
+      setSanitizedDescription(DOMPurify.sanitize(description));
+    }, [description]);
 
     return (
       <div
@@ -32,32 +35,20 @@ const FAQ = () => {
   const faqData = [
     {
       question: cmsItem(14)?.title,
-      answer: (
-        <Description
-          description={( cmsItem(14)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(14)?.description || ""} />,
       // "Blinkers is a marketplace app where you can buy and sell a variety of items, from clothes and shoes to cars and real estate.",
     },
     {
       question: cmsItem(15)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(15)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(15)?.description || ""} />,
     },
     {
       question: cmsItem(11)?.title,
-      answer: <Description
-      description={(cmsItem(11)?.description) || ""}
-    />,
+      answer: <Description description={cmsItem(11)?.description || ""} />,
     },
     {
       question: cmsItem(10)?.title,
-      answer: <Description
-      description={(cmsItem(10)?.description) || ""}
-    />,
+      answer: <Description description={cmsItem(10)?.description || ""} />,
     },
   ];
 
@@ -65,51 +56,27 @@ const FAQ = () => {
   const SubscriptionData = [
     {
       question: cmsItem(16)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(16)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(16)?.description || ""} />,
     },
     {
       question: cmsItem(17)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(17)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(17)?.description || ""} />,
     },
     {
       question: cmsItem(18)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(18)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(18)?.description || ""} />,
     },
     {
       question: cmsItem(19)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(19)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(19)?.description || ""} />,
     },
     {
       question: cmsItem(20)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(20)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(20)?.description || ""} />,
     },
     {
-      question:cmsItem(21)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(21)?.description) || ""}
-        />
-      ),
+      question: cmsItem(21)?.title,
+      answer: <Description description={cmsItem(21)?.description || ""} />,
     },
   ];
 
@@ -117,27 +84,15 @@ const FAQ = () => {
   const PaymentData = [
     {
       question: cmsItem(22)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(22)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(22)?.description || ""} />,
     },
     {
       question: cmsItem(23)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(23)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(23)?.description || ""} />,
     },
     {
       question: cmsItem(24)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(24)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(24)?.description || ""} />,
     },
   ];
 
@@ -145,19 +100,11 @@ const FAQ = () => {
   const AdditionalData = [
     {
       question: cmsItem(25)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(25)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(25)?.description || ""} />,
     },
     {
       question: cmsItem(26)?.title,
-      answer: (
-        <Description
-          description={(cmsItem(26)?.description) || ""}
-        />
-      ),
+      answer: <Description description={cmsItem(26)?.description || ""} />,
     },
   ];
   return (
