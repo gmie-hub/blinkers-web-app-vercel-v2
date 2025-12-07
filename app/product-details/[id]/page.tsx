@@ -13,21 +13,30 @@ export async function generateMetadata(
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
+  const title = product?.data?.title || "Product Details";
+  const description = product?.data?.description
   const imageUrl = product?.data?.cover_image_url;
 
   return {
     title: product?.data?.title,
     description: product?.data?.description,
     openGraph: {
-      title: product?.data?.title,
-      description: product?.data?.description,
+      title,
+      description,
+      url: typeof window !== "undefined" ? window.location.href : undefined,
+      siteName: "Blinkers", // ← Recommended
       images: imageUrl ? [imageUrl, ...previousImages] : previousImages,
+      locale: "en_US",
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: product?.data?.title,
-      description: product?.data?.description,
+      title,
+      description,
       images: imageUrl ? [imageUrl] : [],
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/product-details/${params.id}`,
     },
   };
 }
