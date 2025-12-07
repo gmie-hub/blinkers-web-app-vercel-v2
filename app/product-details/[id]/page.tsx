@@ -26,7 +26,7 @@ export async function generateMetadata(
       url: typeof window !== "undefined" ? window.location.href : undefined,
       siteName: "Blinkers", // ← Recommended
       images: imageUrl ? [imageUrl, ...previousImages] : previousImages,
-      locale: "en_US",
+      // locale: "en_US",
       type: "website",
     },
     twitter: {
