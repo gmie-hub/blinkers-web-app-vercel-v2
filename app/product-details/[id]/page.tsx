@@ -2,8 +2,8 @@ import { Metadata, ResolvingMetadata } from "next";
 import { getProductDetailsByslug } from "@/services/adsServices";
 import Main from "@/screens/home/market/productDetails/productDetailsToDisplay";
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const dynamic = 'auto';
+export const revalidate = 60;
 
 export async function generateMetadata(
   props: { params: Promise<{ id: string }> },
