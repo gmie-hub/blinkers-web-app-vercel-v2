@@ -14,13 +14,24 @@ import Button from "@/components/ui/button/button";
 import { errorMessage } from "@/lib/utils/errorMessage";
 import RouteIndicator from "@/components/ui/routeIndicator";
 import CustomSpin from "@/components/ui/spin";
-import { AddToFav, getProductDetails, getProductDetailsByslug } from "@/services/adsServices";
-import { FollowSeller, getBusinessById, getFollowersByBusiness_id, getFollowersByUser_id } from "@/services/businessServices";
+import {
+  AddToFav,
+  getProductDetails,
+  getProductDetailsByslug,
+} from "@/services/adsServices";
+import {
+  FollowSeller,
+  getBusinessById,
+  getFollowersByBusiness_id,
+  getFollowersByUser_id,
+} from "@/services/businessServices";
 import { getApplicantsbyId } from "@/services/applicantServices";
 import { getFlaggedSellerBySeller_idUser_id } from "@/services/sellerServices";
 
 const Main = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // Track window width
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 1024
+  ); // Track window width
   const user = useAtomValue(userAtom);
   const queryClient = useQueryClient();
   const { notification } = App.useApp();
@@ -38,6 +49,11 @@ const Main = () => {
   const isId = /^\d+$/.test(idOrSlug);
 
   useEffect(() => {
+    const updateWindowWidth = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    updateWindowWidth(); 
+
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -45,7 +61,7 @@ const Main = () => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty dependency array ensures it only runs once on mount
+  }, []);
 
   const [
     getProductDetailsQuery,
