@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
 import { App, Modal } from "antd";
 import { useAtomValue } from "jotai";
 import GeneralWelcome from "../marketLogin/marketLogin";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { userAtom } from "@/lib/utils/store";
 import Button from "@/components/ui/button/button";
 import { errorMessage } from "@/lib/utils/errorMessage";
@@ -35,7 +35,8 @@ const Main = () => {
   const user = useAtomValue(userAtom);
   const queryClient = useQueryClient();
   const { notification } = App.useApp();
-  const currentPath = location.pathname;
+  const pathname = usePathname();
+  const currentPath = pathname;
   const [businessId, setBusinessId] = useState<null | number>();
   const [sellerId, setSellerId] = useState<null | number>();
   const [openLoginModal, setOpenLoginModal] = useState(false);
