@@ -45,6 +45,7 @@ const JobDetails = () => {
       window.scrollTo(0, 0);
     }
   };
+  
   const handleNavigateApplyToJob = () => {
     // if (!user) {
     //   notification.error({

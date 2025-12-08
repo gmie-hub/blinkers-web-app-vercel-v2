@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./directoryDetails.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { App, Image, Modal } from "antd";
 import RelatedBusinesses from "../relatedBusinesses/relatedBusiness";
 import { useQueries } from "@tanstack/react-query";
@@ -22,11 +22,18 @@ const NotClaim = () => {
   const [showContent] = useState(true); // Manage review form visibility
   const [showCard] = useState(false); // Manage card visibility
   const [openShare, setOpenShare] = useState(false);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
   const user = useAtomValue(userAtom);
   const { notification } = App.useApp();
-  const currentPath = usePathname();
-  const currentHref = location.href;
-  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const pathname = usePathname();
+  const currentPath = pathname;
+  const [currentHref, setCurrentHref] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentHref(window.location.href);
+    }
+  }, []);
 
   const router = useRouter();
   const params = useParams();
