@@ -1,4 +1,4 @@
-"use client"
+
 
 import { Lato } from "next/font/google";
 import "./globals.css";
@@ -7,7 +7,7 @@ import Header from "@/components/layouts/header/header";
 import Footer from "@/components/layouts/footer/footer";
 import Foot from "@/components/layouts/footer/foot";
 import QueryProvider from "./providers/QueryProvider";
-// import { Metadata } from "next";
+import { Metadata } from "next";
 
 const lato = Lato({
   subsets: ["latin"],

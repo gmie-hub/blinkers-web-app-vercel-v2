@@ -2,7 +2,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { getProductDetailsByslug } from "@/services/adsServices";
 import Main from "@/screens/home/market/productDetails/productDetailsToDisplay";
 
-export const dynamic = 'auto';
+// export const dynamic = 'auto';
 export const revalidate = 60;
 
 export async function generateMetadata(
