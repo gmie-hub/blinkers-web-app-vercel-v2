@@ -1,26 +1,91 @@
+import { getSocialImageUrl } from "@/lib/utils";
 import JobDetails from "@/screens/job/jobDetails/jobDetails";
 import { getJobDetails } from "@/services/jobServices";
 
 import { Metadata, ResolvingMetadata } from "next";
 
 export async function generateMetadata(
-  props: { params: Promise<{ id: number }> },
+  props: { params: Promise<{ id: number; title: string }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const params = await props.params;
-  // fetch data
-  const job = await getJobDetails(params.id);
+  try {
+    const { id, title: jobTitle } = await props.params;
 
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
+    const job = await getJobDetails(id);
 
-  return {
-    title: job?.data.title,
-    description: job?.data.description,
-    openGraph: {
-      images: [job?.data?.business?.logo ?? "", ...previousImages],
-    },
-  };
+    if (!job?.data) {
+      return {
+        title: 'Job Not Found - Blinkers',
+        description: 'The requested job could not be found',
+      };
+    }
+
+    const previousImages = (await parent).openGraph?.images || [];
+
+    const title = job.data.title || "Job Details";
+    const description =
+      job.data.description || "Check out this amazing job on Blinkers";
+    const imageUrl = getSocialImageUrl(job.data.user.profile_image);
+    const pageUrl = `job-details/${id}/${jobTitle}`;
+
+    return {
+      title: `${title} - Blinkers`,
+      description,
+      openGraph: {
+        title,
+        description,
+        url: pageUrl,
+        siteName: "Blinkers",
+        images: imageUrl
+          ? [
+              {
+                url: imageUrl,
+                width: 1200,
+                height: 630,
+                alt: title,
+                type: "image/webp", // Specify the image type
+              },
+              ...previousImages,
+            ]
+          : previousImages,
+        type: "website",
+        locale: "en_US",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: imageUrl ? [imageUrl] : [],
+        creator: "@blinkers",
+        site: "@blinkers",
+      },
+      alternates: {
+        canonical: pageUrl,
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      },
+      // Additional metadata for better SEO
+      other: {
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:image:type": "image/webp",
+      },
+    };
+  } catch (error) {
+    console.error("Error generating metadata:", error);
+    return {
+      title: "Product Details - Blinkers",
+      description: "View product details on Blinkers",
+    };
+  }
 }
 
 const JobDetailsPage = () => {

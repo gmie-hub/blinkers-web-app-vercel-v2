@@ -41,7 +41,9 @@ const JobDetails = () => {
 
   const handleNavigateToMoreJob = () => {
     router.push(`/job/more-jobs-like-this/${id}`);
-    window.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
   };
   const handleNavigateApplyToJob = () => {
     // if (!user) {
@@ -61,7 +63,9 @@ const JobDetails = () => {
     } else {
       setRegModal(true);
     }
-    window.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
   };
 
   const [getJobDetailsQuery, getFlaggedJobQuery] = useQueries({

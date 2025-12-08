@@ -4,21 +4,17 @@ import Main from "@/screens/home/market/productDetails/productDetailsToDisplay";
 
 export const revalidate = 60;
 
-// Helper function to ensure absolute URL
 function ensureAbsoluteUrl(url: string | undefined): string | undefined {
   if (!url) return undefined;
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
   return `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
 }
 
-// Helper to get social media compatible image (fallback from WebP if needed)
 function getSocialImageUrl(imageUrl: string | undefined): string | undefined {
   if (!imageUrl) return undefined;
   
   const absoluteUrl = ensureAbsoluteUrl(imageUrl);
-  
-  // If it's a WebP, you might want to provide a JPG alternative for better social media compatibility
-  // For now, we'll use the original URL
+
   return absoluteUrl;
 }
 

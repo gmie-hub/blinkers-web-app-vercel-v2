@@ -73,3 +73,17 @@ export const handleCopyLink = (textToCopy: string) => {
       message.error("Failed to copy . Please try again.");
     });
 };
+
+export function ensureAbsoluteUrl(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+  return `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
+}
+
+export function getSocialImageUrl(imageUrl: string | undefined): string | undefined {
+  if (!imageUrl) return undefined;
+  
+  const absoluteUrl = ensureAbsoluteUrl(imageUrl);
+
+  return absoluteUrl;
+}
