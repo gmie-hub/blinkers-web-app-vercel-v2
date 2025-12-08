@@ -1,5 +1,3 @@
-
-
 import { Lato } from "next/font/google";
 import "./globals.css";
 import styles from "./layout.module.css";
@@ -7,7 +5,7 @@ import Header from "@/components/layouts/header/header";
 import Footer from "@/components/layouts/footer/footer";
 import Foot from "@/components/layouts/footer/foot";
 import QueryProvider from "./providers/QueryProvider";
-import { Metadata } from "next";
+import type { Metadata } from 'next';
 
 const lato = Lato({
   subsets: ["latin"],
@@ -15,10 +13,12 @@ const lato = Lato({
   style: ["normal", "italic"],
 });
 
-// export const metadata: Metadata = {
-//   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://blinkers-web-app-vercel-v2-kxiu.vercel.app/'),
-//   // Your other static metadata...
-// };
+// Add metadataBase
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://blinkers-web-app-vercel-v2-kxiu.vercel.app'),
+  title: 'Blinkers',
+  description: 'Your trusted marketplace',
+};
 
 export default function RootLayout({
   children,

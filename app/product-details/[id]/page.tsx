@@ -2,46 +2,114 @@ import { Metadata, ResolvingMetadata } from "next";
 import { getProductDetailsByslug } from "@/services/adsServices";
 import Main from "@/screens/home/market/productDetails/productDetailsToDisplay";
 
-// export const dynamic = 'auto';
 export const revalidate = 60;
 
+// Helper function to ensure absolute URL
+function ensureAbsoluteUrl(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+  return `${process.env.NEXT_PUBLIC_SITE_URL}${url}`;
+}
+
+// Helper to get social media compatible image (fallback from WebP if needed)
+function getSocialImageUrl(imageUrl: string | undefined): string | undefined {
+  if (!imageUrl) return undefined;
+  
+  const absoluteUrl = ensureAbsoluteUrl(imageUrl);
+  
+  // If it's a WebP, you might want to provide a JPG alternative for better social media compatibility
+  // For now, we'll use the original URL
+  return absoluteUrl;
+}
+
 export async function generateMetadata(
-  props: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const params = await props.params;
-  // fetch data
-  const product = await getProductDetailsByslug(params.id);
+  try {
+    const { id } = await params;
+    
+    // Fetch product data
+    const product = await getProductDetailsByslug(id);
 
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
+    // Handle case where product doesn't exist
+    if (!product?.data) {
+      return {
+        title: 'Product Not Found - Blinkers',
+        description: 'The requested product could not be found',
+      };
+    }
 
-  const title = product?.data?.title || "Product Details";
-  const description = product?.data?.description
-  const imageUrl = product?.data?.cover_image_url;
+    const previousImages = (await parent).openGraph?.images || [];
+    
+    const title = product.data.title || "Product Details";
+    const description = product.data.description || "Check out this amazing product on Blinkers";
+    const imageUrl = getSocialImageUrl(product.data.cover_image_url);
+    const pageUrl = `product-details/${id}`;
 
-  return {
-    title: product?.data?.title,
-    description: product?.data?.description,
-    openGraph: {
-      title,
+    // Log for debugging (remove in production)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Generated metadata for:', id);
+      console.log('Image URL:', imageUrl);
+      console.log('Page URL:', pageUrl);
+    }
+
+    return {
+      title: `${title} - Blinkers`,
       description,
-      url: typeof window !== "undefined" ? window.location.href : undefined,
-      siteName: "Blinkers", // ← Recommended
-      images: imageUrl ? [imageUrl, ...previousImages] : previousImages,
-      // locale: "en_US",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: imageUrl ? [imageUrl] : [],
-    },
-    alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/product-details/${params.id}`,
-    },
-  };
+      openGraph: {
+        title,
+        description,
+        url: pageUrl,
+        siteName: "Blinkers",
+        images: imageUrl ? [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+            type: 'image/webp', // Specify the image type
+          },
+          ...previousImages
+        ] : previousImages,
+        type: "website",
+        locale: "en_US",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: imageUrl ? [imageUrl] : [],
+        creator: "@blinkers",
+        site: "@blinkers",
+      },
+      alternates: {
+        canonical: pageUrl,
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+        },
+      },
+      // Additional metadata for better SEO
+      other: {
+        'og:image:width': '1200',
+        'og:image:height': '630',
+        'og:image:type': 'image/webp',
+      },
+    };
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    return {
+      title: 'Product Details - Blinkers',
+      description: 'View product details on Blinkers',
+    };
+  }
 }
 
 const ProductDetailsPage = () => {
