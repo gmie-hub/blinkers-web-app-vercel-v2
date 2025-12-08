@@ -26,7 +26,7 @@ export async function generateMetadata(
     const description =
       job.data.description || "Check out this amazing job on Blinkers";
     const imageUrl = getSocialImageUrl(job.data.user.profile_image);
-    const pageUrl = `job-details/${id}/${jobTitle}`;
+    const pageUrl = `jobs/job-details/${id}/${jobTitle}`;
 
     return {
       title: `${title} - Blinkers`,

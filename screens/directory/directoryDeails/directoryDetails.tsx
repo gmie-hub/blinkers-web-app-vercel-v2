@@ -4,7 +4,7 @@ import styles from "./directoryDetails.module.scss";
 import { useState } from "react";
 import { App, Image, Modal } from "antd";
 import RelatedBusinesses from "../relatedBusinesses/relatedBusiness";
-import {  useQueries } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
 import Reviews from "../../home/market/productDetails/tabs/businessReview";
 import { groupBusinessHours } from "./displayBusinessHour";
@@ -26,7 +26,7 @@ const NotClaim = () => {
   const { notification } = App.useApp();
   const currentPath = usePathname();
   const currentHref = location.href;
-  const [openLoginModal, setOpenLoginModal] =useState(false)
+  const [openLoginModal, setOpenLoginModal] = useState(false);
 
   const router = useRouter();
   const params = useParams();
@@ -39,7 +39,7 @@ const NotClaim = () => {
 
   const handleClaim = () => {
     if (!user) {
-      setOpenLoginModal(true)
+      setOpenLoginModal(true);
 
       // notification.open({
       //   message: "You need to log in to complete this action.",
@@ -63,7 +63,9 @@ const NotClaim = () => {
       // });
     } else {
       router.push(`/claim-business/${id}`);
-      window.scrollTo(0, 0);
+      if (typeof window !== "undefined") {
+        window.scrollTo(0, 0);
+      }
     }
   };
 
@@ -73,19 +75,25 @@ const NotClaim = () => {
 
   const handleNavigateToSubPlan = () => {
     router.push(`/subscription-pricing/${id}`);
-    window.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
   };
 
   const handleNavigateToVideo = () => {
     router.push(`/videos/${id}`);
-    window.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
   };
   const handleNavigateToImages = () => {
     router.push(`/images/${id}`);
-    window.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
   };
 
-  const [getBusinessDetailsQuery, ] = useQueries({
+  const [getBusinessDetailsQuery] = useQueries({
     queries: [
       {
         queryKey: ["get-business-details", id],
@@ -204,12 +212,16 @@ const NotClaim = () => {
     } else {
       router.push(`/write-review/${id}`);
     }
-    window.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
   };
 
   const handleNavigateToRelatedBusiness = () => {
     router.push(`/related-businesses/${id}`);
-    window.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
   };
 
   const images =
@@ -301,7 +313,11 @@ const NotClaim = () => {
                             onClick={handleNavigateToWriteReview}
                             className={styles.message}
                           >
-                            <Image src="/Vector.svg" alt="Star" preview={false} />
+                            <Image
+                              src="/Vector.svg"
+                              alt="Star"
+                              preview={false}
+                            />
 
                             <p>Write a review</p>
                           </div>
@@ -348,18 +364,20 @@ const NotClaim = () => {
                     </div>
 
                     <div>
-                    {businessDetailsData?.business_hours && businessDetailsData?.business_hours?.length > 0 && <div className={styles.open}>
+                      {businessDetailsData?.business_hours &&
+                        businessDetailsData?.business_hours?.length > 0 && (
+                          <div className={styles.open}>
+                            <div className={styles.info}>
+                              <img src="/time42.svg" alt="TimeIcon" />
 
-                      <div className={styles.info}>
-                        <img src="/time42.svg" alt="TimeIcon" />
-
-                          <p>Opening Hours</p>
-                          {/* <p>Monday - Fridays (10am- 11pm)</p> */}
-                          {groupBusinessHours(
-                            businessDetailsData?.business_hours || []
-                          )}
-                        </div>
-                      </div>}
+                              <p>Opening Hours</p>
+                              {/* <p>Monday - Fridays (10am- 11pm)</p> */}
+                              {groupBusinessHours(
+                                businessDetailsData?.business_hours || []
+                              )}
+                            </div>
+                          </div>
+                        )}
                       <div className={styles.info}>
                         <img src="/revielocation.svg" alt="LocationIcon" />
                         <p>{businessDetailsData?.address}</p>
@@ -383,7 +401,11 @@ const NotClaim = () => {
                         </div>
 
                         <div className={styles.info}>
-                          <Image src="/webicon.svg" alt="WebICon" preview={false} />
+                          <Image
+                            src="/webicon.svg"
+                            alt="WebICon"
+                            preview={false}
+                          />
 
                           <p>{businessDetailsData?.website || "N/A"}</p>
                         </div>
@@ -602,13 +624,15 @@ const NotClaim = () => {
         )}
       </div>
       <Modal
-      open={openLoginModal}
-      onCancel={() => setOpenLoginModal(false)}
-      centered
-      footer={null}
-    >
-      <BusinessDirectoryWelcome handleCloseModal={() => setOpenLoginModal(false)}/>
-    </Modal>
+        open={openLoginModal}
+        onCancel={() => setOpenLoginModal(false)}
+        centered
+        footer={null}
+      >
+        <BusinessDirectoryWelcome
+          handleCloseModal={() => setOpenLoginModal(false)}
+        />
+      </Modal>
     </>
   );
 };
