@@ -432,7 +432,6 @@ const Header = () => {
 
 const navItems = [
   { id: 1, name: "Market", route: "/product-listing" },
-
   // { id: 1, name: "Market", route: "/market" },
   { id: 2, name: "Directory", route: "/directory" },
   { id: 3, name: "Jobs", route: "/jobs" },
