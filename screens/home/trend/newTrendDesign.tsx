@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import CustomSpin from "@/components/ui/spin";
 import Button from "@/components/ui/button/button";
 import { AddToFav, getTrendingAds } from "@/services/adsServices";
+import { countUpTo } from "@/lib/utils";
 
 const Trends = () => {
   const [location, setLocation] = useState<{ city?: string; state?: string }>(
@@ -126,29 +127,31 @@ const Trends = () => {
               key={index}
               onClick={() => handleNavigateToProductDetails(item?.slug)}
             >
-              <div
-                className={styles.favoriteIcon}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  addToFavHandler(item.id?.toString());
-                }}
-              >
-                <Image
-                  width={25}
-                  src={
-                    favIcons.includes(item.id)
-                      ? "/redfav.svg"
-                      : "/Icon + container.svg"
-                  }
-                  preview={false}
+              <div className={styles.imageWrapper}>
+                <div
+                  className={styles.favoriteIcon}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addToFavHandler(item.id?.toString());
+                  }}
+                >
+                  <Image
+                    width={25}
+                    src={
+                      favIcons.includes(item.id)
+                        ? "/redfav.svg"
+                        : "/Icon + container.svg"
+                    }
+                    preview={false}
+                  />
+                </div>
+
+                <img
+                  className={styles.cardImage}
+                  src={item?.cover_image_url || "/Image.svg"}
+                  alt={item?.title}
                 />
               </div>
-
-              <img
-                className={styles.cardImage}
-                src={item?.cover_image_url || "/Image.svg"}
-                alt={item?.title}
-              />
 
               <div className={styles.cardInfo}>
                 <p className={styles.title}>
@@ -173,6 +176,25 @@ const Trends = () => {
                 {item.discount_price && (
                   <p className={styles.oldPrice}>₦{item.price}</p>
                 )}
+
+                <div className={styles.starWrapper}>
+                  {countUpTo(
+                    parseInt(item?.average_rating),
+                    <Image
+                      width={20}
+                      src="/staryellow.svg"
+                      alt="StarYellow"
+                      preview={false}
+                    />,
+                    <Image
+                      width={20}
+                      src="/Vector.svg"
+                      alt="Star"
+                      preview={false}
+                    />
+                  )}
+                  <span>({item?.total_rating})</span>
+                </div>
               </div>
             </div>
           ))}

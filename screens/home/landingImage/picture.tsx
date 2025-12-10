@@ -75,15 +75,19 @@ const PictureBg = () => {
         {/* --- SEARCH BAR SECTION --- */}
         <div className={styles.searchBarContainer}>
           {/* Location Box */}
-          {/* <div
+          <div
             className={styles.locationBox}
             onClick={() => setOpenLocationModal(true)}
           >
-            <img src="/location-icon.svg" className={styles.locIcon} />
-            <span style={{ color: 'black', fontSize: '20px' }}>My Location</span>
+            <div>
+              <img src="/location.svg" className={styles.locIcon} />
+              <span style={{ color: "black", fontSize: "20px" }}>
+                My Location
+              </span>
+            </div>
 
             <span className={styles.arrowDown}>▼</span>
-          </div> */}
+          </div>
 
           {/* Search Input */}
           <div className={styles.searchInputBox}>

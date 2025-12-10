@@ -5,7 +5,7 @@ const Foot = () => {
   return (
     <div>
       <section className={styles.section3}>
-        <p>© 2024 Blinkers Nigeria. All rights reserved.</p>
+        <p style={{color:'#FFFFFF'}}>© 2024 Blinkers Nigeria. All rights reserved.</p>
         <div className={styles.social}>
           <a
             href="https://x.com/BlinkersN/"
