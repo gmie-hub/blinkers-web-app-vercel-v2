@@ -13,7 +13,7 @@ const BusinessDirectoryWelcome = ({ handleCloseModal }: Props) => {
 
   return (
     <div className={styles.container}>
-      <img src="/image 33.svg" alt="DirectoryImage" />
+      <img src="/image-33.svg" alt="DirectoryImage" />
 
       <h2 className={styles.title}>Welcome To Blinkers Business Directory</h2>
       <p className={styles.subtitle}>

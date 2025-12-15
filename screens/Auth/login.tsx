@@ -8,7 +8,7 @@ import {
 } from "formik";
 import styles from "./index.module.scss";
 import * as Yup from "yup";
-import { App, Image, Tabs, TabsProps } from "antd";
+import { Image, Tabs, TabsProps, notification as antdNotification } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
@@ -27,7 +27,8 @@ import { LoginApiCall } from "@/services/authService";
 
 const Login = () => {
   const router = useRouter();
-  const { notification } = App.useApp();
+  const [notification, notificationContextHolder] =
+    antdNotification.useNotification();
   const [, setUser] = useAtom(userAtom);
   const [activeKey, setActiveKey] = useState("1");
   const [countryCode, setCountryCode] = useState("");
@@ -166,68 +167,70 @@ const Login = () => {
   };
 
   return (
-    <section className={styles.container}>
-      <div
-        onClick={() => {
-          router.push("/");
-        }}
-        className={styles.smallScreen}
-      >
-        <Image
-          src="Frame 1618868702.svg"
-          alt={"BlinkersLogo"}
-          preview={false}
-        />
-      </div>
-
-      <Card style={styles.card}>
-        <Image src='/Featured icon.svg' alt={'LoginIcon'} preview={false} />
-
-        <p className={styles.welcome}>Welcome Back!</p>
-        <small>Enter your details to log in</small>
-
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-            countryCode: "",
-            phoneNumber: "",
+    <>
+      {notificationContextHolder}
+      <section className={styles.container}>
+        <div
+          onClick={() => {
+            router.push("/");
           }}
-          onSubmit={(values) => {
-            loginHandler(values);
-            // setFormData({
-            //   email: values?.email,
-            //   phoneNumber: values?.phoneNumber,
-            // });
-          }}
-          validationSchema={getValidationSchema(activeKey)}
+          className={styles.smallScreen}
         >
-          {({ resetForm }) => {
-            // useEffect(() => {
-            //   setFormData({
-            //     ...formData,
-            //     email: values.email,
-            //     phoneNumber: values.phoneNumber,
-            //   });
-            // }, [values.email, values.phoneNumber]);
+          <Image
+            src="Frame 1618868702.svg"
+            alt={"BlinkersLogo"}
+            preview={false}
+          />
+        </div>
 
-            return (
-              <Form className="fields">
-                <Tabs
-                  defaultActiveKey="1"
-                  // onChange={handleTabChange}
-                  onChange={(key) => handleTabChange(key, resetForm)}
-                  items={items}
-                />
-                {activeKey === "1" ? (
-                  <Input
-                    name="email"
-                    placeholder="jummy@gmail.com"
-                    className={styles.inputText}
+        <Card style={styles.card}>
+          <Image src="/Featured icon.svg" alt={"LoginIcon"} preview={false} />
+
+          <p className={styles.welcome}>Welcome Back!</p>
+          <small>Enter your details to log in</small>
+
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+              countryCode: "",
+              phoneNumber: "",
+            }}
+            onSubmit={(values) => {
+              loginHandler(values);
+              // setFormData({
+              //   email: values?.email,
+              //   phoneNumber: values?.phoneNumber,
+              // });
+            }}
+            validationSchema={getValidationSchema(activeKey)}
+          >
+            {({ resetForm }) => {
+              // useEffect(() => {
+              //   setFormData({
+              //     ...formData,
+              //     email: values.email,
+              //     phoneNumber: values.phoneNumber,
+              //   });
+              // }, [values.email, values.phoneNumber]);
+
+              return (
+                <Form className="fields">
+                  <Tabs
+                    defaultActiveKey="1"
+                    // onChange={handleTabChange}
+                    onChange={(key) => handleTabChange(key, resetForm)}
+                    items={items}
                   />
-                ) : (
-                  <div>
-                    {/* <Field name="phoneNumber">
+                  {activeKey === "1" ? (
+                    <Input
+                      name="email"
+                      placeholder="jummy@gmail.com"
+                      className={styles.inputText}
+                    />
+                  ) : (
+                    <div>
+                      {/* <Field name="phoneNumber">
                       {({ field, form }: FieldProps) => (
                         <PhoneInput
                           country={"ng"} // Default country
@@ -242,71 +245,72 @@ const Login = () => {
                         />
                       )}
                     </Field> */}
-                    <Field
-                      name="phoneNumber"
-                      render={({ form }: FieldProps) => (
-                        <PhoneInput
-                          country={"ng"} // Default country
-                          value={`${countryCode}${phoneNumber}`} // Concatenate the country code and phone number
-                          onChange={(phone: string, country: CountryData) => {
-                            const dialCode = country.dialCode; // Extract the dialCode from the country object
-                            const number = phone.replace(dialCode, "").trim(); // Remove the dial code from the phone number
+                      <Field
+                        name="phoneNumber"
+                        render={({ form }: FieldProps) => (
+                          <PhoneInput
+                            country={"ng"} // Default country
+                            value={`${countryCode}${phoneNumber}`} // Concatenate the country code and phone number
+                            onChange={(phone: string, country: CountryData) => {
+                              const dialCode = country.dialCode; // Extract the dialCode from the country object
+                              const number = phone.replace(dialCode, "").trim(); // Remove the dial code from the phone number
 
-                            setCountryCode(dialCode); // Update country code state
-                            setPhoneNumber(number); // Update phone number state
-                            form.setFieldValue("phoneNumber", number); // Update Formik state
-                            form.setFieldValue("country_code", dialCode); // Update Formik country_code field
-                          }}
-                          inputStyle={{ width: "100%" }}
-                          preferredCountries={["ng", "gb", "gh", "cm", "lr"]}
-                          onlyCountries={["ng", "gb", "gh", "cm", "lr"]}
-                          placeholder="Enter phone numer"
-                        />
-                      )}
-                    />
-                    <ErrorMessage
-                      name="phoneNumber"
-                      component="div"
-                      className="error"
-                    />
+                              setCountryCode(dialCode); // Update country code state
+                              setPhoneNumber(number); // Update phone number state
+                              form.setFieldValue("phoneNumber", number); // Update Formik state
+                              form.setFieldValue("country_code", dialCode); // Update Formik country_code field
+                            }}
+                            inputStyle={{ width: "100%" }}
+                            preferredCountries={["ng", "gb", "gh", "cm", "lr"]}
+                            onlyCountries={["ng", "gb", "gh", "cm", "lr"]}
+                            placeholder="Enter phone numer"
+                          />
+                        )}
+                      />
+                      <ErrorMessage
+                        name="phoneNumber"
+                        component="div"
+                        className="error"
+                      />
+                    </div>
+                  )}
+
+                  <Input
+                    name="password"
+                    placeholder="Input password"
+                    type="password"
+                    className={styles.inputText}
+                  />
+
+                  <div>
+                    <Link
+                      className={styles.forgotPassword}
+                      href={routes.auth.forgotPassword}
+                    >
+                      <p> Forgot Password?</p>
+                    </Link>
                   </div>
-                )}
 
-                <Input
-                  name="password"
-                  placeholder="Input password"
-                  type="password"
-                  className={styles.inputText}
-                />
+                  <Button
+                    type="submit"
+                    text={loginMutation?.isPending ? "Loading..." : "Log In"}
+                    disabled={loginMutation?.isPending}
+                    className={styles.button}
+                  />
 
-                <div>
-                  <Link
-                    className={styles.forgotPassword}
-                    href={routes.auth.forgotPassword}
-                  >
-                    <p> Forgot Password?</p>
-                  </Link>
-                </div>
-
-                <Button
-                  type="submit"
-                  text={loginMutation?.isPending ? "Loading..." : "Log In"}
-                  disabled={loginMutation?.isPending}
-                  className={styles.button}
-                />
-
-                <span style={{ display: "flex" }}>
-                  Don’t have an account?
-                  <Link href="/sign-up" className={styles.signUpLink}>
-                    Sign Up
-                  </Link>
-                </span>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Card>
-    </section>
+                  <span style={{ display: "flex" }}>
+                    Don’t have an account?
+                    <Link href="/sign-up" className={styles.signUpLink}>
+                      Sign Up
+                    </Link>
+                  </span>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Card>
+      </section>
+    </>
   );
 };
 

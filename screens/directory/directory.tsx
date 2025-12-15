@@ -1,5 +1,5 @@
 import styles from "./directory.module.scss";
-import { Image, Modal, Pagination } from "antd";
+import { Modal, Pagination } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useQueries } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -19,6 +19,7 @@ import {
   getRecommentationBusiness,
   getTopBusiness,
 } from "@/services/businessServices";
+import Image from "next/image";
 
 const Directory = () => {
   const router = useRouter();
@@ -166,6 +167,7 @@ const Directory = () => {
               />
             </SearchInput>
           </div>
+
           <div
             style={{
               display: "flex",
@@ -199,6 +201,7 @@ const Directory = () => {
           <h1 className={styles.newCardH1}>
             Welcome to Blinkers Business Directory{" "}
           </h1>
+
           <ul
             style={{
               paddingBlockEnd: "1rem",
@@ -214,36 +217,31 @@ const Directory = () => {
                 key={index}
                 style={{
                   color: "#707070",
-                  paddingBlock: "0.4rem",
-                  fontSize: "2.4rem",
+                  paddingBlock: "0.8rem",
+                  fontSize: "2rem",
                   display: "flex",
                   alignItems: "center",
                   gap: "0.5rem",
                 }}
               >
-                <Image src="/checkico.svg" alt="check" preview={false} />
+                <img src="/checkico.svg" alt="check" />
                 {item}
               </li>
             ))}
           </ul>
+
           <div className={styles.btnFlex}>
             {(user && !user?.is_applicant) || !user ? (
               <Button
-                icon={<Image src="/add-circle.svg" alt="add" preview={false} />}
+                icon={<img src="/add-circle.svg" alt="add" />}
                 className={styles.buttonStyle}
                 text="Add Business To Directory"
-                variant="green"
+                variant="green" 
                 onClick={handleAddDirectory}
               />
             ) : (
               <Button
-                AfterTexticon={
-                  <Image
-                    src="/arrow-right-green.svg"
-                    alt="arrow"
-                    preview={false}
-                  />
-                }
+                AfterTexticon={<img src="/arrow-right-green.svg" alt="arrow" />}
                 className={styles.buttonStyle}
                 text="Add Business To Directory"
                 variant="green"
@@ -273,12 +271,13 @@ const Directory = () => {
                       className={styles.btnWrapper}
                     >
                       <p className={styles.btn}>See All</p>
-                      <Image
-                        width={20}
-                        src="/arrow-right-green.svg"
-                        alt="ArrowIcon"
-                        preview={false}
-                      />
+                      <div>
+                        <img
+                          width={20}
+                          src="/arrow-right-green.svg"
+                          alt="ArrowIcon"
+                        />
+                      </div>
                     </div>
                   )}
                 </div>
@@ -307,12 +306,13 @@ const Directory = () => {
                       className={styles.btnWrapper}
                     >
                       <p className={styles.btn}>See All</p>
-                      <Image
-                        width={20}
-                        src="/arrow-right-green.svg"
-                        alt="ArrowIcon"
-                        preview={false}
-                      />
+                      <div>
+                        <img
+                          width={20}
+                          src="/arrow-right-green.svg"
+                          alt="ArrowIcon"
+                        />
+                      </div>
                     </div>
                   )}
                 </div>
@@ -332,7 +332,7 @@ const Directory = () => {
           <div className={styles.btnFlex}>
             {((user && !user?.is_applicant) || !user) && (
               <Button
-                icon={<Image src="/add-circle.svg" alt="add" preview={false} />}
+                icon={<img src="/add-circle.svg" alt="add" />}
                 className={styles.buttonStyle}
                 text="Add Business To Directory"
                 variant="green"
@@ -343,6 +343,7 @@ const Directory = () => {
         </div>
         <img src="/image-33.svg" alt="DirectoryImage" />
       </div>
+
       <div className={styles.whyWrapper}>
         {getAllDirectoryQuery?.isLoading ? (
           <CustomSpin />
@@ -363,6 +364,7 @@ const Directory = () => {
                 <br />
               </div>
             )}
+
             <p ref={moreBusinessesRef} className={styles.titleHead}>
               More Businesses
             </p>
@@ -381,11 +383,16 @@ const Directory = () => {
                     //   handleNavigateDirectory(item?.id, item?.name,item?.about)
                     // }
                   >
-                    <img
-                      src={item?.logo}
-                      alt="Image2"
-                      className={styles.proImage}
-                    />
+                    <div className={styles.imageWrapper}>
+                      <Image
+                        src={item?.logo}
+                        alt="Image2"
+                        className={styles.proImage}
+                        fill
+                        sizes="(max-width: 820px) 100vw, 25vw"
+                      />
+                    </div>
+
                     <div className={styles.productList}>
                       <p className={styles.title}>
                         {/* {item?.name} */}
@@ -395,11 +402,16 @@ const Directory = () => {
                       </p>
                       {item?.address && (
                         <div className={styles.info}>
-                          <Image
-                            width={20}
-                            src="/locationrelated.svg"
-                            alt="LocationIcon"
-                          />
+                          <div>
+                            <img
+                              // width={20}
+                              width="20px"
+                              height="20px"
+                              src="/locationrelated.svg"
+                              alt="LocationIcon"
+                            />
+                          </div>
+
                           <p>
                             {item?.address && item?.address?.length > 20
                               ? item?.address?.slice(0, 20) + "..."
@@ -409,11 +421,9 @@ const Directory = () => {
                       )}
                       {item?.phone && (
                         <div className={styles.info}>
-                          <Image
-                            width={20}
-                            src="/callrelated.svg"
-                            alt="CallIcon"
-                          />
+                          <div>
+                            <img src="/callrelated.svg" alt="CallIcon" />
+                          </div>
 
                           <p>{item?.phone}</p>
                         </div>

@@ -5,8 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: "https",
+        hostname: "blinkers-bucket.nyc3.digitaloceanspaces.com",
+        pathname: "/**",
       },
     ],
   },

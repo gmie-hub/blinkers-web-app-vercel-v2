@@ -97,7 +97,7 @@ const Profile = () => {
             }}
           >
             <div className={styles.home}>
-              <p className={styles.picHead}>Profile</p>
+              <p className={styles.picHead}>My Profile</p>
             </div>
           </div>
         </div>
