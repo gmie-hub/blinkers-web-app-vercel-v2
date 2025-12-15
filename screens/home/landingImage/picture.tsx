@@ -7,6 +7,7 @@ import LocationModal from "../market/locationModal/location";
 import SearchInput from "@/components/ui/searchInput";
 import Button from "@/components/ui/button/button";
 import { useRouter } from "next/navigation";
+import { getCityAndState } from "@/lib/utils/location";
 
 // Background images
 const images = ["/Component-5.svg", "/Component-6.svg", "/homeImage3.svg"];
@@ -16,7 +17,26 @@ const PictureBg = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [openLocationModal, setOpenLocationModal] = useState(false);
+  const savedLocation = JSON.parse(localStorage.getItem("userLocation") || "{}");
 
+   const [location, setLocation] = useState<{ city?: string; state?: string ,lga:string}>(
+    {}
+  );
+ 
+   useEffect(() => {
+    (async () => {
+      try {
+        const loc = await getCityAndState();
+        setLocation(loc);
+      } catch (err: any) {
+        // notification.error({
+        //   message: "Error",
+        //   description: err || "Failed to access location. Please enable GPS.",
+        // });
+      }
+    })();
+  }, []);
+  
   // Next image
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -79,12 +99,12 @@ const PictureBg = () => {
             className={styles.locationBox}
             onClick={() => setOpenLocationModal(true)}
           >
-            <div>
+   
               <img src="/location.svg" className={styles.locIcon} />
               <span style={{ color: "black", fontSize: "20px" }}>
-                My Location
+              {savedLocation?.lga ? savedLocation?.lga : location?.lga ? location?.lga : "Select Location"}
               </span>
-            </div>
+    
 
             <span className={styles.arrowDown}>▼</span>
           </div>
@@ -98,9 +118,13 @@ const PictureBg = () => {
           </div>
 
           {/* Search Button */}
-          <button className={styles.searchBtn} onClick={handleSearch}>
-            Search
-          </button>
+             <Button
+                type="button"
+                variant="green"
+                text="Search"
+                className={styles.searchBtn}
+                onClick={handleSearch} // Set appliedSearchTerm here
+              />
         </div>
         <br />
 

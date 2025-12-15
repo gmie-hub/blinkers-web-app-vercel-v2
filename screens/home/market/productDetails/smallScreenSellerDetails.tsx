@@ -149,7 +149,11 @@ const SmallScreen = ({
                     productDetailsData?.price}
                 </h2>
                 <div className={styles.eye}>
-                  <Image src="/location-pin-svgrepo-com 2.svg" alt="TimeIcon" preview={false} />
+                  <Image
+                    src="/location-pin-svgrepo-com 2.svg"
+                    alt="TimeIcon"
+                    preview={false}
+                  />
                   <p>
                     {" "}
                     Posted {getTimeAgo(productDetailsData?.created_at || "")}
@@ -231,17 +235,21 @@ const SmallScreen = ({
                 <div className={styles.promoImage}>
                   <div
                     className={styles.favoriteIcon}
-                    onClick={addToFavHandler}
-                    // onClick={() => {
-                    //   if (addToFavHandler) {
-                    //     addToFavHandler(id);
-                    //   }
-                    // }}
+                    onClick={(event) => {
+                      event.stopPropagation(); // Prevent parent click
+                      if (user) {
+                        addToFavHandler?.();
+                      } else {
+                        setOpenLoginModal(true);
+                      }
+                    }}
                   >
                     <img
                       width={30}
                       src={
-                        productDetailsData?.isFavourite ? "/redfav.svg" : "/Icon + container.svg"
+                        productDetailsData?.isFavourite
+                          ? "/redfav.svg"
+                          : "/Icon + container.svg"
                       }
                       alt="Favorite"
                     />
@@ -447,7 +455,11 @@ const SmallScreen = ({
 
                     <Button
                       icon={
-                        <Image src="/click.svg" alt="CallLogo" preview={false} />
+                        <Image
+                          src="/click.svg"
+                          alt="CallLogo"
+                          preview={false}
+                        />
                       }
                       text={
                         isNumberVisible
@@ -497,7 +509,10 @@ const SmallScreen = ({
                     <p className={styles.seller}>Seller’s Information </p>
                     <div className={styles.flexSeller}>
                       <img
-                        src={profileDetailsData?.profile_image || "/Avatarprofile.svg"}
+                        src={
+                          profileDetailsData?.profile_image ||
+                          "/Avatarprofile.svg"
+                        }
                         width={"2rem"}
                         alt="sellerslogo"
                         className={styles.sellerLogo}
@@ -630,7 +645,11 @@ const SmallScreen = ({
 
                     <Button
                       icon={
-                        <Image src="/click.svg" alt="CallLogo" preview={false} />
+                        <Image
+                          src="/click.svg"
+                          alt="CallLogo"
+                          preview={false}
+                        />
                       }
                       text={
                         isNumberVisible

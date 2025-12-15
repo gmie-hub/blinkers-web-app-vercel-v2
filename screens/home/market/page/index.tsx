@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import { Form, Formik } from "formik";
 
-import { Image } from "antd";
+import { Image, Modal } from "antd";
 
 import { useQueries } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,8 @@ import Checkbox from "@/components/ui/checkBox/checkbox";
 import SearchableSelect from "@/components/ui/searchableSelect/searchableSelect";
 import Button from "@/components/ui/button/button";
 import ProductList from "./productList";
+import LocationModal from "../locationModal/location";
+import { getCityAndState } from "@/lib/utils/location";
 
 const PriceOptions = [
   { key: "asc", value: "Low To High" },
@@ -22,9 +24,11 @@ const PriceOptions = [
 interface Props {
   appliedSearchTerm: string;
   setAppliedSearchTerm: any;
+    savedLocationFromChild: (data: any) => void;
+  
 }
 
-const Main = ({ appliedSearchTerm, setAppliedSearchTerm }: Props) => {
+const Main = ({ appliedSearchTerm, setAppliedSearchTerm,savedLocationFromChild }: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
@@ -33,6 +37,10 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm }: Props) => {
   const [stateId, setStateId] = useState(0);
   const [lgaId, setLgaId] = useState(0);
   const router = useRouter();
+  const [openLocationModal, setOpenLocationModal] = useState(false);
+  const [location, setLocation] = useState<{ city?: string; state?: string,lga?:string }>(
+    {}
+  );
 
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
 
@@ -52,11 +60,20 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm }: Props) => {
     // setFieldValue("lga", "")
   };
 
-  // useEffect(() => {
-  //   if (selectedItems.length > 0) {
-  //     setAppliedSearchTerm(selectedItems); // Get the last item
-  //   }
-  // }, [selectedItems]);
+
+
+   useEffect(() => {
+    (async () => {
+      try {
+        const loc = await getCityAndState();
+        setLocation(loc);
+      } catch (err: any) {
+          console.log(err)
+
+      }
+    })();
+  }, []);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -173,7 +190,24 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm }: Props) => {
     setSelectedPrice("");
   };
 
+    const savedLocation = JSON.parse(
+    localStorage.getItem("userLocation") || "{}"
+
+  );
+
+
+       useEffect(() => {
+    // get location from localStorage
+    // const savedLocation = JSON.parse(localStorage.getItem("userLocation") || "{}");
+
+    // send it to parent
+    savedLocationFromChild(savedLocation);
+  }, []); // run once on mount
+
+
+
   return (
+    <>
     <Formik
       initialValues={{
         state: "",
@@ -202,6 +236,28 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm }: Props) => {
                       alt="FilterIcon"
                       preview={false}
                     />
+                  </div>
+
+
+                       <div className={styles.locationContainer}>
+                    <p className={styles.label}>Location</p>
+
+                    <div className={styles.leftLocation}>
+                      <p className={styles.value}>
+                        {" "}
+                        {savedLocation?.lga
+                          ? savedLocation?.lga
+                          : location.lga
+                          ? location.lga
+                          : "Select Location"}
+                      </p>
+                      <p
+                        className={styles.change}
+                        onClick={() => setOpenLocationModal(true)}
+                      >
+                        Change Location
+                      </p>
+                    </div>
                   </div>
                   {/* <Checkbox
                     label="Nearby Me"
@@ -331,6 +387,17 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm }: Props) => {
         </Form>
       )}
     </Formik>
+
+        <Modal
+            open={openLocationModal}
+            onCancel={() => setOpenLocationModal(false)}
+            footer={null}
+            centered
+            width={1300}
+          >
+            <LocationModal handleClose={() => setOpenLocationModal(false)} />
+          </Modal>
+    </>
   );
 };
 

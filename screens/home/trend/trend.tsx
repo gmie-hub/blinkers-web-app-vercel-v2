@@ -141,29 +141,11 @@ const Trends = () => {
           });
         },
       });
-    } catch {
-      setOpenLoginModal(true);
-
-      // notification.open({
-      //   message: "You need to log in to complete this action.",
-      //   description: (
-      //     <>
-      //       <br />
-      //       <Button
-      //         type="button"
-      //         onClick={() => {
-      //           notification.destroy();
-      //           navigate(`/login?redirect=${currentPath}`);
-      //         }}
-      //       >
-      //         Click here to Login
-      //       </Button>
-      //     </>
-      //   ),
-      //   placement: "top",
-      //   duration: 4, // Auto close after 5 seconds
-      //   icon: null,
-      // });
+    } catch (err: any) {
+      notification.error({
+        title: "Error",
+        description: err || "failed",
+      });
     }
   };
 
@@ -202,7 +184,11 @@ const Trends = () => {
                       className={styles.favoriteIcon}
                       onClick={(event) => {
                         event.stopPropagation(); // Prevents click from bubbling to parent div
-                        addToFavHandler(item?.id?.toString());
+                        if (user) {
+                          addToFavHandler(item?.id?.toString());
+                        } else {
+                          setOpenLoginModal(true);
+                        }
                       }}
                     >
                       <Image
@@ -301,7 +287,12 @@ const Trends = () => {
                   className={styles.favoriteIcon}
                   onClick={(event) => {
                     event.stopPropagation(); // Prevents click from bubbling to parent div
+                          if (user) {
                     addToFavHandler(trendData[3]?.id?.toString());
+                      } else {
+                        setOpenLoginModal(true);
+                      }
+
                   }}
                 >
                   <Image
@@ -404,7 +395,11 @@ const Trends = () => {
                       className={styles.favoriteIcon}
                       onClick={(event) => {
                         event.stopPropagation(); // Prevents click from bubbling to parent div
-                        addToFavHandler(item?.id?.toString());
+                        if (user) {
+                          addToFavHandler(item?.id?.toString());
+                        } else {
+                          setOpenLoginModal(true);
+                        }
                       }}
                     >
                       <Image

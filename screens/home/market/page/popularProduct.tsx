@@ -1,11 +1,15 @@
 import styles from "./index.module.scss";
-import { Image, Modal, Pagination } from "antd";
+import { App, Image, Modal, Pagination } from "antd";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
-import  { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
 
-import { AddToFav, getAllFav, getAllPopularMarket } from "@/services/adsServices";
+import {
+  AddToFav,
+  getAllFav,
+  getAllPopularMarket,
+} from "@/services/adsServices";
 import GeneralWelcome from "../marketLogin/marketLogin";
 import { userAtom } from "@/lib/utils/store";
 import usePagination from "@/hooks/usePagination";
@@ -19,6 +23,7 @@ const PopularProducts = () => {
   const queryClient = useQueryClient();
   const user = useAtomValue(userAtom);
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const { notification } = App.useApp();
 
   useEffect(() => {
     if (currentPage !== pageNum) {
@@ -37,7 +42,7 @@ const PopularProducts = () => {
       },
       {
         queryKey: ["get-all-fav", user?.id],
-        queryFn: ()=>getAllFav(user?.id),
+        queryFn: () => getAllFav(user?.id),
         retry: 0,
         refetchOnWindowFocus: true,
         enabled: !!user?.id, // Only fetch favorites if user is logged in
@@ -53,7 +58,7 @@ const PopularProducts = () => {
   const marketErrorMessage =
     marketError?.message || "An error occurred. Please try again later.";
 
-    console.log(marketData,'marketData')
+  console.log(marketData, "marketData");
   // === Navigation ===
   const handleNavigateToProductDetails = (id: string) => {
     router.push(`/product-details/${id}`);
@@ -87,8 +92,11 @@ const PopularProducts = () => {
           queryClient.refetchQueries({ queryKey: ["get-all-fav"] });
         },
       });
-    } catch (error) {
-      console.error("Failed to update favorite:", error);
+    }catch (err: any) {
+      notification.error({
+        title: "Error",
+        description: err || "failed",
+      });
     }
   };
 
@@ -101,7 +109,8 @@ const PopularProducts = () => {
       ) : (
         <div>
           <section className={styles.promoImageContainer}>
-            {marketData && marketData?.length > 0 &&
+            {marketData &&
+              marketData?.length > 0 &&
               marketData?.map((item: any, index: number) => (
                 <div
                   className={styles.promoImage}
@@ -112,12 +121,20 @@ const PopularProducts = () => {
                     className={styles.favoriteIcon}
                     onClick={(event) => {
                       event.stopPropagation();
-                      addToFavHandler(item?.id?.toString());
+                      if (user) {
+                        addToFavHandler(item?.id?.toString());
+                      } else {
+                        setOpenLoginModal(true);
+                      }
                     }}
                   >
                     <img
                       width={30}
-                      src={favIcons.includes(item?.id) ? "/redfav.svg" : "/Icon + container.svg"}
+                      src={
+                        favIcons.includes(item?.id)
+                          ? "/redfav.svg"
+                          : "/Icon + container.svg"
+                      }
                       alt="Favorite"
                     />
                   </div>
@@ -136,7 +153,11 @@ const PopularProducts = () => {
                     </p>
 
                     <div className={styles.info}>
-                      <Image src="/locationrelated.svg" alt="LocationIcon" preview={false} />
+                      <Image
+                        src="/locationrelated.svg"
+                        alt="LocationIcon"
+                        preview={false}
+                      />
                       <p>
                         <span>
                           {item?.local_govt?.local_government_area &&
@@ -168,7 +189,12 @@ const PopularProducts = () => {
                           alt="StarYellow"
                           preview={false}
                         />,
-                        <Image width={20} src="/Vector.svg" alt="Star" preview={false} />
+                        <Image
+                          width={20}
+                          src="/Vector.svg"
+                          alt="Star"
+                          preview={false}
+                        />
                       )}
                       <span>({item?.total_rating})</span>
                     </div>

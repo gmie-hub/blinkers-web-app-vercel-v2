@@ -44,6 +44,11 @@ const LocationModal = ({ handleClose }: Props) => {
     l?.local_government_area?.toLowerCase()?.includes(search?.toLowerCase())
   );
 
+  const handleCloseModal = () => {
+    setActiveState(null); // 👈 RESET HERE
+    handleClose();
+  };
+
   const handleSelectState = (state: any) => {
     setActiveState({ id: state.id, name: state.state_name });
     setSearch("");
@@ -97,6 +102,14 @@ const LocationModal = ({ handleClose }: Props) => {
           }
           console.log("Detected:", detectedState, detectedLGA);
 
+          localStorage.setItem(
+            "userLocation",
+            JSON.stringify({
+              state: detectedState,
+              lga: detectedLGA || null,
+            })
+          );
+
           setActiveState({ id: stateObj.id, name: stateObj.state_name });
 
           // Wait briefly for LGAs to load
@@ -110,11 +123,11 @@ const LocationModal = ({ handleClose }: Props) => {
             );
 
             if (foundLGA) {
-              handleClose(); // close modal after selecting
+              handleCloseModal(); // close modal after selecting
             }
           }, 600);
 
-          handleClose();
+          handleCloseModal();
         } catch (err) {
           console.error("Location error:", err);
           notification.error({
@@ -127,13 +140,28 @@ const LocationModal = ({ handleClose }: Props) => {
       },
       (error) => {
         console.error(error);
-        notification.error({
-          title: "Error",
-          description: "Failed to access location. Please enable GPS.",
-        });
+        // notification.error({
+        //   message: "Error",
+        //   description: "Failed to access location. Please enable GPS.",
+        // });
         setLoading(false);
       }
     );
+  };
+
+  const handleSelectLGA = (lga: any) => {
+    const selectedLocation = {
+      state: activeState?.name,
+      stateId: activeState?.id,
+      lga: lga.local_government_area,
+      lgaId: lga?.id,
+    };
+
+    localStorage.setItem("userLocation", JSON.stringify(selectedLocation));
+
+    console.log("Saved to localStorage:", selectedLocation);
+
+    handleCloseModal();
   };
 
   return (
@@ -146,23 +174,34 @@ const LocationModal = ({ handleClose }: Props) => {
       )}
 
       {/* Page Title */}
-      <h3 className={styles.header}>
-        {activeState ? `All ${activeState.name} (LGAs)` : "My Location"}
-      </h3>
+      <div className={styles.headerRow}>
+        <h3 className={styles.header}>
+          {activeState ? `All ${activeState.name} (LGAs)` : "My Location"}
+        </h3>
 
-      {/* Search Input */}
-      <input
-        className={styles.search}
-        placeholder="Find state, city or region…"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+        <div className={styles.searchWrapper}>
+          <img src="/Search.svg" alt="search" className={styles.searchIcon} />
+
+          <input
+            className={styles.search}
+            placeholder="Find state, city or region…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      </div>
 
       {/* Tap to find my location --- show ONLY on page 1 */}
       {!activeState && (
         <div className={styles.myLocationBox} onClick={handleMyLocation}>
           <div className={styles.left}>
-            <span className={styles.icon}>📍</span>
+            {/* <span className={styles.icon}>📍</span> */}
+            <img
+              src="/locationrelated.svg"
+              alt="LocationIcon"
+              className={styles.icon}
+            />
+
             {/* <div className={styles.texts}>
               <p className={styles.main}>My Location</p>
               <p className={styles.sub}>Tap to find location</p>
@@ -183,6 +222,32 @@ const LocationModal = ({ handleClose }: Props) => {
       {/* STATES PAGE */}
       {!activeState && (
         <div className={styles.listWrapper}>
+          {/* First option */}
+          <div
+            className={styles.itemBox}
+            onClick={() => {
+              const selectedLocation = {
+                state: "All Nigeria",
+                stateId: 0,
+                lga: "All Nigeria",
+                lgaId: 0,
+              };
+
+              localStorage.setItem(
+                "userLocation",
+                JSON.stringify(selectedLocation)
+              );
+
+              console.log("Saved to localStorage:", selectedLocation);
+
+              handleCloseModal(); // closes modal + resets state
+            }}
+          >
+            <span className={styles.itemText}>All Nigeria</span>
+            <span className={styles.arrow}>›</span>
+          </div>
+
+          {/* Existing mapped options */}
           {filteredStates.map((item: any) => (
             <div
               key={item.id}
@@ -200,7 +265,11 @@ const LocationModal = ({ handleClose }: Props) => {
       {activeState && (
         <div className={styles.listWrapper}>
           {filteredLGAs.map((item: any) => (
-            <div key={item.id} className={styles.itemBox} onClick={handleClose}>
+            <div
+              key={item.id}
+              className={styles.itemBox}
+              onClick={() => handleSelectLGA(item)}
+            >
               <span className={styles.itemText}>
                 {item.local_government_area}
               </span>

@@ -74,11 +74,10 @@ const MyFavorites = () => {
           });
         },
       });
-    } catch (error) {
-      notification.error({
-        message: "Error",
-        title: "",
-        description: errorMessage(error) || "An error occurred",
+    } catch (err:any) {
+     notification.error({
+        title: "Error",
+        description: err || "failed",
       });
     }
   };
@@ -153,6 +152,7 @@ const MyFavorites = () => {
                           onClick={(event) => {
                             event.stopPropagation(); // Prevents click from bubbling to parent div
                             addToFavHandler(item?.id?.toString());
+                            
                           }}
                         >
                           <img src="/Icon + container.svg" alt="favorite" />

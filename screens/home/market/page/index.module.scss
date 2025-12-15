@@ -274,3 +274,39 @@
   color: #222222;
   width: 600;
 }
+
+.locationContainer {
+  border-radius: 0.8rem;
+  border: #EEEEEE solid 1px;
+   padding: 1.6rem;
+}
+
+.leftLocation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  // gap :0.5rem;
+ 
+}
+.label {
+  font-size: 1.4rem;
+  color: #707070;
+  margin-bottom: 2px;
+}
+
+.value {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #222222;
+}
+
+.change {
+  font-size: 14px;
+  color: #009900; // green
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 import styles from "./index.module.scss";
-import { Image, Modal, Pagination } from "antd";
+import { App, Image, Modal, Pagination } from "antd";
 import { useParams, useRouter } from "next/navigation";
 // import { countUpTo } from "../../trend";
 import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
@@ -49,6 +49,7 @@ const ProductList: React.FC<ProductListProps> = ({
   const user = useAtomValue(userAtom);
   // const currentPath = location.pathname;
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const { notification } = App.useApp();
 
   useEffect(() => {
     if (currentPage !== pageNum) {
@@ -258,29 +259,11 @@ const ProductList: React.FC<ProductListProps> = ({
           });
         },
       });
-    } catch {
-      setOpenLoginModal(true);
-      // notification.open({
-      //   message: "You need to log in to complete this action.",
-      //   description: (
-      //     <>
-      //     <br />
-      //     <Button
-      //       type="button"
-      //       onClick={() => {
-      //         notification.destroy();
-      //         navigate(`/login?redirect=${currentPath}`);
-      //       }}
-      //     >
-      //       Click here to Login
-      //     </Button>
-      //     </>
-
-      //   ),
-      //   placement: "top",
-      //   duration: 3, // Auto close after 5 seconds
-      //   icon: null,
-      // });
+    } catch (err: any) {
+      notification.error({
+        title: "Error",
+        description: err || "failed",
+      });
     }
   };
 
@@ -327,7 +310,12 @@ const ProductList: React.FC<ProductListProps> = ({
                     className={styles.favoriteIcon}
                     onClick={(event) => {
                       event.stopPropagation(); // Prevents click from bubbling to parent div
-                      addToFavHandler(item?.id?.toString());
+
+                      if (user) {
+                        addToFavHandler(item?.id?.toString());
+                      } else {
+                        setOpenLoginModal(true);
+                      }
                     }}
                   >
                     <img

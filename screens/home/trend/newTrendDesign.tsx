@@ -96,8 +96,11 @@ const Trends = () => {
           queryClient.refetchQueries({ queryKey: ["get-all-fav"] });
         },
       });
-    } catch {
-      setOpenLoginModal(true);
+    }catch (err: any) {
+      notification.error({
+        title: "Error",
+        description: err || "failed",
+      });
     }
   };
 
@@ -132,7 +135,12 @@ const Trends = () => {
                   className={styles.favoriteIcon}
                   onClick={(e) => {
                     e.stopPropagation();
-                    addToFavHandler(item.id?.toString());
+
+                    if (user) {
+                      addToFavHandler(item.id?.toString());
+                    } else {
+                      setOpenLoginModal(true);
+                    }
                   }}
                 >
                   <Image

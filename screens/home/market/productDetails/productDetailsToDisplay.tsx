@@ -141,36 +141,16 @@ const Main = () => {
     try {
       await addToFavMutation.mutateAsync(payload, {
         onSuccess: () => {
-          // notification.success({
-          //   message: "Success",
-          //   description: data?.message,
-          // });
+       
           queryClient.refetchQueries({
             queryKey: ["get-product-details"],
           });
         },
       });
-    } catch {
-      notification.open({
-        message: "You need to logged in to save an item",
-        title: "",
-        description: (
-          <>
-            <br />
-            <Button
-              type="button"
-              onClick={() => {
-                notification.destroy();
-                router.push(`/login?redirect=${currentPath}`);
-              }}
-            >
-              Click here to Login
-            </Button>
-          </>
-        ),
-        placement: "top",
-        duration: 4, // Auto close after 5 seconds
-        icon: null,
+    } catch (err: any) {
+      notification.error({
+        title: "Error",
+        description: err || "failed",
       });
     }
   };

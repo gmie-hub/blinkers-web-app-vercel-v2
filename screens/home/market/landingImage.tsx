@@ -1,15 +1,44 @@
 import styles from "./index.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductSection from "./page";
 import { useParams } from "next/navigation";
 import SearchInput from "@/components/ui/searchInput";
 import Button from "@/components/ui/button/button";
+import { getCityAndState } from "@/lib/utils/location";
+import { Modal } from "antd";
+import LocationModal from "./locationModal/location";
 
 const Market = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const params = useParams();
   const search = params.search as string;
   const [appliedSearchTerm, setAppliedSearchTerm] = useState(search || "");
+  const [openLocationModal, setOpenLocationModal] = useState(false);
+const [childData, setChildData] = useState<any>(null); // store data from child
+
+
+console.log(childData,'childDatachildData')
+
+  const [location, setLocation] = useState<{
+    city?: string;
+    state?: string;
+    lga: string;
+  }>({});
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const loc = await getCityAndState();
+        setLocation(loc);
+      } catch (err: any) {
+        console.log(err);
+      }
+    })();
+  }, []);
+
+  const savedLocation = JSON.parse(
+    localStorage.getItem("userLocation") || "{}"
+  );  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value); // Update the search query state
@@ -33,29 +62,46 @@ const Market = () => {
           <p className={styles.picPara}>
             Explore the marketplace to discover products and services
           </p>
-          {/* <div className={styles.searchWrapper}>
-            <SearchInput
-              placeholder="What are you looking for?"
-              // isBtn={true} // Show the button on the right side
-            />
-          </div> */}
 
-          <div className={styles.searchWrapper}>
-            <SearchInput
-              placeholder="What are you looking for?"
-              // width="40rem"
-              // isBtn={true}
-              onChange={handleInputChange}
-              value={searchTerm} 
+          <div className={styles.searchBarContainer}>
+            {/* Location Box */}
+            <div
+              className={styles.locationBox}
+              onClick={() => setOpenLocationModal(true)}
             >
-              <Button
-                type="button"
-                variant="green"
-                text="Search"
-                className={styles.searchBtn}
-                onClick={handleSearch} // Set appliedSearchTerm here
-              />
-            </SearchInput>
+              <div>
+                <img src="/location.svg" className={styles.locIcon} />
+                <span style={{ color: "black", fontSize: "20px" }}>
+                  {savedLocation?.lga
+                    ? savedLocation?.lga
+                    : location?.lga
+                    ? location?.lga
+                    : "Select Location"}
+                </span>
+              </div>
+
+              <span className={styles.arrowDown}>▼</span>
+            </div>
+
+            {/* Search Input */}
+
+            <div className={styles.searchInputBox}>
+              <SearchInput
+                placeholder="What are you looking for?"
+                // width="40rem"
+                // isBtn={true}
+                onChange={handleInputChange}
+                value={searchTerm}
+              >
+                <Button
+                  type="button"
+                  variant="green"
+                  text="Search"
+                  className={styles.searchBtn}
+                  onClick={handleSearch} // Set appliedSearchTerm here
+                />
+              </SearchInput>
+            </div>
           </div>
         </div>
       </div>
@@ -63,7 +109,19 @@ const Market = () => {
       <ProductSection
         appliedSearchTerm={appliedSearchTerm}
         setAppliedSearchTerm={setAppliedSearchTerm}
+        savedLocationFromChild={(data: any) => setChildData(data)} // <-- callback
       />
+
+      {/* LOCATION MODAL */}
+      <Modal
+        open={openLocationModal}
+        onCancel={() => setOpenLocationModal(false)}
+        footer={null}
+        centered
+        width={1300}
+      >
+        <LocationModal handleClose={() => setOpenLocationModal(false)} />
+      </Modal>
     </div>
   );
 };
