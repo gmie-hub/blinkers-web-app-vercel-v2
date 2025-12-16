@@ -19,7 +19,7 @@ const PictureBg = () => {
   const [openLocationModal, setOpenLocationModal] = useState(false);
   const savedLocation = JSON.parse(localStorage.getItem("userLocation") || "{}");
 
-   const [location, setLocation] = useState<{ city?: string; state?: string ,lga:string}>(
+   const [location, setLocation] = useState<{ city?: string; state?: string ,lga?:string}>(
     {}
   );
  

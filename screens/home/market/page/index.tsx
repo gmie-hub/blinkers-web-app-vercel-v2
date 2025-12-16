@@ -25,23 +25,30 @@ const PriceOptions = [
 interface Props {
   appliedSearchTerm: string;
   setAppliedSearchTerm: any;
-    savedLocationFromChild: (data: any) => void;
-  
+  savedLocationFromChild: (data: any) => void;
 }
 
-const Main = ({ appliedSearchTerm, setAppliedSearchTerm,savedLocationFromChild }: Props) => {
+const Main = ({
+  appliedSearchTerm,
+  setAppliedSearchTerm,
+  savedLocationFromChild,
+}: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1024
+  );
   const [categoryId, setCategoryId] = useState(0);
   const [selectedItems, setSelectedItems] = useState<number[]>([]); // Array of strings
   const [stateId, setStateId] = useState(0);
   const [lgaId, setLgaId] = useState(0);
   const router = useRouter();
   const [openLocationModal, setOpenLocationModal] = useState(false);
-  const [location, setLocation] = useState<{ city?: string; state?: string,lga?:string }>(
-    {}
-  );
+  const [location, setLocation] = useState<{
+    city?: string;
+    state?: string;
+    lga?: string;
+  }>({});
 
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
 
@@ -56,30 +63,26 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm,savedLocationFromChild }
     setFieldValue("lga", "");
   };
 
-    const handleNavigatePopularProduct = () => {
-    router.push(`/market/popular-products`);
-    window.scrollTo(0, 0);
-  };
+  //   const handleNavigatePopularProduct = () => {
+  //   router.push(`/market/popular-products`);
+  //   window.scrollTo(0, 0);
+  // };
 
   const handleLgaChange = (value: number) => {
     setLgaId(value);
     // setFieldValue("lga", "")
   };
 
-
-
-   useEffect(() => {
+  useEffect(() => {
     (async () => {
       try {
         const loc = await getCityAndState();
         setLocation(loc);
       } catch (err: any) {
-          console.log(err)
-
+        console.log(err);
       }
     })();
   }, []);
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -196,13 +199,11 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm,savedLocationFromChild }
     setSelectedPrice("");
   };
 
-    const savedLocation = JSON.parse(
+  const savedLocation = JSON.parse(
     localStorage.getItem("userLocation") || "{}"
-
   );
 
-
-       useEffect(() => {
+  useEffect(() => {
     // get location from localStorage
     // const savedLocation = JSON.parse(localStorage.getItem("userLocation") || "{}");
 
@@ -210,172 +211,175 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm,savedLocationFromChild }
     savedLocationFromChild(savedLocation);
   }, []); // run once on mount
 
-
-
   return (
     <>
-    <Formik
-      initialValues={{
-        state: "",
-        lga: "",
-        selectedItems: [],
-        nearby_me: false,
-        selectedPrices: {},
-      }}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
-    >
-      {({ setFieldValue }) => (
-        <Form>
-          <div className={styles.container}>
-            <div className={styles.leftSide}>
-              {isFilterVisible && (
-                <>
-                  <div className={styles.spaceBetween}>
-                    <p>Filters</p>
-                    <Image
-                      className={styles.filter}
-                      onClick={toggleFilterVisibility}
-                      width={30}
-                      src="/setting-4.svg"
-                      alt="FilterIcon"
-                      preview={false}
-                    />
-                  </div>
-
-
-                       <div className={styles.locationContainer}>
-                    <p className={styles.label}>Location</p>
-
-                    <div className={styles.leftLocation}>
-                      <p className={styles.value}>
-                        {" "}
-                        {savedLocation?.lga
-                          ? savedLocation?.lga
-                          : location.lga
-                          ? location.lga
-                          : "Select Location"}
-                      </p>
-                      <p
-                        className={styles.change}
-                        onClick={() => setOpenLocationModal(true)}
-                      >
-                        Change Location
-                      </p>
+      <Formik
+        initialValues={{
+          state: "",
+          lga: "",
+          selectedItems: [],
+          nearby_me: false,
+          selectedPrices: {},
+        }}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      >
+        {({ setFieldValue }) => (
+          <Form>
+            <div className={styles.container}>
+              <div className={styles.leftSide}>
+                {isFilterVisible && (
+                  <>
+                    <div className={styles.spaceBetween}>
+                      <p>Filters</p>
+                      <Image
+                        className={styles.filter}
+                        onClick={toggleFilterVisibility}
+                        width={30}
+                        src="/setting-4.svg"
+                        alt="FilterIcon"
+                        preview={false}
+                      />
                     </div>
-                  </div>
-                  {/* <Checkbox
+
+                    <div className={styles.locationContainer}>
+                      <p className={styles.label}>Location</p>
+
+                      <div className={styles.leftLocation}>
+                        <p className={styles.value}>
+                          {" "}
+                          {savedLocation?.lga
+                            ? savedLocation?.lga
+                            : location.lga
+                            ? location.lga
+                            : "Select Location"}
+                        </p>
+                        <p
+                          className={styles.change}
+                          onClick={() => setOpenLocationModal(true)}
+                        >
+                          Change Location
+                        </p>
+                      </div>
+                    </div>
+                    {/* <Checkbox
                     label="Nearby Me"
                     name="nearby_me"
                     isChecked={values.nearby_me}
                     // onChange={(e: any) => handleCheckboxChange(e, "Nearby Me")}
                   /> */}
 
-                  <p className={styles.subjectBg}>CATEGORIES</p>
+                    <p className={styles.subjectBg}>CATEGORIES</p>
 
-                  {categoryData?.map((category: any, index: number) => (
-                    <div key={index}>
-                      <div
-                        className={styles.itemContainer}
-                        onClick={() => toggleItems(index, category?.id)}
-                      >
-                        <p>{category.title}</p>
-                        <p className={styles.plusSign}>
-                          {openIndex === index ? "-" : "+"}
-                        </p>
+                    {categoryData?.map((category: any, index: number) => (
+                      <div key={index}>
+                        <div
+                          className={styles.itemContainer}
+                          onClick={() => toggleItems(index, category?.id)}
+                        >
+                          <p>{category.title}</p>
+                          <p className={styles.plusSign}>
+                            {openIndex === index ? "-" : "+"}
+                          </p>
+                        </div>
+                        {openIndex === index && (
+                          <ul className={styles.itemList}>
+                            {subCategory?.map((sub: any) => (
+                              <li key={sub.id}>
+                                <Checkbox
+                                  isChecked={isChecked(sub.title)} // Pass sub.title to isChecked
+                                  label={sub.title}
+                                  name={`selectedItems.${sub.id}`}
+                                  onChange={
+                                    (e: any) => handleCheckboxChange(e, sub.id) // Pass sub.title to handleCheckboxChange
+                                  }
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
-                      {openIndex === index && (
-                        <ul className={styles.itemList}>
-                          {subCategory?.map((sub: any) => (
-                            <li key={sub.id}>
-                              <Checkbox
-                                isChecked={isChecked(sub.title)} // Pass sub.title to isChecked
-                                label={sub.title}
-                                name={`selectedItems.${sub.id}`}
-                                onChange={
-                                  (e: any) => handleCheckboxChange(e, sub.id) // Pass sub.title to handleCheckboxChange
-                                }
-                              />
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                    ))}
+
+                    <div>
+                      <p className={styles.subjectBg}>LOCATION</p>
+
+                      <SearchableSelect
+                        name="state"
+                        label="State"
+                        options={stateOptions}
+                        placeholder="Select State"
+                        // onChange={(value: any) => handleStateChange(value)}
+                        onChange={(value: any) =>
+                          handleStateChange(value, setFieldValue)
+                        } // Update stateId and reset lga here
+                      />
+                      <br />
+
+                      <SearchableSelect
+                        name="lga"
+                        label="Lga"
+                        options={lgaOptions}
+                        placeholder="Select LGA"
+                        onChange={(value) => handleLgaChange(value)} // Update stateId here
+                      />
                     </div>
-                  ))}
+                    <div>
+                      <p className={styles.subjectBg}>Price</p>
+                      <ul className={styles.itemList}>
+                        {PriceOptions.map((option, index) => (
+                          <li key={index}>
+                            <input
+                              type="checkbox"
+                              checked={selectedPrice === option.key}
+                              onChange={() =>
+                                handleCheckboxPriceChange(option.key)
+                              }
+                            />
+                            <label>{option.value}</label>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div style={{ marginBlockStart: "2rem" }}>
+                      {/* <Button text="Apply Filter" /> */}
+                      <br />
+                      <br />
+                      <Button
+                        onClick={handleBack}
+                        variant="white"
+                        text="Reset Filter"
+                      />
+                    </div>
+                  </>
+                )}
 
-                  <div>
-                    <p className={styles.subjectBg}>LOCATION</p>
-
-                    <SearchableSelect
-                      name="state"
-                      label="State"
-                      options={stateOptions}
-                      placeholder="Select State"
-                      // onChange={(value: any) => handleStateChange(value)}
-                      onChange={(value: any) =>
-                        handleStateChange(value, setFieldValue)
-                      } // Update stateId and reset lga here
-                    />
-                    <br />
-
-                    <SearchableSelect
-                      name="lga"
-                      label="Lga"
-                      options={lgaOptions}
-                      placeholder="Select LGA"
-                      onChange={(value) => handleLgaChange(value)} // Update stateId here
-                    />
-                  </div>
-                  <div>
-                    <p className={styles.subjectBg}>Price</p>
-                    <ul className={styles.itemList}>
-                      {PriceOptions.map((option, index) => (
-                        <li key={index}>
-                          <input
-                            type="checkbox"
-                            checked={selectedPrice === option.key}
-                            onChange={() =>
-                              handleCheckboxPriceChange(option.key)
-                            }
-                          />
-                          <label>{option.value}</label>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div style={{ marginBlockStart: "2rem" }}>
-                    {/* <Button text="Apply Filter" /> */}
-                    <br />
-                    <br />
-                    <Button
-                      onClick={handleBack}
-                      variant="white"
-                      text="Reset Filter"
+                {!isFilterVisible && (
+                  <div className={styles.spaceBetween}>
+                    <p>Filters</p>
+                    <Image
+                      className={styles.filter}
+                      onClick={toggleFilterVisibility}
+                      width={30}
+                      src="/Search.svg"
+                      alt="FilterIcon"
+                      preview={false}
                     />
                   </div>
-                </>
-              )}
+                )}
+              </div>
 
-              {!isFilterVisible && (
-                <div className={styles.spaceBetween}>
-                  <p>Filters</p>
-                  <Image
-                    className={styles.filter}
-                    onClick={toggleFilterVisibility}
-                    width={30}
-                    src="/Search.svg"
-                    alt="FilterIcon"
-                    preview={false}
-                  />
-                </div>
-              )}
-            </div>
-
-            <div className={styles.rightSide}>
-              <div  style={{marginBlock:'2rem',  display:'flex', justifyContent:'space-between'}}>
-              <p className={styles.title1}>Popular Products</p>
-                    {/* <div
+              <div className={styles.rightSide}>
+                <div
+                  style={{
+                    marginBlock: "2rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <p className={styles.title1}>Popular Products</p>
+                  {/* <div
                       onClick={handleNavigatePopularProduct}
                       className={styles.btnWrapper}
                     >
@@ -388,38 +392,42 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm,savedLocationFromChild }
                         />
                       </div>
                       </div> */}
+                </div>
+                <PopularProducts />
 
+                <p
+                  style={{ paddingBlockEnd: "2rem" }}
+                  className={styles.title1}
+                >
+                  All Products
+                </p>
+
+                <ProductList
+                  appliedSearchTerm={appliedSearchTerm}
+                  setAppliedSearchTerm={setAppliedSearchTerm}
+                  selectedItems={selectedItems}
+                  stateId={stateId}
+                  lgaId={lgaId}
+                  setStateId={setStateId}
+                  setLgaId={setLgaId}
+                  setSelectedItems={setSelectedItems}
+                  selectedPrice={selectedPrice}
+                />
               </div>
-              <PopularProducts/>
-
-              <p style={{paddingBlockEnd:'2rem'}} className={styles.title1}>All Products</p>
-
-              <ProductList
-                appliedSearchTerm={appliedSearchTerm}
-                setAppliedSearchTerm={setAppliedSearchTerm}
-                selectedItems={selectedItems}
-                stateId={stateId}
-                lgaId={lgaId}
-                setStateId={setStateId}
-                setLgaId={setLgaId}
-                setSelectedItems={setSelectedItems}
-                selectedPrice={selectedPrice}
-              />
             </div>
-          </div>
-        </Form>
-      )}
-    </Formik>
+          </Form>
+        )}
+      </Formik>
 
-        <Modal
-            open={openLocationModal}
-            onCancel={() => setOpenLocationModal(false)}
-            footer={null}
-            centered
-            width={1300}
-          >
-            <LocationModal handleClose={() => setOpenLocationModal(false)} />
-          </Modal>
+      <Modal
+        open={openLocationModal}
+        onCancel={() => setOpenLocationModal(false)}
+        footer={null}
+        centered
+        width={1300}
+      >
+        <LocationModal handleClose={() => setOpenLocationModal(false)} />
+      </Modal>
     </>
   );
 };

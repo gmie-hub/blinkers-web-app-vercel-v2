@@ -22,7 +22,7 @@ console.log(childData,'childDatachildData')
   const [location, setLocation] = useState<{
     city?: string;
     state?: string;
-    lga: string;
+    lga?: string;
   }>({});
 
   useEffect(() => {
