@@ -10,11 +10,12 @@ import {
 } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import * as Yup from "yup";
-import PhoneInput from "react-phone-input-2";
+import PhoneInput, { CountryData } from "react-phone-input-2";
 import Input from "@/components/ui/input/input";
 import Button from "@/components/ui/button/button";
 import { errorMessage } from "@/lib/utils/errorMessage";
 import { ContactUsApi } from "@/services/contactServices";
+import { useState } from "react";
 
 const cardData = [
   {
@@ -63,21 +64,18 @@ const cardData = [
 
 const ContactUs = () => {
   const { notification } = App.useApp();
-
+  const [countryCode, setCountryCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const contactUsMutation = useMutation({
     mutationFn: ContactUsApi,
-    mutationKey: ["add-fav"],
+    mutationKey: ["add-ContactUsApi"],
   });
-  const contactUsHandler = async (
-    values: FormikValues,
-     resetForm : any
-  ) => {
-  
-  // const contactUsHandler = async (values: FormikValues, resetForm) => {
+  const contactUsHandler = async (values: FormikValues, resetForm: any) => {
+    // const contactUsHandler = async (values: FormikValues, resetForm) => {
     const payload: Partial<ContactUs> = {
       // id: values?.,
       name: values?.name,
-      mobileNum: values?.mobileNum,
+      mobileNum: countryCode + values?.phoneNumber,
       email: values?.email,
       subject: values?.subject,
       message: values?.message,
@@ -91,8 +89,8 @@ const ContactUs = () => {
             title: "",
             description: data?.message,
           });
-          
-          resetForm()
+
+          resetForm();
         },
       });
     } catch (error) {
@@ -110,7 +108,7 @@ const ContactUs = () => {
     email: Yup.string().required("required"),
     subject: Yup.string().required("required"),
     message: Yup.string().required("required"),
-    mobileNum: Yup.string()
+    phoneNumber: Yup.string()
       .required("Phone number is required")
       .matches(/^\d+$/, "Phone number must contain only digits"),
   });
@@ -150,11 +148,11 @@ const ContactUs = () => {
                 message: "",
                 name: "",
                 email: "",
-                mobileNum: "",
+                phoneNumber: "",
                 subject: "",
               }}
-              onSubmit={(values, {resetForm}) => {
-                contactUsHandler(values,resetForm);
+              onSubmit={(values, { resetForm }) => {
+                contactUsHandler(values, resetForm);
               }}
               enableReinitialize={true}
               validationSchema={validationSchema}
@@ -174,10 +172,10 @@ const ContactUs = () => {
                     label="Email "
                   />
                 </div>
-             
+
                 <div>
-                  <p className="label">Phone Number </p>
-                  <Field name="mobileNum">
+                  {/* <p className="label">Phone Number </p> */}
+                  {/* <Field name="mobileNum">
                     {({ field, form }: FieldProps) => (
                       <PhoneInput
                         country={"ng"} // Default country
@@ -191,9 +189,55 @@ const ContactUs = () => {
                         placeholder="Enter phone numer"
                       />
                     )}
+                  </Field> */}
+                  <p className="label">Phone Number </p>
+
+                  {/* <Field
+                    name="phoneNumber"
+                    render={({ form }: FieldProps) => (
+                      <PhoneInput
+                        country={"ng"} // Default country
+                        value={`${countryCode}${phoneNumber}`} // Concatenate the country code and phone number
+                        onChange={(phone: string, country: CountryData) => {
+                          const dialCode = country.dialCode; // Extract the dialCode from the country object
+                          const number = phone.replace(dialCode, "").trim(); // Remove the dial code from the phone number
+
+                          setCountryCode(dialCode); // Update country code state
+                          setPhoneNumber(number); // Update phone number state
+                          form.setFieldValue("phoneNumber", number); // Update Formik state
+                          form.setFieldValue("country_code", dialCode); // Update Formik country_code field
+                        }}
+                        inputStyle={{ width: "100%" }}
+                        preferredCountries={["ng", "gb", "gh", "cm", "lr"]}
+                        onlyCountries={["ng", "gb", "gh", "cm", "lr"]}
+                        placeholder="Enter phone numer"
+                      />
+                    )}
+                  /> */}
+                  <Field name="phoneNumber">
+                    {({ form }: FieldProps) => (
+                      <PhoneInput
+                        country={"ng"} // Default country
+                        value={`${countryCode}${phoneNumber}`} // Concatenate the country code and phone number
+                        onChange={(phone: string, country: CountryData) => {
+                          const dialCode = country.dialCode; // Extract the dialCode from the country object
+                          const number = phone.replace(dialCode, "").trim(); // Remove the dial code from the phone number
+
+                          setCountryCode(dialCode); // Update country code state
+                          setPhoneNumber(number); // Update phone number state
+                          form.setFieldValue("phoneNumber", number); // Update Formik state
+                          form.setFieldValue("country_code", dialCode); // Update Formik country_code field
+                        }}
+                        inputStyle={{ width: "100%" }}
+                        preferredCountries={["ng", "gb", "gh", "cm", "lr"]}
+                        onlyCountries={["ng", "gb", "gh", "cm", "lr"]}
+                        placeholder="Enter phone number"
+                      />
+                    )}
                   </Field>
+
                   <ErrorMessage
-                    name="mobileNum"
+                    name="phoneNumber"
                     component="div"
                     className="error"
                   />
@@ -216,7 +260,15 @@ const ContactUs = () => {
                   />
                 </div>
                 <div className={styles.btn}>
-                  <Button type="submit" text="Submit Form" />
+                  <Button
+                    disabled={contactUsMutation?.isPending}
+                    type="submit"
+                    text={
+                      contactUsMutation?.isPending
+                        ? "loading..."
+                        : "Submit Form"
+                    }
+                  />
                 </div>
               </Form>
             </Formik>

@@ -36,7 +36,7 @@ const PopularProducts = () => {
     queries: [
       {
         queryKey: ["get-popular-ads", currentPage],
-        queryFn: () => getAllPopularMarket(currentPage, 50),
+        queryFn: () => getAllPopularMarket(currentPage,11),
         retry: 0,
         refetchOnWindowFocus: true,
       },

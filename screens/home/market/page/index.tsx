@@ -14,6 +14,7 @@ import Button from "@/components/ui/button/button";
 import ProductList from "./productList";
 import LocationModal from "../locationModal/location";
 import { getCityAndState } from "@/lib/utils/location";
+import PopularProducts from "./popularProduct";
 
 const PriceOptions = [
   { key: "asc", value: "Low To High" },
@@ -53,6 +54,11 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm,savedLocationFromChild }
     setStateId(value);
     setLgaId(0);
     setFieldValue("lga", "");
+  };
+
+    const handleNavigatePopularProduct = () => {
+    router.push(`/market/popular-products`);
+    window.scrollTo(0, 0);
   };
 
   const handleLgaChange = (value: number) => {
@@ -367,10 +373,27 @@ const Main = ({ appliedSearchTerm, setAppliedSearchTerm,savedLocationFromChild }
             </div>
 
             <div className={styles.rightSide}>
+              <div  style={{marginBlock:'2rem',  display:'flex', justifyContent:'space-between'}}>
               <p className={styles.title1}>Popular Products</p>
-              {/* <PopularProducts/> */}
+                    {/* <div
+                      onClick={handleNavigatePopularProduct}
+                      className={styles.btnWrapper}
+                    >
+                      <p className={styles.btn}>See All</p>
+                      <div>
+                        <img
+                          width={20}
+                          src="/arrow-right-green.svg"
+                          alt="ArrowIcon"
+                        />
+                      </div>
+                      </div> */}
 
-              <p className={styles.title1}>All Products</p>
+              </div>
+              <PopularProducts/>
+
+              <p style={{paddingBlockEnd:'2rem'}} className={styles.title1}>All Products</p>
+
               <ProductList
                 appliedSearchTerm={appliedSearchTerm}
                 setAppliedSearchTerm={setAppliedSearchTerm}

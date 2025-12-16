@@ -160,7 +160,7 @@ const SellerProfile = () => {
             <div
               className={styles.image}
               style={{
-                backgroundImage: `url(/Icon_container.svg)`, // Ensure you use the correct image reference
+                backgroundImage: `url(/Container.svg)`, // Ensure you use the correct image reference
               }}
             >
               <div className={styles.home}>

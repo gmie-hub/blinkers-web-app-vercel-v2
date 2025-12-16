@@ -8,8 +8,8 @@ export const getAllFav = async (user_id?: number) => {
   return (await api.get(`/ads/fav?user_id=${user_id}`))?.data;
 };
 
-export const getAllPopularMarket = async (page: number, per_page: number) => {
-  return (await api.get(`/ads/popular?page=${page}&per_page=${per_page}`))
+export const getAllPopularMarket = async (page: number,limit:number) => {
+  return (await api.get(`/ads/popular?page=${page}&limit=${limit}`))
     ?.data as any;
 };
 
