@@ -19,7 +19,7 @@ const MyFavorites = () => {
   };
 
   const getFavapi = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     headers: {
       "Cache-Control": "no-cache",
       "Content-Type": "application/json",

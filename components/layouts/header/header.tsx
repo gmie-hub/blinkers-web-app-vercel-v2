@@ -261,7 +261,7 @@ const Header = () => {
         <span className={styles.navLink} onClick={handleCategoryClick}>
           Categories
           <Image
-            src="cat1.svg"
+            src="/cat1.svg"
             alt="Toggle Icon"
             className={`${styles.icon} ${isOpen ? styles.rotate : ""}`}
             preview={false}

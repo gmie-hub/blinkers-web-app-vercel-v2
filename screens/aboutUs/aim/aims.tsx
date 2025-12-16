@@ -18,24 +18,27 @@ const aimData = [
 
 const Aim = () => {
   return (
-    <div >
+    <div>
       <div className={styles.mainContainer}>
         <div className={styles.leftSection}>
           <h1>Our Aim Is To:</h1>
+
           {aimData?.map((item) => (
             <div key={item.id} className={styles.aimItem}>
-              <Image height={'3.3rem'}  width={'3.3rem'} src='/iconmark.svg' alt="iconmark" preview={false} />
+              <Image
+                height={"3.3rem"}
+                width={"3.3rem"}
+                src="/iconmark.svg"
+                alt="iconmark"
+                preview={false}
+              />
               <p>{item.text}</p>
             </div>
           ))}
         </div>
-        <div className={styles.rightSection}>
-        <Image
-        src='Group 41349.svg'
-        alt="cardIcon"
-        preview={false}
-      />
 
+        <div className={styles.rightSection}>
+          <Image src="Group 41349.svg" alt="cardIcon" preview={false} />
         </div>
       </div>
     </div>

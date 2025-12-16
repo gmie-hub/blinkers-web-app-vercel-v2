@@ -26,18 +26,21 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <div className={styles.checkAndLabel}>
-      <input
-        type="checkbox"
-        id={name}
-        {...field}
-        {...props}
-        checked={isChecked || field.value} // Ensure proper binding
-        onChange={handleChange} // Use the combined onChange handler
-        className={styles.check}
-      />
-      <label htmlFor={name} className={styles.label}>
-        {label}
-      </label>
+      <div className={styles.checkBoxContainer}>
+        <input
+          type="checkbox"
+          id={name}
+          {...field}
+          {...props}
+          checked={isChecked || field.value} // Ensure proper binding
+          onChange={handleChange} // Use the combined onChange handler
+          className={styles.check}
+        />
+        <label htmlFor={name} className={styles.label}>
+          {label}
+        </label>
+      </div>
+
       {meta.touched && meta.error && (
         <div className={styles.error}>{meta.error}</div> // Display error message if any
       )}

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { App, Radio } from "antd";
+import { App, Radio, notification as antdNotification } from "antd";
 import styles from "./styles.module.scss";
 import { useState } from "react";
 import { useMutation, useQueries } from "@tanstack/react-query";
@@ -41,7 +41,11 @@ const PaymentMethod = ({
 
   const userInfo = useAtomValue(userAtom);
 
-  const { notification } = App.useApp();
+  // Keep App-level notification for compatibility, but fall back to hook if needed
+  const appCtx = App.useApp?.();
+  const [notification, notificationContextHolder] =
+    antdNotification.useNotification();
+  const notify = appCtx?.notification || notification;
   const [txRef] = useState(() => Date.now().toString());
 
   const postVerifyPayment = async (payload: VerifyPayload) => {
@@ -81,7 +85,8 @@ const PaymentMethod = ({
     }
   };
 
-  const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!;
+  const paystackPublicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
+  const flutterwavePublicKey = process.env.NEXT_PUBLIC_FLW_PUBLIC_KEY;
   //  import.meta.env.NEXT_PAYSTACK_PUBLIC_KEY;
   const amount = price * 100;
   const email = userInfo?.email ?? "";
@@ -89,7 +94,7 @@ const PaymentMethod = ({
   const componentProps = {
     email,
     amount,
-    publicKey,
+    publicKey: paystackPublicKey || "",
     text: "Proceed",
     onSuccess: (data: any) => {
       handlePaymentSuccess();
@@ -102,7 +107,7 @@ const PaymentMethod = ({
 
   const config = {
     // public_key: import.meta.env.NEXT_PAYSTACK_PUBLIC_KEY,
-    public_key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!,
+    public_key: flutterwavePublicKey || "",
     // tx_ref: Date.now().toString(),
     tx_ref: txRef,
     amount: price,
@@ -154,6 +159,7 @@ const PaymentMethod = ({
 
   return (
     <>
+      {notificationContextHolder}
       {getSubQuery?.isLoading ? (
         <CustomSpin />
       ) : getSubQuery?.isError ? (
@@ -211,13 +217,44 @@ const PaymentMethod = ({
             </Button>
             {/* <Button className={"buttonStyle"}>Proceed</Button> */}
 
-            {selected === PAYSTACK && (
-              <PaystackButton className={btnStyles.green} {...componentProps} />
-            )}
+            {selected === PAYSTACK &&
+              (paystackPublicKey ? (
+                <PaystackButton
+                  className={btnStyles.green}
+                  {...componentProps}
+                />
+              ) : (
+                <Button
+                  className={btnStyles.green}
+                  onClick={() =>
+                    notification.error({
+                      title: "Missing Paystack key",
+                      description:
+                        "Please configure NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY.",
+                    })
+                  }
+                >
+                  Configure Paystack
+                </Button>
+              ))}
 
-            {selected === FLUTTERWAVE && (
-              <FlutterWaveButton className={btnStyles.green} {...fwConfig} />
-            )}
+            {selected === FLUTTERWAVE &&
+              (flutterwavePublicKey ? (
+                <FlutterWaveButton className={btnStyles.green} {...fwConfig} />
+              ) : (
+                <Button
+                  className={btnStyles.green}
+                  onClick={() =>
+                    notification.error({
+                      title: "Missing Flutterwave key",
+                      description:
+                        "Please configure NEXT_PUBLIC_FLW_PUBLIC_KEY.",
+                    })
+                  }
+                >
+                  Configure Flutterwave
+                </Button>
+              ))}
           </div>
         </div>
       )}

@@ -2,8 +2,10 @@
   display: flex;
   gap: 12.6rem;
   padding-block: 6.4rem;
+  justify-content: space-between;
+
   @media (max-width: 600px) {
- display: block;
+    display: block;
   }
 }
 
@@ -19,12 +21,12 @@
     color: var(--color-header-text);
     padding-block-end: 2.4rem;
   }
-//   & > p {
-//     color: var(--color-body-text);
-//     display: flex;
-//     align-items: start;
-//     text-align: start;
-//   }
+  //   & > p {
+  //     color: var(--color-body-text);
+  //     display: flex;
+  //     align-items: start;
+  //     text-align: start;
+  //   }
 }
 
 .rightSection {
@@ -45,8 +47,7 @@
 
 .aimItem {
   display: flex;
-//   align-items: center;
+  //   align-items: center;
   gap: 0.8rem; // Space between icon and text
   padding-block-end: 2.4rem;
 }
-

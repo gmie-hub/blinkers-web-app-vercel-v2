@@ -38,7 +38,7 @@ const Footer = () => {
             >
               <Image
                 style={{ cursor: "pointer" }}
-                src="apstore.svg"
+                src="/apstore.svg"
                 alt="AppStore"
                 preview={false}
               />
@@ -53,7 +53,7 @@ const Footer = () => {
             >
               <Image
                 style={{ cursor: "pointer" }}
-                src="googleplay.svg"
+                src="/googleplay.svg"
                 alt="GooglePlay"
                 preview={false}
               />

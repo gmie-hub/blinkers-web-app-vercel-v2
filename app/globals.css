@@ -330,6 +330,7 @@ a:visited {
 .wrapper {
   padding-inline: 10rem;
 }
+
 @media (max-width: 600px) {
   .wrapper {
     padding-inline: 2.4rem;

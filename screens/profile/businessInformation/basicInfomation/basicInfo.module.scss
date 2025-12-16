@@ -72,9 +72,9 @@
   }
 
   // Media queries for responsiveness
-  @media (max-width: 768px) { 
-    flex-direction: column; 
-    align-items: flex-start; 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 2rem;
 
     & > p {
@@ -102,7 +102,8 @@
   }
 }
 
-.border{
-  border:solid 1px #EEEEEE;
+.border {
+  border: solid 1px #eeeeee;
   padding: 4rem;
+  box-shadow: 0 4px 40px 0 #00990012;
 }

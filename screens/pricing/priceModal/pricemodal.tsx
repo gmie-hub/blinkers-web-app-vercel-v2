@@ -1,4 +1,4 @@
-import { App, Modal, Radio } from "antd";
+import { Modal, Radio, notification as antdNotification } from "antd";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import { useQueries } from "@tanstack/react-query";
@@ -25,7 +25,8 @@ const PricingOptions = ({
   const [selected, setSelected] = useState<number>();
   const [price, setPrice] = useState<number>(0);
   const [openModal, setOpenModal] = useState(false);
-  const { notification } = App.useApp();
+  const [notification, notificationContextHolder] =
+    antdNotification.useNotification();
 
   const [getSubQuery] = useQueries({
     queries: [
@@ -52,6 +53,7 @@ const PricingOptions = ({
 
   return (
     <>
+      {notificationContextHolder}
       {getSubQuery?.isLoading ? (
         <CustomSpin />
       ) : getSubQuery?.isError ? (

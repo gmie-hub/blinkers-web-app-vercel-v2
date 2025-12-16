@@ -15,16 +15,30 @@
     flex-direction: column; /* Stack left and right side vertically */
   }
 }
+
 .image {
   position: relative;
   //   height: 90vh; // Use viewport height for better scaling
   //   display: flex;
+
   justify-content: center;
   align-items: center;
   transition: background-image 0.5s ease-in-out;
   background-size: cover;
   background-position: center;
   padding-block: 4rem;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
 }
 
 .home {
@@ -92,7 +106,7 @@
     padding: 1rem;
   }
 }
-.postJob{
+.postJob {
   min-width: 22rem;
   width: 100%;
   border: red solid 1px !important;
@@ -122,28 +136,29 @@
   background-color: var(--color-primary-white);
   color: var(--color-primary-green);
 }
+
 .btnFlex {
   display: flex;
   gap: 1.6rem;
   align-items: center;
   justify-content: start;
-  margin-block-start: 2.4rem;
+
   @media (max-width: 600px) {
     flex-direction: column;
-    margin-inline:1.4rem;
-
+    margin-inline: 1.4rem;
   }
 }
 
 .picHead {
-  font-size: 2.5rem;
+  font-size: 4rem;
   font-weight: bold;
+  color: white;
 }
 
 .newCard {
-  background-color: #EFFFEF;
+  background-color: #efffef;
   width: 100%;
-  border: #EFFFEF solid 1px;
+  border: #efffef solid 1px;
   padding: 2.4rem;
   margin-block: 4rem;
   display: flex;
@@ -175,7 +190,7 @@
 
 .newCardP {
   color: #707070;
-  font-size: 2.4rem;
+  font-size: 2rem;
   padding-block-start: 0.8rem;
   padding-block-end: 2.4rem;
 
@@ -188,8 +203,6 @@
     font-size: 1.6rem;
   }
 }
-
-
 
 // .newCard{
 //   background-color: #EFFFEF;
@@ -217,8 +230,6 @@
 
 // }
 
-
-
 .reviewbtn {
   display: flex;
   justify-content: space-between;
@@ -228,23 +239,21 @@
 }
 
 .review {
-    padding-block-start: 2.4rem;
-    padding-block-end: 2.1rem;
-  } 
+  padding-block-start: 2.4rem;
+  padding-block-end: 2.1rem;
+}
 
-  .title {
-    font-weight: 600;
-    font-size: 2.4rem;
-    color: var(--color-header-text);
-  }
-  .btnWrapper {
-    display: flex;
-    align-items: center;
-  }
-  .btn {
-    color: var(--color-primary-green);
-    font-size: 2rem;
-    cursor: pointer;
-  }
-
-  
+.title {
+  font-weight: 600;
+  font-size: 2.4rem;
+  color: var(--color-header-text);
+}
+.btnWrapper {
+  display: flex;
+  align-items: center;
+}
+.btn {
+  color: var(--color-primary-green);
+  font-size: 2rem;
+  cursor: pointer;
+}

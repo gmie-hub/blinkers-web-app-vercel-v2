@@ -158,6 +158,7 @@ const CreateAdz = () => {
         }))
       : []),
   ];
+
   const subCategoryOptions: { value: number; label: string }[] = [
     { value: 0, label: "Select sub category" }, // Default option
     ...(subCategory && subCategory?.length > 0
@@ -309,6 +310,7 @@ const CreateAdz = () => {
     router.push("/profile");
     window.scrollTo(0, 0);
   };
+  
   const createAdsMutation = useMutation({
     mutationFn: createAds,
   });

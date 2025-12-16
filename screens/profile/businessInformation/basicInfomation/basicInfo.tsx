@@ -15,7 +15,7 @@ export default function BasicInformation({
   return (
     <div className={styles.wrapper}>
       <section className={styles.border}>
-        <Card style={styles.subCard}>
+        <div className={styles.subCard}>
           <BusinessDetailsElements
             title={"Business Name"}
             name={businessDetailsData?.name || "N/A"}
@@ -55,7 +55,7 @@ export default function BasicInformation({
             title={"FaceBook"}
             name={businessDetailsData?.facebook || "N/A"}
           />
-        </Card>
+        </div>
         <h4 className={styles.ab_title}>About Business</h4>
         <Card style={styles.ab_text}>
           {businessDetailsData?.about || "N/A"}

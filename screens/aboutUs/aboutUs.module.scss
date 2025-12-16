@@ -6,10 +6,7 @@
   border-radius: 0.8rem;
   @media screen and (max-width: 768px) {
     margin-block: 2.4rem;
-
   }
-    
-
 }
 
 .image {
@@ -33,6 +30,7 @@
 .picHead {
   font-size: 4rem;
   font-weight: 700;
+  color: white;
   // margin-bottom: 0.5rem;
 }
 
@@ -40,14 +38,14 @@
   display: flex;
   gap: 12.6rem;
   padding-block: 4rem;
-  
 }
 
 .leftSection {
   flex: 0.5; /* 40% of the width */
-justify-content: center;
-display: flex;
-flex-direction: column;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   & > h1 {
     font-size: 4rem;
     font-weight: 600;
@@ -112,11 +110,8 @@ flex-direction: column;
   flex: 1 1 calc(50% - 1.5rem); // Each card takes 50% of the row, minus gap
   max-width: calc(50% - 1.5rem); // Set a maximum width to keep alignment
 
-
   // @media (max-width: 768px) {
   //   flex: 1 1 100%; // Full width on small screens
   //   max-width: 100%;
   // }
 }
-
-

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Modal } from "antd";
 // import Button from "../../customs/button/button";
@@ -55,38 +55,39 @@ const PricingPlansPage = () => {
   };
 
   const handleChoosePlan = (plan: any) => {
-  if (!user) {
-    setOpenLoginModal(true);
-    return;
-  }
+    if (!user) {
+      setOpenLoginModal(true);
+      return;
+    }
 
-  if (typeof window !== "undefined") {
-    localStorage.setItem("setPlan", JSON.stringify(plan?.name));
-  }
+    if (typeof window !== "undefined") {
+      localStorage.setItem("setPlan", JSON.stringify(plan?.name));
+    }
 
-  setSelectedPlan(plan?.id);
-  setOpenModal(true);
-};
+    setSelectedPlan(plan?.id);
+    setOpenModal(true);
+  };
 
   useEffect(() => {
-  if (openSuccess) {
-    if (typeof window !== "undefined") {
-      const planFromStorage = JSON.parse(
-        localStorage.getItem("setPlan") || "null"
-      );
-      setSelectedPlanFromStorage(planFromStorage || "");
+    if (openSuccess) {
+      if (typeof window !== "undefined") {
+        const planFromStorage = JSON.parse(
+          localStorage.getItem("setPlan") || "null"
+        );
+        setSelectedPlanFromStorage(planFromStorage || "");
+      }
     }
-  }
-}, [openSuccess]);
+  }, [openSuccess]);
 
   return (
     <>
       <main className="wrapper">
         <div className={styles.pricingPage}>
-          <div className={styles.para}>
+          <div className={styles.titleContainer}>
             <h2 className={styles.title}>
               Choose a plan that fits your business needs
             </h2>
+
             <p className={styles.subtitle}>
               Find the right plan for you. Our flexible plans offer the features
               and support you need to get your business growing
@@ -163,6 +164,7 @@ const PricingPlansPage = () => {
                         <h4 className={styles.featureTitle}>
                           {"What's included"}
                         </h4>
+
                         <ul className={styles.featureList}>
                           {plan?.features?.map((feature: any, idx: number) => (
                             <li key={idx} className={styles.featureItem}>
@@ -184,7 +186,7 @@ const PricingPlansPage = () => {
                   text={"Choose Free Plan"}
                   className={"buttonStyle"}
                   onClick={() => {
-                    router.push("/create-ad");
+                    router.push("/ads/create-ad");
                     // navigate("/profile");
                     // localStorage.setItem("activeTabKeyProfile", "3");
                     if (typeof window !== "undefined") {

@@ -172,38 +172,44 @@ const Jobs = () => {
             backgroundImage: "url(/Container.svg)", // Ensure you use the correct image reference
           }}
         >
-          <div className={styles.home}>
-            <p className={styles.picHead}>Jobs</p>
-          </div>
-          <div>
-            <div className={styles.searchWrapper}>
-              <SearchInput
-                placeholder="Search for a Job..."
-                // width="40rem"
-                // isBtn={true}
-                onChange={handleInputChange}
-                value={searchTerm}
-              >
-                <Button
-                  type="button"
-                  variant="green"
-                  text="Search"
-                  className={styles.searchBtn}
-                  onClick={handleSearch}
-                />
-              </SearchInput>
+          <div className={styles.heading}>
+            <div className={styles.home}>
+              <p className={styles.picHead}>Jobs</p>
+            </div>
+
+            <div>
+              <div className={styles.searchWrapper}>
+                <SearchInput
+                  placeholder="Search for a Job..."
+                  // width="40rem"
+                  // isBtn={true}
+                  onChange={handleInputChange}
+                  value={searchTerm}
+                >
+                  <Button
+                    type="button"
+                    variant="green"
+                    text="Search"
+                    className={styles.searchBtn}
+                    onClick={handleSearch}
+                  />
+                </SearchInput>
+              </div>
             </div>
           </div>
         </div>
+
         <div className={styles.newCard}>
-          <div>
+          <div className={styles.intro}>
             <h1 className={styles.newCardH1}>
               Find Jobs And Hire Talents On Blinkers
             </h1>
+
             <p className={styles.newCardP}>
               Discover job opportunities or post vacancies to connect with the
               right candidates
             </p>
+
             <div className={styles.btnFlex}>
               <Button
                 icon={
@@ -240,6 +246,7 @@ const Jobs = () => {
               )}
             </div>
           </div>
+
           <img src="/viewVacancy.svg" alt="ViewVacancy" />
         </div>
 
@@ -306,11 +313,13 @@ const Jobs = () => {
         )}
 
         <div className={styles.newCard}>
-          <div>
+          <div className={styles.intro}>
             <h1 className={styles.newCardH1}>Looking For Job? </h1>
+
             <p className={styles.newCardP}>
               Find jobs that match your skills and apply today.
             </p>
+
             <div className={styles.btnFlex}>
               {((user && !user?.is_applicant) || !user) && (
                 <Button
@@ -329,6 +338,7 @@ const Jobs = () => {
               )}
             </div>
           </div>
+          
           <img src="/image 39.svg" alt="JobImage" />
         </div>
 

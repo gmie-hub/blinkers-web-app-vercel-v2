@@ -40,7 +40,7 @@ const JobDetails = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
   const handleNavigateToMoreJob = () => {
-    router.push(`/job/more-jobs-like-this/${id}`);
+    router.push(`/jobs/more-jobs-like-this/${id}`);
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }

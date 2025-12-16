@@ -2,7 +2,7 @@
 
 import styles from "./directoryDetails.module.scss";
 import { useState, useEffect } from "react";
-import { App, Image, Modal } from "antd";
+import { Image, Modal, notification as antNotification } from "antd";
 import RelatedBusinesses from "../relatedBusinesses/relatedBusiness";
 import { useQueries } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
@@ -24,10 +24,11 @@ const NotClaim = () => {
   const [openShare, setOpenShare] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const user = useAtomValue(userAtom);
-  const { notification } = App.useApp();
   const pathname = usePathname();
   const currentPath = pathname;
   const [currentHref, setCurrentHref] = useState("");
+  const [notification, notificationContextHolder] =
+    antNotification.useNotification();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -240,6 +241,7 @@ const NotClaim = () => {
     businessDetailsData?.gallery?.filter((item) => item.type === "video");
   return (
     <>
+      {notificationContextHolder}
       {getBusinessDetailsQuery?.isLoading ? (
         <CustomSpin />
       ) : getBusinessDetailsQuery?.isError ? (
