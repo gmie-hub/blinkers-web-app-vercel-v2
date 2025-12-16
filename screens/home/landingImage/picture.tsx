@@ -17,7 +17,7 @@ const PictureBg = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [openLocationModal, setOpenLocationModal] = useState(false);
-  const savedLocation = JSON.parse(localStorage.getItem("userLocation") || "{}");
+  const [savedLocation, setSavedLocation] = useState<any>(null);
 
    const [location, setLocation] = useState<{ city?: string; state?: string ,lga?:string}>(
     {}
@@ -37,6 +37,13 @@ const PictureBg = () => {
     })();
   }, []);
   
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedLoc = JSON.parse(localStorage.getItem("userLocation") || "{}");
+      setSavedLocation(savedLoc);
+    }
+  }, []);
+
   // Next image
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>

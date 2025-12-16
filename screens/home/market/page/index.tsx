@@ -50,6 +50,8 @@ const Main = ({
     lga?: string;
   }>({});
 
+  const [savedLocation, setSavedLocation] = useState<any>(null);
+
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
 
   const handleCheckboxPriceChange = (optionKey: string) => {
@@ -199,16 +201,16 @@ const Main = ({
     setSelectedPrice("");
   };
 
-  const savedLocation = JSON.parse(
-    localStorage.getItem("userLocation") || "{}"
-  );
-
   useEffect(() => {
     // get location from localStorage
-    // const savedLocation = JSON.parse(localStorage.getItem("userLocation") || "{}");
-
-    // send it to parent
-    savedLocationFromChild(savedLocation);
+    if (typeof window !== "undefined") {
+      const savedLocationData = JSON.parse(
+        localStorage.getItem("userLocation") || "{}"
+      );
+      setSavedLocation(savedLocationData);
+      // send it to parent
+      savedLocationFromChild(savedLocationData);
+    }
   }, []); // run once on mount
 
   return (

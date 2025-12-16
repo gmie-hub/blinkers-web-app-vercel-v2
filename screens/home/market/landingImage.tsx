@@ -14,16 +14,14 @@ const Market = () => {
   const search = params.search as string;
   const [appliedSearchTerm, setAppliedSearchTerm] = useState(search || "");
   const [openLocationModal, setOpenLocationModal] = useState(false);
-const [childData, setChildData] = useState<any>(null); // store data from child
-
-
-console.log(childData,'childDatachildData')
+  const [childData, setChildData] = useState<any>(null); // store data from child
 
   const [location, setLocation] = useState<{
     city?: string;
     state?: string;
     lga?: string;
   }>({});
+  const [savedLocation, setSavedLocation] = useState<any>({});
 
   useEffect(() => {
     (async () => {
@@ -34,11 +32,14 @@ console.log(childData,'childDatachildData')
         console.log(err);
       }
     })();
-  }, []);
 
-  const savedLocation = JSON.parse(
-    localStorage.getItem("userLocation") || "{}"
-  );  
+    if (typeof window !== "undefined") {
+      const item = localStorage.getItem("userLocation");
+      if (item) {
+        setSavedLocation(JSON.parse(item));
+      }
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value); // Update the search query state

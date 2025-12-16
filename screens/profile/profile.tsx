@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tabs, TabsProps } from "antd";
 import MyBusinesses from "./myBusinesses";
 import MyApplications from "./myApplication/myApplications";
@@ -16,10 +16,18 @@ import { useParams } from "next/navigation";
 const Profile = () => {
   const params = useParams();
   const id = params.id as string;
-  const [activeKey, setActiveKey] = useState(() => {
-    // If id is available, use it; otherwise, fallback to localStorage or "1"
-    return id || localStorage.getItem("activeTabKeyProfile") || "1";
-  });
+  const [activeKey, setActiveKey] = useState("1");
+
+  useEffect(() => {
+    if (id) {
+      setActiveKey(id);
+    } else {
+      const savedKey = localStorage.getItem("activeTabKeyProfile");
+      if (savedKey) {
+        setActiveKey(savedKey);
+      }
+    }
+  }, [id]);
 
   // Update localStorage whenever the active key changes
   //   useEffect(() => {
