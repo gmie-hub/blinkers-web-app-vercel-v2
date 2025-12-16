@@ -1,5 +1,5 @@
 import styles from "../index.module.scss";
-import { Image, Modal } from "antd";
+import { Image, Modal, notification } from "antd";
 import Product2 from "/Image.svg";
 import locationIcon from "/location.svg";
 import favorite from "/Icon + container.svg";
